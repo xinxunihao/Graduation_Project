@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut  icon" type="image/x-icon" href="favicon.ico" media="screen" />
+    <title>@TempData["Title"] - 朝阳二手网</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script type="text/javascript">
+        var date = new Date().getTime();
+        document.write("<link rel='stylesheet' type='text/css' href='../Content/mycss.css?v=" + date + "'>");
+    </script>
+</head>
+<body>
+    <div class="container body-content">
+        <div class="top row">
+            <div class="col-lg-9">
+                <a href="#">上海</a>|
+                <a href="#">【切换城市】</a>
+            </div>
+            <div class="col-lg-3">
+                <a href="#">登录</a>|
+                <a href="#">个人中心</a>|
+                <a href="#">联系我们</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="top_done " >
+        <div class="flexs top_done_body">
+            <div class="itmes">
+                <img src="~/images/users/right_1.png" alt="图片显示异常" width="200" />
+            </div>
+            <div class="itmes">
+                <input type="text" name="name" placeholder=" 搜二手 出二手 淘二手" class="sousuo"/><input type="button" name="name" value="搜索" class="anniu"/>
+            </div>
+            <div class="itmes">
+                <a href="#" class="play">免费发布二手产品信息</a>
+            </div>
+        </div>
+        </div>
+
+    <div class="container body-content" style="width:75%;">
+        @RenderBody()
+        <hr />
+        <h3>网站友情链接</h3>
+        <div class="wzyqlj">
+            <a href="#">百度搜索</a><a href="#">腾讯游戏中心</a>
+            <a href="#">百姓网</a><a href="#">CSDN</a>
+            <a href="#">哔哩哔哩弹幕网</a><a href="#">百度云</a>
+            <a href="#">bootstrap中文网</a><a href="#">阿里巴巴矢量图标库</a>
+            <a href="#">博客园</a><a href="#">必应搜索</a>
+            <a href="#">GitHub</a><a href="#">我要自学网</a>
+            <a href="#">虎牙直播</a><a href="#">油猴脚本下载</a>
+            <a href="#">菜鸟教程</a><a href="#">中国人事考试网</a>
+            <a href="#">中国色</a><a href="#">湖南工程职业技术学院</a>
+        </div>
+        <hr />
+    </div>
+    <div style="padding:10px;background-color:white">
+        <hr />
+        <footer>
+            <p style="text-align: center">&copy; @DateTime.Now.Year - 朝阳二手网</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,39 @@
+﻿@using CYESW.Models;
+@{
+    ViewBag.Title = "GoodsaddressIndex";
+    var diqu = ViewData["diqu"] as List<Goodsaddress>;
+    var sheng = ViewData["sheng"] as List<Goodsaddress>;
+    var shi = ViewData["shi"] as List<Goodsaddress>;
+}
+    <div class="diqu">
+        <ul>
+            @*<li>
+                <input id="tags" placeholder="搜索城市" class="ui-autocomplete-input" autocomplete="off"><span class="icon-search"></span>
+            </li>*@
+            @foreach (var item in diqu)
+            {
+                <li class="region_li">
+                    <h4 class="region">@item.TypeName</h4><hr/>
+                    <ul>
+                        @foreach (var item1 in sheng.Where(p => p.GoodsaddressBId == item.GoodsaddressId))
+                        {
+                        <li class="region_li_li">
+                            <h5  style="color:#ee3f4d">
+                               @item1.TypeName:
+                            </h5>
+                            <ul class="shi">
+                                @foreach (var item2 in shi.Where(p => p.GoodsaddressBId == item1.GoodsaddressId))
+                                {
+                                    <li>
+                                        <a href="#">@item2.TypeName</a>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                        }
+                    </ul>
+
+                </li>
+            }
+        </ul>
+    </div>

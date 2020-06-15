@@ -1,0 +1,214 @@
+﻿@{
+	ViewBag.Title = "Home Page";
+	
+}
+
+<div id="myCarousel" class="carousel slide rowmagre">
+	<!-- 轮播（Carousel）指标 -->
+	<ol class="carousel-indicators">
+		<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+		<li data-target="#myCarousel" data-slide-to="1"></li>
+		<li data-target="#myCarousel" data-slide-to="2"></li>
+		<li data-target="#myCarousel" data-slide-to="3"></li>
+		<li data-target="#myCarousel" data-slide-to="4"></li>
+	</ol>
+	<!-- 轮播（Carousel）项目 -->
+	<div class="carousel-inner" style="height:300px">
+		<div class="item active">
+			<img src="~/images/users/1.jpg" alt="First slide" class="lunbo_img" />
+		</div>
+		<div class="item">
+			<img src="~/images/users/2.jpg" alt="Second slide" class="lunbo_img" />
+		</div>
+		<div class="item">
+			<img src="~/images/users/3.jpg" alt="Third slide" class="lunbo_img" />
+		</div>
+		<div class="item">
+			<img src="~/images/users/4.jpg" alt="4 slide" class="lunbo_img" />
+		</div>
+		<div class="item">
+			<img src="~/images/users/5.jpg" alt="5 slide" class="lunbo_img" />
+		</div>
+	</div>
+	<!-- 轮播（Carousel）导航 -->
+	<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+		<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+		<span class="sr-only">Previous</span>
+	</a>
+	<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+		<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+		<span class="sr-only">Next</span>
+	</a>
+</div>
+
+<div class=" rowmagre rowmagre_father">
+	<div class="rowmagre_1"><a href="#">闲置免费送</a></div>
+	<div class="rowmagre_1"><a href="#">手机</a></div>
+	<div class="rowmagre_1"><a href="#">电脑</a></div>
+	<div class="rowmagre_1"><a href="#">办公用品</a></div>
+	<div class="rowmagre_1"><a href="#">数码产品</a></div>
+	<div class="rowmagre_1"><a href="#">图书</a></div>
+	<div class="rowmagre_1"><a href="#">生活用品</a></div>
+	<div class="rowmagre_1"><a href="#">虚拟道具</a></div>
+</div>
+
+
+<div class="pubu-container">
+	<div class="item" id="pubu-01">
+
+	</div>
+	<div class="item" id="pubu-02">
+	</div>
+	<div class="item" id="pubu-03">
+	</div>
+	<div class="item" id="pubu-04">
+	</div>
+</div>
+<div class="div_dixian">
+	<a href="#" class="a_full a_dixian">你已经触碰到我底线了</a>
+</div>
+
+<script>
+	//屏幕默认大小,初始化图片的占用位置
+	var windowHeight = window.screen.height + 500;
+	var imgId = 3;
+
+    var goods = {};//用来存储后台商品数据
+	var images = "";//用来存储后台商品图片数据
+
+    window.onload = function () {
+		
+        getdata_ajax();
+        //var msg = jQuery.parseJSON(goods);//那以后每次用的收都将goods转化为这个形式
+        //this.console.log('msg:' + msg.length);
+		insertImg();
+		//监听滚动事件
+        window.document.addEventListener("scroll", function () {
+			var msg = jQuery.parseJSON(goods);//那以后每次用的收都将goods转化为这个形式
+			//document.documentElement.scrollTop:已经滚动的内容高度
+			//window.screen.height: 窗口高度
+            //document.documentElement.scrollHeight:能滚动的最大高度
+            if (document.documentElement.scrollTop + window.screen.height > document.documentElement.scrollHeight && msg.length>=imgId) {
+				//再此插入图片
+                windowHeight += 500;
+				insertImg();
+			}
+
+			//回到顶部的滚动监听
+			if (document.documentElement.scrollTop < 500) {
+				//console.log(document.documentElement.scrollTop);
+				$("#toplan").hide("slow");
+			} else {
+				//console.log(document.documentElement.scrollTop);
+				$("#toplan").show("slow");
+			}
+		});
+    }
+	//获取后台数据，ajax
+	var getdata_ajax = function () {
+		$.ajax({
+            type: "get",
+            data: {},
+            dataType: "JSON",
+            async: false,//不异步请求，加载了数据成功后在填入框中
+            url: "/Home/getdata_ajax",
+            success: function (data) {
+                console.log(data);
+				//var msg=jQuery.parseJSON(data);
+				//var newData = JSON.stringify(data);    //将json对象转换为字符串
+                //    var jsonvalue = eval('(' + newData + ')');//接受的json格式有{}包着，如果不写，会把它理解为语句块
+				//for (var i = 0; i < msg.length; i++) {
+				//    console.log(msg[0].UserInfo.Info);
+				//}
+                goods = data;//将ajax获取到的数据存放到全局变量中
+			},
+			error: function (e) {
+				console.log(e.status);
+				console.log(e.responseText);
+			}
+        })
+	}
+
+
+	//插入图片的算法
+    var insertImg = function () {
+        var msg = jQuery.parseJSON(goods);//那以后每次用的收都将goods转化为这个形式
+		var inter = setInterval(function () { //就是给浏览器渲染图片的时间
+			if (document.documentElement.scrollHeight > windowHeight||imgId > msg.length) { //达到预期的高度. 停止,或者所有数据加载完成
+				clearInterval(inter);//停止定时器
+            }
+            console.log(imgId + ':' + msg.length);
+			var mDiv = minDiv();
+            //插入图片
+			try{
+				console.log(msg[imgId].Goodsimage[0].images);
+				imgId++;
+				var parentdiv = $('<div class="thumbnail"><img src="/images/img/'+msg[imgId].Goodsimage[0].images+'" /><div class="caption"><h3>'+msg[imgId].Name+'</h3><div><span class="monye_1">'+msg[imgId].Price+'</span><span style="color:gray;margin-left:10px;">长沙</span></div><p>'+msg[imgId].Info+'</p><hr /><div class="userinfo_sm"><img src="/images/img/' + msg[imgId].UserInfo.Images+ '" /><a href="#">朝阳网用户</a></div></div></div>');
+				mDiv.append(parentdiv);
+            } catch (error) {
+                console.log("发生错误了,跳出计时器。error：" + error)
+				clearInterval(inter);//停止定时器
+			}
+		}, 100);//定时器, 每隔100毫秒. 运行一次function
+	}
+	/**
+	 * 当前哪一列是高度最小的
+	 */
+	var minDiv = function () {
+		var pb1 = $('#pubu-01 img');
+		var pb2 = $('#pubu-02 img');
+		var pb3 = $('#pubu-03 img');
+		var pb4 = $('#pubu-04 img');
+
+		var pb1Height = jisuan(pb1);
+		var pb2Height = jisuan(pb2);
+		var pb3Height = jisuan(pb3);
+		var pb4Height = jisuan(pb4);
+
+		var minHeight = Math.min(pb1Height, pb2Height, pb3Height, pb4Height);
+
+		if (minHeight == pb1Height) {
+			return $('#pubu-01');
+		}
+		if (minHeight == pb2Height) {
+			return $('#pubu-02');
+		}
+		if (minHeight == pb3Height) {
+			return $('#pubu-03');
+		}
+		if (minHeight == pb4Height) {
+			return $('#pubu-04');
+		}
+	}
+	var jisuan = function (pbImgs) {
+
+		if (pbImgs == null || pbImgs.length == 0) {//这一列还没有图片
+			return 0;
+		} else {
+			var height = 0;
+			//获取到当前列每一个图片
+			for (var i = 0; i < pbImgs.length; i++) {
+				var img = pbImgs[i];
+				var h = img.height;
+				height += h;//累加
+			}
+			return height;
+		}
+	}
+</script>
+<div id="cebianlan">
+	<div class="cbl_0">分类导航</div>
+	<div class="cbl_1"><a href="#" alert="我们主打免费！！">闲置免费送</a></div>
+	<div class="cbl_1"><a href="#" alert="我们主打免费！！">手机</a></div>
+	<div class="cbl_1"><a href="#" alert="我们主打免费！！">电脑</a></div>
+	<div class="cbl_1"><a href="#" alert="我们主打免费！！">办公用品</a></div>
+	<div class="cbl_1"><a href="#" alert="我们主打免费！！">数码产品</a></div>
+	<div class="cbl_1"><a href="#" alert="我们主打免费！！">图书</a></div>
+	<div class="cbl_1"><a href="#" alert="我们主打免费！！">生活用品</a></div>
+	<div class="cbl_1"><a href="#" alert="我们主打免费！！">虚拟道具</a></div>
+</div>
+<div id="toplan">
+	<a href="#" title="回到顶部"><img src="~/images/img/5-120601155S5-50.png" /></a>
+</div>
+
+

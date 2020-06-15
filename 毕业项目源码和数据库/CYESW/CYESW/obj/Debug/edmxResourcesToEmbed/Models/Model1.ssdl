@@ -1,0 +1,577 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CYESWModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Addres">
+    <Key>
+      <PropertyRef Name="AddresId" />
+    </Key>
+    <Property Name="AddresId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="Addresss1" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Addresss2" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="20" />
+    <Property Name="IsDelete" Type="int" />
+  </EntityType>
+  <EntityType Name="Friends">
+    <Key>
+      <PropertyRef Name="FriendsId" />
+    </Key>
+    <Property Name="FriendsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId1" Type="int" />
+    <Property Name="UserId2" Type="int" />
+    <Property Name="addTiem" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Friends_texts">
+    <Key>
+      <PropertyRef Name="Friends_textsId" />
+    </Key>
+    <Property Name="Friends_textsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TextsId" Type="int" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="States" Type="int" />
+  </EntityType>
+  <EntityType Name="Goods">
+    <Key>
+      <PropertyRef Name="GoodsId" />
+    </Key>
+    <Property Name="GoodsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="GoodsTypeId" Type="int" />
+    <Property Name="GoodsaddressId" Type="int" />
+    <Property Name="IsNew" Type="int" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Info" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="Price" Type="float" />
+    <Property Name="IsPlay" Type="int" />
+    <Property Name="IsBuy" Type="int" />
+    <Property Name="IsDelete" Type="int" />
+    <Property Name="CreateTime" Type="datetime" />
+    <Property Name="UpdateTime" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Goodsaddress">
+    <Key>
+      <PropertyRef Name="GoodsaddressId" />
+    </Key>
+    <Property Name="GoodsaddressId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TypeName" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="GoodsaddressBId" Type="int" />
+  </EntityType>
+  <EntityType Name="Goodsimage">
+    <Key>
+      <PropertyRef Name="GoodsimageId" />
+    </Key>
+    <Property Name="GoodsimageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="images" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="GoodsId" Type="int" />
+  </EntityType>
+  <EntityType Name="GoodsType">
+    <Key>
+      <PropertyRef Name="GoodsTypeId" />
+    </Key>
+    <Property Name="GoodsTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TypeName" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="GoodsTypeBId" Type="int" />
+  </EntityType>
+  <EntityType Name="HuDong_texts">
+    <Key>
+      <PropertyRef Name="HuDong_textsId" />
+    </Key>
+    <Property Name="HuDong_textsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TextsId" Type="int" />
+    <Property Name="GoodsId" Type="int" />
+    <Property Name="States" Type="int" />
+  </EntityType>
+  <EntityType Name="JuBao">
+    <Key>
+      <PropertyRef Name="JuBaoId" />
+    </Key>
+    <Property Name="JuBaoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="UserId2" Type="int" />
+    <Property Name="JuBao_body" Type="nvarchar" MaxLength="500" />
+    <Property Name="addTiem" Type="datetime" />
+    <Property Name="States" Type="int" />
+    <Property Name="HuiFu" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Love">
+    <Key>
+      <PropertyRef Name="LoveId" />
+    </Key>
+    <Property Name="LoveId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="GoodsId" Type="int" />
+    <Property Name="addTiem" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="OrdersId" />
+    </Key>
+    <Property Name="OrdersId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId1" Type="int" />
+    <Property Name="UserId2" Type="int" />
+    <Property Name="GoodsId" Type="int" />
+    <Property Name="IsState" Type="int" />
+    <Property Name="Wuliu" Type="nvarchar" MaxLength="50" />
+    <Property Name="BuyTime1" Type="datetime" />
+    <Property Name="BuyTime2" Type="datetime" />
+    <Property Name="BuyTime3" Type="datetime" />
+    <Property Name="BuyTime4" Type="datetime" />
+    <Property Name="BuyTime5" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Pingjia_texts">
+    <Key>
+      <PropertyRef Name="Pingjia_textsId" />
+    </Key>
+    <Property Name="Pingjia_textsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TextsId" Type="int" />
+    <Property Name="GoodsId" Type="int" />
+    <Property Name="States" Type="int" />
+  </EntityType>
+  <EntityType Name="RealName">
+    <Key>
+      <PropertyRef Name="RealNameId" />
+    </Key>
+    <Property Name="RealNameId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="IdCard" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="AddTime" Type="datetime" />
+    <Property Name="IsDelete" Type="int" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Texts">
+    <Key>
+      <PropertyRef Name="TextsId" />
+    </Key>
+    <Property Name="TextsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="Textbody" Type="nvarchar" MaxLength="100" />
+    <Property Name="addTiem" Type="datetime" />
+  </EntityType>
+  <EntityType Name="UserInfo">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="UserEmile" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="UserPwd" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Age" Type="int" />
+    <Property Name="moneys" Type="money" />
+    <Property Name="Info" Type="nvarchar" MaxLength="100" />
+    <Property Name="Images" Type="nvarchar" MaxLength="100" />
+    <Property Name="IsDelete" Type="int" />
+    <Property Name="AddTime" Type="datetime" />
+    <Property Name="IsManage" Type="int" />
+  </EntityType>
+  <Association Name="FK__Addres__UserId__1367E606">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+    <End Role="Addres" Type="Self.Addres" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Addres">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Friends__UserId1__2F10007B">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+    <End Role="Friends" Type="Self.Friends" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Friends">
+        <PropertyRef Name="UserId1" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Friends__UserId2__300424B4">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+    <End Role="Friends" Type="Self.Friends" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Friends">
+        <PropertyRef Name="UserId2" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Friends_t__Texts__3D5E1FD2">
+    <End Role="Texts" Type="Self.Texts" Multiplicity="0..1" />
+    <End Role="Friends_texts" Type="Self.Friends_texts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Texts">
+        <PropertyRef Name="TextsId" />
+      </Principal>
+      <Dependent Role="Friends_texts">
+        <PropertyRef Name="TextsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Friends_t__UserI__3E52440B">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+    <End Role="Friends_texts" Type="Self.Friends_texts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Friends_texts">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Goods__Goodsaddr__20C1E124">
+    <End Role="Goodsaddress" Type="Self.Goodsaddress" Multiplicity="0..1" />
+    <End Role="Goods" Type="Self.Goods" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Goodsaddress">
+        <PropertyRef Name="GoodsaddressId" />
+      </Principal>
+      <Dependent Role="Goods">
+        <PropertyRef Name="GoodsaddressId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Goods__GoodsType__1FCDBCEB">
+    <End Role="GoodsType" Type="Self.GoodsType" Multiplicity="0..1" />
+    <End Role="Goods" Type="Self.Goods" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GoodsType">
+        <PropertyRef Name="GoodsTypeId" />
+      </Principal>
+      <Dependent Role="Goods">
+        <PropertyRef Name="GoodsTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Goods__UserId__1ED998B2">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+    <End Role="Goods" Type="Self.Goods" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Goods">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Goodsaddr__Goods__1BFD2C07">
+    <End Role="Goodsaddress" Type="Self.Goodsaddress" Multiplicity="0..1" />
+    <End Role="Goodsaddress1" Type="Self.Goodsaddress" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Goodsaddress">
+        <PropertyRef Name="GoodsaddressId" />
+      </Principal>
+      <Dependent Role="Goodsaddress1">
+        <PropertyRef Name="GoodsaddressBId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Goodsimag__Goods__239E4DCF">
+    <End Role="Goods" Type="Self.Goods" Multiplicity="0..1" />
+    <End Role="Goodsimage" Type="Self.Goodsimage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Goods">
+        <PropertyRef Name="GoodsId" />
+      </Principal>
+      <Dependent Role="Goodsimage">
+        <PropertyRef Name="GoodsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__GoodsType__Goods__1920BF5C">
+    <End Role="GoodsType" Type="Self.GoodsType" Multiplicity="0..1" />
+    <End Role="GoodsType1" Type="Self.GoodsType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GoodsType">
+        <PropertyRef Name="GoodsTypeId" />
+      </Principal>
+      <Dependent Role="GoodsType1">
+        <PropertyRef Name="GoodsTypeBId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__HuDong_te__Goods__36B12243">
+    <End Role="Goods" Type="Self.Goods" Multiplicity="0..1" />
+    <End Role="HuDong_texts" Type="Self.HuDong_texts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Goods">
+        <PropertyRef Name="GoodsId" />
+      </Principal>
+      <Dependent Role="HuDong_texts">
+        <PropertyRef Name="GoodsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__HuDong_te__Texts__35BCFE0A">
+    <End Role="Texts" Type="Self.Texts" Multiplicity="0..1" />
+    <End Role="HuDong_texts" Type="Self.HuDong_texts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Texts">
+        <PropertyRef Name="TextsId" />
+      </Principal>
+      <Dependent Role="HuDong_texts">
+        <PropertyRef Name="TextsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__JuBao__UserId__412EB0B6">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+    <End Role="JuBao" Type="Self.JuBao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="JuBao">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__JuBao__UserId2__4222D4EF">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+    <End Role="JuBao" Type="Self.JuBao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="JuBao">
+        <PropertyRef Name="UserId2" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Love__GoodsId__2C3393D0">
+    <End Role="Goods" Type="Self.Goods" Multiplicity="0..1" />
+    <End Role="Love" Type="Self.Love" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Goods">
+        <PropertyRef Name="GoodsId" />
+      </Principal>
+      <Dependent Role="Love">
+        <PropertyRef Name="GoodsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Love__UserId__2B3F6F97">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+    <End Role="Love" Type="Self.Love" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Love">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Orders__GoodsId__286302EC">
+    <End Role="Goods" Type="Self.Goods" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Goods">
+        <PropertyRef Name="GoodsId" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="GoodsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Orders__UserId1__267ABA7A">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="UserId1" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Orders__UserId2__276EDEB3">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="UserId2" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Pingjia_t__Goods__3A81B327">
+    <End Role="Goods" Type="Self.Goods" Multiplicity="0..1" />
+    <End Role="Pingjia_texts" Type="Self.Pingjia_texts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Goods">
+        <PropertyRef Name="GoodsId" />
+      </Principal>
+      <Dependent Role="Pingjia_texts">
+        <PropertyRef Name="GoodsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Pingjia_t__Texts__398D8EEE">
+    <End Role="Texts" Type="Self.Texts" Multiplicity="0..1" />
+    <End Role="Pingjia_texts" Type="Self.Pingjia_texts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Texts">
+        <PropertyRef Name="TextsId" />
+      </Principal>
+      <Dependent Role="Pingjia_texts">
+        <PropertyRef Name="TextsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__RealName__UserId__164452B1">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+    <End Role="RealName" Type="Self.RealName" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="RealName">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Texts__UserId__32E0915F">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+    <End Role="Texts" Type="Self.Texts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Texts">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CYESWModelStoreContainer">
+    <EntitySet Name="Addres" EntityType="Self.Addres" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Friends" EntityType="Self.Friends" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Friends_texts" EntityType="Self.Friends_texts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Goods" EntityType="Self.Goods" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Goodsaddress" EntityType="Self.Goodsaddress" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Goodsimage" EntityType="Self.Goodsimage" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GoodsType" EntityType="Self.GoodsType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HuDong_texts" EntityType="Self.HuDong_texts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="JuBao" EntityType="Self.JuBao" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Love" EntityType="Self.Love" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Pingjia_texts" EntityType="Self.Pingjia_texts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RealName" EntityType="Self.RealName" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Texts" EntityType="Self.Texts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Addres__UserId__1367E606" Association="Self.FK__Addres__UserId__1367E606">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="Addres" EntitySet="Addres" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Friends__UserId1__2F10007B" Association="Self.FK__Friends__UserId1__2F10007B">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="Friends" EntitySet="Friends" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Friends__UserId2__300424B4" Association="Self.FK__Friends__UserId2__300424B4">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="Friends" EntitySet="Friends" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Friends_t__Texts__3D5E1FD2" Association="Self.FK__Friends_t__Texts__3D5E1FD2">
+      <End Role="Texts" EntitySet="Texts" />
+      <End Role="Friends_texts" EntitySet="Friends_texts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Friends_t__UserI__3E52440B" Association="Self.FK__Friends_t__UserI__3E52440B">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="Friends_texts" EntitySet="Friends_texts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Goods__Goodsaddr__20C1E124" Association="Self.FK__Goods__Goodsaddr__20C1E124">
+      <End Role="Goodsaddress" EntitySet="Goodsaddress" />
+      <End Role="Goods" EntitySet="Goods" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Goods__GoodsType__1FCDBCEB" Association="Self.FK__Goods__GoodsType__1FCDBCEB">
+      <End Role="GoodsType" EntitySet="GoodsType" />
+      <End Role="Goods" EntitySet="Goods" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Goods__UserId__1ED998B2" Association="Self.FK__Goods__UserId__1ED998B2">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="Goods" EntitySet="Goods" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Goodsaddr__Goods__1BFD2C07" Association="Self.FK__Goodsaddr__Goods__1BFD2C07">
+      <End Role="Goodsaddress" EntitySet="Goodsaddress" />
+      <End Role="Goodsaddress1" EntitySet="Goodsaddress" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Goodsimag__Goods__239E4DCF" Association="Self.FK__Goodsimag__Goods__239E4DCF">
+      <End Role="Goods" EntitySet="Goods" />
+      <End Role="Goodsimage" EntitySet="Goodsimage" />
+    </AssociationSet>
+    <AssociationSet Name="FK__GoodsType__Goods__1920BF5C" Association="Self.FK__GoodsType__Goods__1920BF5C">
+      <End Role="GoodsType" EntitySet="GoodsType" />
+      <End Role="GoodsType1" EntitySet="GoodsType" />
+    </AssociationSet>
+    <AssociationSet Name="FK__HuDong_te__Goods__36B12243" Association="Self.FK__HuDong_te__Goods__36B12243">
+      <End Role="Goods" EntitySet="Goods" />
+      <End Role="HuDong_texts" EntitySet="HuDong_texts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__HuDong_te__Texts__35BCFE0A" Association="Self.FK__HuDong_te__Texts__35BCFE0A">
+      <End Role="Texts" EntitySet="Texts" />
+      <End Role="HuDong_texts" EntitySet="HuDong_texts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__JuBao__UserId__412EB0B6" Association="Self.FK__JuBao__UserId__412EB0B6">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="JuBao" EntitySet="JuBao" />
+    </AssociationSet>
+    <AssociationSet Name="FK__JuBao__UserId2__4222D4EF" Association="Self.FK__JuBao__UserId2__4222D4EF">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="JuBao" EntitySet="JuBao" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Love__GoodsId__2C3393D0" Association="Self.FK__Love__GoodsId__2C3393D0">
+      <End Role="Goods" EntitySet="Goods" />
+      <End Role="Love" EntitySet="Love" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Love__UserId__2B3F6F97" Association="Self.FK__Love__UserId__2B3F6F97">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="Love" EntitySet="Love" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Orders__GoodsId__286302EC" Association="Self.FK__Orders__GoodsId__286302EC">
+      <End Role="Goods" EntitySet="Goods" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Orders__UserId1__267ABA7A" Association="Self.FK__Orders__UserId1__267ABA7A">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Orders__UserId2__276EDEB3" Association="Self.FK__Orders__UserId2__276EDEB3">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Pingjia_t__Goods__3A81B327" Association="Self.FK__Pingjia_t__Goods__3A81B327">
+      <End Role="Goods" EntitySet="Goods" />
+      <End Role="Pingjia_texts" EntitySet="Pingjia_texts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Pingjia_t__Texts__398D8EEE" Association="Self.FK__Pingjia_t__Texts__398D8EEE">
+      <End Role="Texts" EntitySet="Texts" />
+      <End Role="Pingjia_texts" EntitySet="Pingjia_texts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__RealName__UserId__164452B1" Association="Self.FK__RealName__UserId__164452B1">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="RealName" EntitySet="RealName" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Texts__UserId__32E0915F" Association="Self.FK__Texts__UserId__32E0915F">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="Texts" EntitySet="Texts" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
