@@ -5,47 +5,72 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut  icon" type="image/x-icon" href="favicon.ico" media="screen" />
+    <link href="~/Content/zzsc.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    @*<link href="~/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/layui/css/layui.mobile.css" rel="stylesheet" />
+    <script src="~/layui/layui.js"></script>*@
     <title>@TempData["Title"] - 朝阳二手网</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <script type="text/javascript">
         var date = new Date().getTime();
         document.write("<link rel='stylesheet' type='text/css' href='../Content/mycss.css?v=" + date + "'>");
+        document.write("<link rel='stylesheet' href='../Content/style.css'?v=" + date + "'>");
+        document.write("<link  rel='stylesheet' href='../Content/style.css'?v=" + date + "'>");
     </script>
+    @using CYESW.Models;
+    @{
+        var user_name = "登录/注册";
+        if (Session["user"] != null)
+        {
+            var user = Session["user"] as UserInfo;
+            user_name = "欢迎！ " + user.UserName;
+        }
+    }
 </head>
 <body>
-    <div class="container body-content">
+    @if (TempData["exe"] != null)
+    {
+        <script type="text/javascript">
+                alert('@TempData["exe"]');
+        </script>
+    }
+    <div class="">
         <div class="top row">
-            <div class="col-lg-9">
-                <a href="#">上海</a>|
-                <a href="#">【切换城市】</a>
+            <div class="col-lg-6">
+                <a href="/Home/Index">首页</a>|
+                <a href="/Goodsaddress/GoodsaddressIndex">@Session["adress"]</a>|
+                <a href="/Goodsaddress/GoodsaddressIndex">【切换城市】</a>
             </div>
-            <div class="col-lg-3">
-                <a href="#">登录</a>|
-                <a href="#">个人中心</a>|
-                <a href="#">联系我们</a>
+            <div class="col-lg-6" style="text-align:right;">
+                <a href="/User/UserIndex">@user_name</a>|
+                <a href="/User/UserIndex"> 联系我们 </a>
+                @if (user_name != "登录/注册")
+                {
+                    @:|
+                    <a href="/User/UserExit" onclick="return confirm('你确定要注销登录吗？')">注销</a>
+                }
+
             </div>
         </div>
     </div>
 
-    <div class="top_done " >
-        <div class="flexs top_done_body">
-            <div class="itmes">
-                <img src="~/images/users/right_1.png" alt="图片显示异常" width="200" />
-            </div>
-            <div class="itmes">
-                <input type="text" name="name" placeholder=" 搜二手 出二手 淘二手" class="sousuo"/><input type="button" name="name" value="搜索" class="anniu"/>
-            </div>
-            <div class="itmes">
-                <a href="#" class="play">免费发布二手产品信息</a>
-            </div>
-        </div>
-        </div>
+
 
     <div class="container body-content" style="width:75%;">
         @RenderBody()
-        <hr />
-        <h3>网站友情链接</h3>
+
+    </div>
+    <hr />
+    <div class="yqlj">
+        <h3>
+            网站友情链接
+            <span class="svg_1">
+                <svg t="1592296290795" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4618" width="32" height="32"><path d="M894.528 150.4a195.072 195.072 0 0 0-270.912-52.288L359.424 276.992a195.072 195.072 0 0 0-52.16 270.912c56.768 83.904 167.04 108.288 254.208 60.736l-0.384-0.832c1.92-0.896 3.904-1.216 5.76-2.432a34.496 34.496 0 1 0-35.52-59.2H531.2l-0.448-0.768c-57.344 34.56-128.64 24.128-166.656-32.064a127.552 127.552 0 0 1 34.112-177.152l258.816-175.168a127.552 127.552 0 0 1 177.152 34.112c39.488 58.368 26.816 127.488-31.552 166.976l-39.488 27.52a35.392 35.392 0 1 0 39.68 58.624c0.32-0.192 0.448-0.576 0.768-0.768l38.72-26.176a195.072 195.072 0 0 0 52.224-270.912z" fill="#efb336" p-id="4619"></path><path d="M453.888 411.328l0.448 0.832c-1.92 0.896-3.968 1.28-5.76 2.56a34.496 34.496 0 1 0 36.992 58.24l0.064 0.128 0.512 0.64c56.448-35.968 128-27.264 167.424 28.032 40.96 57.344 27.584 136.96-29.76 177.92L369.28 861.184c-57.344 40.896-136.96 27.52-177.92-29.76-40.896-57.344-29.952-126.784 27.456-167.68l38.784-28.544a35.392 35.392 0 1 0-41.088-57.6c-0.32 0.192-0.448 0.576-0.768 0.768l-38.08 27.136a195.072 195.072 0 0 0 226.56 317.632l259.712-185.28a195.072 195.072 0 0 0 45.504-272.128c-58.816-82.432-169.6-104.064-255.616-54.4z" fill="#efb336" p-id="4620"></path></svg>
+            </span>
+        </h3>
         <div class="wzyqlj">
             <a href="#">百度搜索</a><a href="#">腾讯游戏中心</a>
             <a href="#">百姓网</a><a href="#">CSDN</a>
@@ -57,7 +82,6 @@
             <a href="#">菜鸟教程</a><a href="#">中国人事考试网</a>
             <a href="#">中国色</a><a href="#">湖南工程职业技术学院</a>
         </div>
-        <hr />
     </div>
     <div style="padding:10px;background-color:white">
         <hr />

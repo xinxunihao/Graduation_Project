@@ -38,7 +38,6 @@ namespace CYESW.Models
         public virtual DbSet<Orders> Orders { get; set; }
         public virtual DbSet<Pingjia_texts> Pingjia_texts { get; set; }
         public virtual DbSet<RealName> RealName { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Texts> Texts { get; set; }
         public virtual DbSet<UserInfo> UserInfo { get; set; }
     }

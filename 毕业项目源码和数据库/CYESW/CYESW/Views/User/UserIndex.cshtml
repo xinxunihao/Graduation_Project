@@ -1,65 +1,41 @@
-﻿
+﻿@using CYESW.Models
 @{
     ViewBag.Title = "UserIndex";
+    var user = Session["user"] as UserInfo;
 }
 
-    <div style="overflow:hidden">
-        <div class="uer_bg row">
-            <div class="col-lg-2 img_tx_father">
-                <img src="~/images/img/6.jpg" class="img_tx"/>
-            </div>
-            <div class="col-lg-10 uer_wb">
-                <p><span style="font-size:25px;font-weight:bold">心虚599</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>周末快乐！</span></p>
-                <p><span>手机：18148787526</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>id：10000</span></p>
-            </div>
+
+<div style="overflow:hidden">
+    <div class="uer_bg row">
+        <div class="col-lg-2 img_tx_father">
+            <img src="~/images/img/@user.Images" class="img_tx" />
         </div>
-        <div class="row user_ul_big">
-            <div class="col-lg-3">
-                <div class="user_ul">
-                    <h3>用户中心</h3>
-                    <ul>
-                        <li>我发布的</li>
-                        <li>我收藏的</li>
-                        <li>我的消息</li>
-                    </ul>
-                    <h3>账户管理</h3>
-                    <ul>
-                        <li>我的资料</li>
-                        <li>我的认证</li>
-                        <li>我的反馈</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-9 conten_user">
-                <div class="row uer_kk">
-                    <div class="col-lg-2 uer_kk_1 uer_kk_1_active">已上架</div>
-                    <div class="col-lg-2 uer_kk_1">已下架</div>
-                    <div class="col-lg-2 uer_kk_1">交易中</div>
-                    <div class="col-lg-2 uer_kk_1">已卖出</div>
-                </div>
-                <div class="row uer_goods">
-                    <div class="col-lg-2">
-                        <img src="~/images/img/苹果电脑图片2.jpg" style="width:150px;"/>
-                    </div>
-                    <div class="col-lg-10 uer_goods_txt">
-                        <h5>苹果电脑</h5>
-                        <p><span>湖南</span><span>长沙</span><span>万家丽北路100号</span></p>
-                        <p><span>￥800</span>/<span>笔记本电脑</span></p>
-                    </div>
-                    <div class="uer_goods_foot">
-                        <a href="#" class="good_a" style="margin-left:200px;">
-                            <img src="~/images/icopng/刷新.svg" width="22"/>&nbsp;&nbsp;查看
-                        </a>
-                        <a href="#" class="good_a">
-                            <svg t="1592213039685" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3562" width="32" height="32"><path d="M855.872 106.432a42.464 42.464 0 0 1-42.464 42.464H203.44a42.464 42.464 0 0 1 0-84.928h609.968a42.464 42.464 0 0 1 42.464 42.464z m-344.048 157.92a42.464 42.464 0 0 0-42.464 42.464v609.968a42.464 42.464 0 0 0 84.928 0V306.816a42.464 42.464 0 0 0-42.464-42.464z m30.144-31.328c-16.592-16.576-42.528-17.536-57.92-2.128L171.232 543.68c-15.408 15.408-14.448 41.344 2.128 57.92 16.592 16.592 42.512 17.536 57.92 2.128l312.8-312.784c15.392-15.408 14.448-41.344-2.128-57.92z m-60.272 0c-16.576 16.576-17.536 42.512-2.128 57.92l312.8 312.8c15.392 15.392 41.328 14.448 57.92-2.144 16.576-16.576 17.52-42.512 2.112-57.92L539.616 230.896c-15.408-15.408-41.344-14.448-57.92 2.128z" fill="#efb336" p-id="3563"></path></svg>
-                            &nbsp;&nbsp;擦亮
-                        </a>
-                        <a href="#" class="good_a">下架</a>
-                        <a href="#" class="good_a">编辑</a>
-                        <a href="#" class="good_a">删除</a>
-                    </div>
-                </div>
-            </div>
+        <div class="col-lg-10 uer_wb">
+            <p><span style="font-size:25px;font-weight:bold">@user.UserName</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>周末快乐！</span></p>
+            <p><span>邮箱：@user.UserEmile</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>id：@user.UserId</span></p>
         </div>
     </div>
+    <div class="row user_ul_big">
+        <div class="col-lg-3">
+            <div class="user_ul">
+                <h3>用户中心</h3>
+                <ul>
+                    <li class="user_ul_li_active" value="1">我发布的</li>
+                    <li value="2">我收藏的</li>
+                    <li value="3">我的消息</li>
+                </ul>
+                <h3>账户管理</h3>
+                <ul>
+                    <li value="4">我的资料</li>
+                    <li value="5">我的认证</li>
+                    <li value="6">我的反馈</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-9 ">
+                @{Html.RenderPartial("Publish");}
+        </div>
+    </div>
+</div>
+
 

@@ -1,0 +1,72 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>abcd</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        var date = new Date().getTime();
+        document.write("<link rel='stylesheet' type='text/css' href='../Content/mycss.css?v=" + date + "'>");
+    </script>
+</head>
+<body>
+    @if (TempData["exe"] != null)
+    {
+        <script type="text/javascript">
+                alert('@TempData["exe"]');
+        </script>
+    }
+    <div>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="mdo">Open modal for mdo</button>
+
+        <div class="modal fade modal-dialog modal_div" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title modal_h2" id="exampleModalLabel" style="display:inline-block;">登录</h2>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="myform" action="/Home/Login" method="post">
+                            <div class="form-group">
+                                <label for="UserEmile" class="col-form-label">账号:</label>
+                                <input type="text" class="form-control " id="UserEmile" name="UserEmile" placeholder="  请输入邮箱">
+                            </div>
+                            <div class="form-group">
+                                <label for="UserPwd" class="col-form-label">密码:</label>
+                                <input type="text" class="form-control " id="UserPwd" name="UserPwd" placeholder="  请输入密码">
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" name="tongyi" value="" />我已经阅读并同意<a href="#">《用户注册协议》</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a href="#">忘记密码?</a>&nbsp;&nbsp;&nbsp;<a href="#">没有账号?</a>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary" id="mysubmit">登录</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            //单机button按钮提交
+            $('#mysubmit').click(function () {
+                $('#myform').submit();
+            })
+        })
+    </script>
+</body>
+</html>

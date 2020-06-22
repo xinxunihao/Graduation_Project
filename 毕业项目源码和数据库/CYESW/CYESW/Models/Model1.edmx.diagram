@@ -4,22 +4,21 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="44a85d30e9b849f4b97930e72b7c4484" Name="Diagram1">
+      <Diagram DiagramId="8e37444b5d4147339b8c89e969835614" Name="Diagram1">
         <EntityTypeShape EntityType="CYESWModel.Addres" Width="1.5" PointX="3" PointY="11.625" IsExpanded="true" />
         <EntityTypeShape EntityType="CYESWModel.Friends" Width="1.5" PointX="3" PointY="14.875" IsExpanded="true" />
         <EntityTypeShape EntityType="CYESWModel.Friends_texts" Width="1.5" PointX="5.25" PointY="24.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CYESWModel.Goods" Width="1.5" PointX="3" PointY="18.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CYESWModel.Goodsaddress" Width="1.5" PointX="0.75" PointY="22.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CYESWModel.Goodsimage" Width="1.5" PointX="5.25" PointY="20.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CYESWModel.GoodsType" Width="1.5" PointX="0.75" PointY="25.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="CYESWModel.HuDong_texts" Width="1.5" PointX="5.25" PointY="27.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CYESWModel.JuBao" Width="1.5" PointX="3" PointY="26.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CYESWModel.Love" Width="1.5" PointX="5.25" PointY="16.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="CYESWModel.Orders" Width="1.5" PointX="8.25" PointY="18.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CYESWModel.Pingjia_texts" Width="1.5" PointX="8.25" PointY="25.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CYESWModel.Goods" Width="1.5" PointX="3" PointY="18" IsExpanded="true" />
+        <EntityTypeShape EntityType="CYESWModel.Goodsaddress" Width="1.5" PointX="0.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CYESWModel.Goodsimage" Width="1.5" PointX="5.25" PointY="19.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CYESWModel.GoodsType" Width="1.5" PointX="0.75" PointY="23.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CYESWModel.HuDong_texts" Width="1.5" PointX="5.25" PointY="28.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CYESWModel.JuBao" Width="1.5" PointX="3" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CYESWModel.Love" Width="1.5" PointX="5.25" PointY="16.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CYESWModel.Orders" Width="1.5" PointX="8.25" PointY="17.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CYESWModel.Pingjia_texts" Width="1.5" PointX="8.25" PointY="25.375" IsExpanded="true" />
         <EntityTypeShape EntityType="CYESWModel.RealName" Width="1.5" PointX="3" PointY="29.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CYESWModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CYESWModel.Texts" Width="1.5" PointX="3" PointY="32.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CYESWModel.Texts" Width="1.5" PointX="3" PointY="32.5" IsExpanded="true" />
         <EntityTypeShape EntityType="CYESWModel.UserInfo" Width="1.5" PointX="0.75" PointY="16.375" IsExpanded="true" />
         <AssociationConnector Association="CYESWModel.FK__Addres__UserId__1367E606" ManuallyRouted="false" />
         <AssociationConnector Association="CYESWModel.FK__Friends__UserId1__2F10007B" ManuallyRouted="false" />
@@ -37,6 +36,7 @@
         <AssociationConnector Association="CYESWModel.FK__Goodsaddr__Goods__1BFD2C07" ManuallyRouted="false" />
         <AssociationConnector Association="CYESWModel.FK__GoodsType__Goods__1920BF5C" ManuallyRouted="false" />
         <AssociationConnector Association="CYESWModel.FK__HuDong_te__Texts__35BCFE0A" ManuallyRouted="false" />
+        <AssociationConnector Association="CYESWModel.FK__JuBao__CLUserId__4316F928" ManuallyRouted="false" />
         <AssociationConnector Association="CYESWModel.FK__JuBao__UserId__412EB0B6" ManuallyRouted="false" />
         <AssociationConnector Association="CYESWModel.FK__JuBao__UserId2__4222D4EF" ManuallyRouted="false" />
         <AssociationConnector Association="CYESWModel.FK__Love__UserId__2B3F6F97" ManuallyRouted="false" />

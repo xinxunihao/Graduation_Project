@@ -1,0 +1,85 @@
+﻿
+@using PagedList.Mvc
+@*@{
+        var lovelist = ViewData["lovelist_1"] as PagedList.PagedList<CYESW.Models.Love>;
+    }*@
+<div class="row uer_kk">
+    <div class="col-lg-2 uer_kk_1 uer_kk_1_active" >有效宝贝</div>
+    <div class="col-lg-2 uer_kk_1">无效宝贝</div>
+</div>
+<div class="tab_content">
+    <div class="uer_kk_sale uer_kk_sale_active" id="uer_kk_sale1">
+        1
+    </div>
+    <div class="uer_kk_sale " id="uer_kk_sale2">
+        2
+    </div>
+</div>
+
+<script type="text/javascript">
+    var imgId = 0;
+    var getdata_ajax = function () {
+        $.ajax({
+            type: "post",
+            data: { type: 1 },
+            dataType: "JSON",
+            async: false,//不异步请求，加载了数据成功后在填入框中
+            url: "/User/Love",
+            success: function (data) {
+                var mDiv = $('#uer_kk_sale1');
+                var msg = jQuery.parseJSON(data);
+                for (var i = 0; i < msg.length; i++) {
+                    console.log(i);
+                    imgId++;
+                    var parentdiv = $(`<div class="goods_list1">
+                                        <div class="row uer_goods">
+                                                <div class="col-lg-2">
+                                                    <img src="~/images/img/苹果电脑图片2.jpg" style="width:150px;" />
+                                                </div>
+                                                <div class="col-lg-6 uer_goods_txt">
+                                                    <h5>小米手机</h5>
+                                                    <p><span>小米手机</span></p>
+                                                    <p><span>小米手机</span>/<span>小米手机</span></p>
+                                                </div>
+                                                <div class="col-lg-4"  >
+                                                    <a href="#" class="btn btn-primary a_xq">详情</a><a href="#" class="btn btn-danger a_xq">删除</a>
+                                                </div>
+                                                <div class="sb_1_1" style="background-color:orange;">
+                                                    正在出售
+                                                </div>
+                                            </div>
+                                        </div>`);
+                    mDiv.append(parentdiv);
+                }
+            },
+            error: function (e) {
+                console.log(e.status);
+                console.log(e.responseText);
+            }
+        })
+    }
+    getdata_ajax();
+    //切换样式
+    $('.uer_kk_1').click(function () {
+        $('.uer_kk_1').removeClass('uer_kk_1_active');
+        $(this).addClass('uer_kk_1_active');
+
+        $('.uer_kk_sale').removeClass('uer_kk_sale_active');
+
+        //切换右边的内容，用分布页
+        //$('.qiehuan').removeClass("qiehuan_active")
+        //switch ($(this).val()) {
+        //    case 1:
+        //        $('#uer_kk_sale1').addClass("uer_kk_sale_active");
+        //        break;
+        //    case 2:
+        //        $('#uer_kk_sale2').addClass("uer_kk_sale_active");
+        //        break;
+        //    default:
+        //        alert('出现了未知错误，请联系我们解决');
+        //        console.log('出现了未知错误，请联系我们解决');
+        //        console.log($(this).val());
+        //}
+    });
+</script>
+

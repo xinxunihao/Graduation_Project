@@ -42,9 +42,7 @@
     <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="Info" Type="nvarchar" MaxLength="200" Nullable="false" />
     <Property Name="Price" Type="float" />
-    <Property Name="IsPlay" Type="int" />
-    <Property Name="IsBuy" Type="int" />
-    <Property Name="IsDelete" Type="int" />
+    <Property Name="IsState" Type="int" />
     <Property Name="CreateTime" Type="datetime" />
     <Property Name="UpdateTime" Type="datetime" />
   </EntityType>
@@ -92,6 +90,7 @@
     <Property Name="addTiem" Type="datetime" />
     <Property Name="States" Type="int" />
     <Property Name="HuiFu" Type="nvarchar" MaxLength="100" />
+    <Property Name="CLUserId" Type="int" />
   </EntityType>
   <EntityType Name="Love">
     <Key>
@@ -137,16 +136,6 @@
     <Property Name="AddTime" Type="datetime" />
     <Property Name="IsDelete" Type="int" />
   </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="version" Type="int" />
-    <Property Name="definition" Type="varbinary(max)" />
-  </EntityType>
   <EntityType Name="Texts">
     <Key>
       <PropertyRef Name="TextsId" />
@@ -170,6 +159,7 @@
     <Property Name="Images" Type="nvarchar" MaxLength="100" />
     <Property Name="IsDelete" Type="int" />
     <Property Name="AddTime" Type="datetime" />
+    <Property Name="EndTime" Type="datetime" />
     <Property Name="IsManage" Type="int" />
   </EntityType>
   <Association Name="FK__Addres__UserId__1367E606">
@@ -328,6 +318,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__JuBao__CLUserId__4316F928">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+    <End Role="JuBao" Type="Self.JuBao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="JuBao">
+        <PropertyRef Name="CLUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__JuBao__UserId__412EB0B6">
     <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
     <End Role="JuBao" Type="Self.JuBao" Multiplicity="*" />
@@ -474,7 +476,6 @@
     <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Pingjia_texts" EntityType="Self.Pingjia_texts" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="RealName" EntityType="Self.RealName" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Texts" EntityType="Self.Texts" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK__Addres__UserId__1367E606" Association="Self.FK__Addres__UserId__1367E606">
@@ -528,6 +529,10 @@
     <AssociationSet Name="FK__HuDong_te__Texts__35BCFE0A" Association="Self.FK__HuDong_te__Texts__35BCFE0A">
       <End Role="Texts" EntitySet="Texts" />
       <End Role="HuDong_texts" EntitySet="HuDong_texts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__JuBao__CLUserId__4316F928" Association="Self.FK__JuBao__CLUserId__4316F928">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="JuBao" EntitySet="JuBao" />
     </AssociationSet>
     <AssociationSet Name="FK__JuBao__UserId__412EB0B6" Association="Self.FK__JuBao__UserId__412EB0B6">
       <End Role="UserInfo" EntitySet="UserInfo" />

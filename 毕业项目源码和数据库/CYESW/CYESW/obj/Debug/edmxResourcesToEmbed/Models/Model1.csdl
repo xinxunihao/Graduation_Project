@@ -47,9 +47,7 @@
     <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Info" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Price" Type="Double" />
-    <Property Name="IsPlay" Type="Int32" />
-    <Property Name="IsBuy" Type="Int32" />
-    <Property Name="IsDelete" Type="Int32" />
+    <Property Name="IsState" Type="Int32" />
     <Property Name="CreateTime" Type="DateTime" Precision="3" />
     <Property Name="UpdateTime" Type="DateTime" Precision="3" />
     <NavigationProperty Name="Goodsaddress" Relationship="Self.FK__Goods__Goodsaddr__20C1E124" FromRole="Goods" ToRole="Goodsaddress" />
@@ -114,8 +112,10 @@
     <Property Name="addTiem" Type="DateTime" Precision="3" />
     <Property Name="States" Type="Int32" />
     <Property Name="HuiFu" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="UserInfo" Relationship="Self.FK__JuBao__UserId__412EB0B6" FromRole="JuBao" ToRole="UserInfo" />
-    <NavigationProperty Name="UserInfo1" Relationship="Self.FK__JuBao__UserId2__4222D4EF" FromRole="JuBao" ToRole="UserInfo" />
+    <Property Name="CLUserId" Type="Int32" />
+    <NavigationProperty Name="UserInfo" Relationship="Self.FK__JuBao__CLUserId__4316F928" FromRole="JuBao" ToRole="UserInfo" />
+    <NavigationProperty Name="UserInfo1" Relationship="Self.FK__JuBao__UserId__412EB0B6" FromRole="JuBao" ToRole="UserInfo" />
+    <NavigationProperty Name="UserInfo2" Relationship="Self.FK__JuBao__UserId2__4222D4EF" FromRole="JuBao" ToRole="UserInfo" />
   </EntityType>
   <EntityType Name="Love">
     <Key>
@@ -169,16 +169,6 @@
     <Property Name="IsDelete" Type="Int32" />
     <NavigationProperty Name="UserInfo" Relationship="Self.FK__RealName__UserId__164452B1" FromRole="RealName" ToRole="UserInfo" />
   </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="principal_id" Type="Int32" Nullable="false" />
-    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="Int32" />
-    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-  </EntityType>
   <EntityType Name="Texts">
     <Key>
       <PropertyRef Name="TextsId" />
@@ -206,14 +196,16 @@
     <Property Name="Images" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="IsDelete" Type="Int32" />
     <Property Name="AddTime" Type="DateTime" Precision="3" />
+    <Property Name="EndTime" Type="DateTime" Precision="3" />
     <Property Name="IsManage" Type="Int32" />
     <NavigationProperty Name="Addres" Relationship="Self.FK__Addres__UserId__1367E606" FromRole="UserInfo" ToRole="Addres" />
     <NavigationProperty Name="Friends" Relationship="Self.FK__Friends__UserId1__2F10007B" FromRole="UserInfo" ToRole="Friends" />
     <NavigationProperty Name="Friends1" Relationship="Self.FK__Friends__UserId2__300424B4" FromRole="UserInfo" ToRole="Friends" />
     <NavigationProperty Name="Friends_texts" Relationship="Self.FK__Friends_t__UserI__3E52440B" FromRole="UserInfo" ToRole="Friends_texts" />
     <NavigationProperty Name="Goods" Relationship="Self.FK__Goods__UserId__1ED998B2" FromRole="UserInfo" ToRole="Goods" />
-    <NavigationProperty Name="JuBao" Relationship="Self.FK__JuBao__UserId__412EB0B6" FromRole="UserInfo" ToRole="JuBao" />
-    <NavigationProperty Name="JuBao1" Relationship="Self.FK__JuBao__UserId2__4222D4EF" FromRole="UserInfo" ToRole="JuBao" />
+    <NavigationProperty Name="JuBao" Relationship="Self.FK__JuBao__CLUserId__4316F928" FromRole="UserInfo" ToRole="JuBao" />
+    <NavigationProperty Name="JuBao1" Relationship="Self.FK__JuBao__UserId__412EB0B6" FromRole="UserInfo" ToRole="JuBao" />
+    <NavigationProperty Name="JuBao2" Relationship="Self.FK__JuBao__UserId2__4222D4EF" FromRole="UserInfo" ToRole="JuBao" />
     <NavigationProperty Name="Love" Relationship="Self.FK__Love__UserId__2B3F6F97" FromRole="UserInfo" ToRole="Love" />
     <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__UserId1__267ABA7A" FromRole="UserInfo" ToRole="Orders" />
     <NavigationProperty Name="Orders1" Relationship="Self.FK__Orders__UserId2__276EDEB3" FromRole="UserInfo" ToRole="Orders" />
@@ -412,6 +404,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__JuBao__CLUserId__4316F928">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+    <End Role="JuBao" Type="Self.JuBao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="JuBao">
+        <PropertyRef Name="CLUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__JuBao__UserId__412EB0B6">
     <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
     <End Role="JuBao" Type="Self.JuBao" Multiplicity="*" />
@@ -522,7 +526,6 @@
     <EntitySet Name="Orders" EntityType="Self.Orders" />
     <EntitySet Name="Pingjia_texts" EntityType="Self.Pingjia_texts" />
     <EntitySet Name="RealName" EntityType="Self.RealName" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
     <EntitySet Name="Texts" EntityType="Self.Texts" />
     <EntitySet Name="UserInfo" EntityType="Self.UserInfo" />
     <AssociationSet Name="FK__Addres__UserId__1367E606" Association="Self.FK__Addres__UserId__1367E606">
@@ -588,6 +591,10 @@
     <AssociationSet Name="FK__HuDong_te__Texts__35BCFE0A" Association="Self.FK__HuDong_te__Texts__35BCFE0A">
       <End Role="Texts" EntitySet="Texts" />
       <End Role="HuDong_texts" EntitySet="HuDong_texts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__JuBao__CLUserId__4316F928" Association="Self.FK__JuBao__CLUserId__4316F928">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="JuBao" EntitySet="JuBao" />
     </AssociationSet>
     <AssociationSet Name="FK__JuBao__UserId__412EB0B6" Association="Self.FK__JuBao__UserId__412EB0B6">
       <End Role="UserInfo" EntitySet="UserInfo" />

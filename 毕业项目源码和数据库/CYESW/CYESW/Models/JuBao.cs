@@ -21,8 +21,10 @@ namespace CYESW.Models
         public Nullable<System.DateTime> addTiem { get; set; }
         public Nullable<int> States { get; set; }
         public string HuiFu { get; set; }
+        public Nullable<int> CLUserId { get; set; }
     
         public virtual UserInfo UserInfo { get; set; }
         public virtual UserInfo UserInfo1 { get; set; }
+        public virtual UserInfo UserInfo2 { get; set; }
     }
 }

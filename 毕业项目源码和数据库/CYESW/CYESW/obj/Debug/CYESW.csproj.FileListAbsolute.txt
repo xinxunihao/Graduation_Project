@@ -174,8 +174,13 @@ C:\Users\Shinelon\Desktop\大三毕业项目\毕业项目\毕业项目源码和�
 C:\Users\Shinelon\Desktop\大三毕业项目\毕业项目\毕业项目源码和数据库\CYESW\CYESW\bin\zh-Hans\System.Web.WebPages.resources.dll
 C:\Users\Shinelon\Desktop\大三毕业项目\毕业项目\毕业项目源码和数据库\CYESW\CYESW\bin\zh-Hans\System.Web.WebPages.Deployment.resources.dll
 C:\Users\Shinelon\Desktop\大三毕业项目\毕业项目\毕业项目源码和数据库\CYESW\CYESW\bin\zh-Hans\System.Web.WebPages.Razor.resources.dll
-C:\Users\Shinelon\Desktop\大三毕业项目\毕业项目\毕业项目源码和数据库\CYESW\CYESW\obj\Debug\CYESW.csprojAssemblyReference.cache
 C:\Users\Shinelon\Desktop\大三毕业项目\毕业项目\毕业项目源码和数据库\CYESW\CYESW\obj\Debug\CYESW.csproj.CopyComplete
 C:\Users\Shinelon\Desktop\大三毕业项目\毕业项目\毕业项目源码和数据库\CYESW\CYESW\obj\Debug\CYESW.dll
 C:\Users\Shinelon\Desktop\大三毕业项目\毕业项目\毕业项目源码和数据库\CYESW\CYESW\obj\Debug\CYESW.pdb
 C:\Users\Shinelon\Desktop\大三毕业项目\毕业项目\毕业项目源码和数据库\CYESW\CYESW\bin\zh-Hans\EntityFramework.SqlServer.resources.dll
+C:\Users\Shinelon\Desktop\大三毕业项目\毕业项目\毕业项目源码和数据库\CYESW\CYESW\bin\PagedList.dll
+C:\Users\Shinelon\Desktop\大三毕业项目\毕业项目\毕业项目源码和数据库\CYESW\CYESW\bin\PagedList.Mvc.dll
+C:\Users\Shinelon\Desktop\大三毕业项目\毕业项目\毕业项目源码和数据库\CYESW\CYESW\bin\PagedList.xml
+C:\Users\Shinelon\Desktop\大三毕业项目\毕业项目\毕业项目源码和数据库\CYESW\CYESW\bin\PagedList.Mvc.xml
+C:\Users\Shinelon\Desktop\大三毕业项目\毕业项目\毕业项目源码和数据库\CYESW\CYESW\bin\Ajax.dll
+C:\Users\Shinelon\Desktop\大三毕业项目\毕业项目\毕业项目源码和数据库\CYESW\CYESW\obj\Debug\CYESW.csprojAssemblyReference.cache

@@ -32,9 +32,7 @@ namespace CYESW.Models
         public string Name { get; set; }
         public string Info { get; set; }
         public Nullable<double> Price { get; set; }
-        public Nullable<int> IsPlay { get; set; }
-        public Nullable<int> IsBuy { get; set; }
-        public Nullable<int> IsDelete { get; set; }
+        public Nullable<int> IsState { get; set; }
         public Nullable<System.DateTime> CreateTime { get; set; }
         public Nullable<System.DateTime> UpdateTime { get; set; }
     

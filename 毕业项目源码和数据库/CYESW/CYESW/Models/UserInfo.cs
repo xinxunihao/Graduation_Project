@@ -24,6 +24,7 @@ namespace CYESW.Models
             this.Goods = new HashSet<Goods>();
             this.JuBao = new HashSet<JuBao>();
             this.JuBao1 = new HashSet<JuBao>();
+            this.JuBao2 = new HashSet<JuBao>();
             this.Love = new HashSet<Love>();
             this.Orders = new HashSet<Orders>();
             this.Orders1 = new HashSet<Orders>();
@@ -41,6 +42,7 @@ namespace CYESW.Models
         public string Images { get; set; }
         public Nullable<int> IsDelete { get; set; }
         public Nullable<System.DateTime> AddTime { get; set; }
+        public Nullable<System.DateTime> EndTime { get; set; }
         public Nullable<int> IsManage { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -57,6 +59,8 @@ namespace CYESW.Models
         public virtual ICollection<JuBao> JuBao { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<JuBao> JuBao1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<JuBao> JuBao2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Love> Love { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
