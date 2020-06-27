@@ -24,7 +24,6 @@ namespace CYESW.Models
         public Nullable<System.DateTime> BuyTime2 { get; set; }
         public Nullable<System.DateTime> BuyTime3 { get; set; }
         public Nullable<System.DateTime> BuyTime4 { get; set; }
-        public Nullable<System.DateTime> BuyTime5 { get; set; }
     
         public virtual Goods Goods { get; set; }
         public virtual UserInfo UserInfo { get; set; }

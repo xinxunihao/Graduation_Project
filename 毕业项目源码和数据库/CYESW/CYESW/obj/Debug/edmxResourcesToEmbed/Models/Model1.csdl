@@ -11,7 +11,7 @@
     <Property Name="Addresss2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
     <Property Name="IsDelete" Type="Int32" />
-    <NavigationProperty Name="UserInfo" Relationship="Self.FK__Addres__UserId__1367E606" FromRole="Addres" ToRole="UserInfo" />
+    <NavigationProperty Name="UserInfo" Relationship="Self.FK__Addres__UserId__145C0A3F" FromRole="Addres" ToRole="UserInfo" />
   </EntityType>
   <EntityType Name="Friends">
     <Key>
@@ -21,8 +21,8 @@
     <Property Name="UserId1" Type="Int32" />
     <Property Name="UserId2" Type="Int32" />
     <Property Name="addTiem" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="UserInfo" Relationship="Self.FK__Friends__UserId1__2F10007B" FromRole="Friends" ToRole="UserInfo" />
-    <NavigationProperty Name="UserInfo1" Relationship="Self.FK__Friends__UserId2__300424B4" FromRole="Friends" ToRole="UserInfo" />
+    <NavigationProperty Name="UserInfo" Relationship="Self.FK__Friends__UserId1__300424B4" FromRole="Friends" ToRole="UserInfo" />
+    <NavigationProperty Name="UserInfo1" Relationship="Self.FK__Friends__UserId2__30F848ED" FromRole="Friends" ToRole="UserInfo" />
   </EntityType>
   <EntityType Name="Friends_texts">
     <Key>
@@ -32,8 +32,8 @@
     <Property Name="TextsId" Type="Int32" />
     <Property Name="UserId" Type="Int32" />
     <Property Name="States" Type="Int32" />
-    <NavigationProperty Name="Texts" Relationship="Self.FK__Friends_t__Texts__3D5E1FD2" FromRole="Friends_texts" ToRole="Texts" />
-    <NavigationProperty Name="UserInfo" Relationship="Self.FK__Friends_t__UserI__3E52440B" FromRole="Friends_texts" ToRole="UserInfo" />
+    <NavigationProperty Name="Texts" Relationship="Self.FK__Friends_t__Texts__3E52440B" FromRole="Friends_texts" ToRole="Texts" />
+    <NavigationProperty Name="UserInfo" Relationship="Self.FK__Friends_t__UserI__3F466844" FromRole="Friends_texts" ToRole="UserInfo" />
   </EntityType>
   <EntityType Name="Goods">
     <Key>
@@ -47,17 +47,22 @@
     <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Info" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Price" Type="Double" />
+    <Property Name="Price_Yuan" Type="Double" />
+    <Property Name="munber" Type="Int32" />
     <Property Name="IsState" Type="Int32" />
     <Property Name="CreateTime" Type="DateTime" Precision="3" />
     <Property Name="UpdateTime" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="Goodsaddress" Relationship="Self.FK__Goods__Goodsaddr__20C1E124" FromRole="Goods" ToRole="Goodsaddress" />
-    <NavigationProperty Name="GoodsType" Relationship="Self.FK__Goods__GoodsType__1FCDBCEB" FromRole="Goods" ToRole="GoodsType" />
-    <NavigationProperty Name="UserInfo" Relationship="Self.FK__Goods__UserId__1ED998B2" FromRole="Goods" ToRole="UserInfo" />
-    <NavigationProperty Name="Goodsimage" Relationship="Self.FK__Goodsimag__Goods__239E4DCF" FromRole="Goods" ToRole="Goodsimage" />
-    <NavigationProperty Name="HuDong_texts" Relationship="Self.FK__HuDong_te__Goods__36B12243" FromRole="Goods" ToRole="HuDong_texts" />
-    <NavigationProperty Name="Love" Relationship="Self.FK__Love__GoodsId__2C3393D0" FromRole="Goods" ToRole="Love" />
-    <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__GoodsId__286302EC" FromRole="Goods" ToRole="Orders" />
-    <NavigationProperty Name="Pingjia_texts" Relationship="Self.FK__Pingjia_t__Goods__3A81B327" FromRole="Goods" ToRole="Pingjia_texts" />
+    <Property Name="Peisong" Type="Int32" />
+    <Property Name="GoodsaddressInfo" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Ipone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Goodsaddress" Relationship="Self.FK__Goods__Goodsaddr__21B6055D" FromRole="Goods" ToRole="Goodsaddress" />
+    <NavigationProperty Name="GoodsType" Relationship="Self.FK__Goods__GoodsType__20C1E124" FromRole="Goods" ToRole="GoodsType" />
+    <NavigationProperty Name="UserInfo" Relationship="Self.FK__Goods__UserId__1FCDBCEB" FromRole="Goods" ToRole="UserInfo" />
+    <NavigationProperty Name="Goodsimage" Relationship="Self.FK__Goodsimag__Goods__24927208" FromRole="Goods" ToRole="Goodsimage" />
+    <NavigationProperty Name="HuDong_texts" Relationship="Self.FK__HuDong_te__Goods__37A5467C" FromRole="Goods" ToRole="HuDong_texts" />
+    <NavigationProperty Name="Love" Relationship="Self.FK__Love__GoodsId__2D27B809" FromRole="Goods" ToRole="Love" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__GoodsId__29572725" FromRole="Goods" ToRole="Orders" />
+    <NavigationProperty Name="Pingjia_texts" Relationship="Self.FK__Pingjia_t__Goods__3B75D760" FromRole="Goods" ToRole="Pingjia_texts" />
   </EntityType>
   <EntityType Name="Goodsaddress">
     <Key>
@@ -66,9 +71,9 @@
     <Property Name="GoodsaddressId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="TypeName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="GoodsaddressBId" Type="Int32" />
-    <NavigationProperty Name="Goods" Relationship="Self.FK__Goods__Goodsaddr__20C1E124" FromRole="Goodsaddress" ToRole="Goods" />
-    <NavigationProperty Name="Goodsaddress1" Relationship="Self.FK__Goodsaddr__Goods__1BFD2C07" FromRole="Goodsaddress" ToRole="Goodsaddress1" />
-    <NavigationProperty Name="Goodsaddress2" Relationship="Self.FK__Goodsaddr__Goods__1BFD2C07" FromRole="Goodsaddress1" ToRole="Goodsaddress" />
+    <NavigationProperty Name="Goods" Relationship="Self.FK__Goods__Goodsaddr__21B6055D" FromRole="Goodsaddress" ToRole="Goods" />
+    <NavigationProperty Name="Goodsaddress1" Relationship="Self.FK__Goodsaddr__Goods__1CF15040" FromRole="Goodsaddress" ToRole="Goodsaddress1" />
+    <NavigationProperty Name="Goodsaddress2" Relationship="Self.FK__Goodsaddr__Goods__1CF15040" FromRole="Goodsaddress1" ToRole="Goodsaddress" />
   </EntityType>
   <EntityType Name="Goodsimage">
     <Key>
@@ -77,7 +82,7 @@
     <Property Name="GoodsimageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="images" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="GoodsId" Type="Int32" />
-    <NavigationProperty Name="Goods" Relationship="Self.FK__Goodsimag__Goods__239E4DCF" FromRole="Goodsimage" ToRole="Goods" />
+    <NavigationProperty Name="Goods" Relationship="Self.FK__Goodsimag__Goods__24927208" FromRole="Goodsimage" ToRole="Goods" />
   </EntityType>
   <EntityType Name="GoodsType">
     <Key>
@@ -86,9 +91,9 @@
     <Property Name="GoodsTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="TypeName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="GoodsTypeBId" Type="Int32" />
-    <NavigationProperty Name="Goods" Relationship="Self.FK__Goods__GoodsType__1FCDBCEB" FromRole="GoodsType" ToRole="Goods" />
-    <NavigationProperty Name="GoodsType1" Relationship="Self.FK__GoodsType__Goods__1920BF5C" FromRole="GoodsType" ToRole="GoodsType1" />
-    <NavigationProperty Name="GoodsType2" Relationship="Self.FK__GoodsType__Goods__1920BF5C" FromRole="GoodsType1" ToRole="GoodsType" />
+    <NavigationProperty Name="Goods" Relationship="Self.FK__Goods__GoodsType__20C1E124" FromRole="GoodsType" ToRole="Goods" />
+    <NavigationProperty Name="GoodsType1" Relationship="Self.FK__GoodsType__Goods__1A14E395" FromRole="GoodsType" ToRole="GoodsType1" />
+    <NavigationProperty Name="GoodsType2" Relationship="Self.FK__GoodsType__Goods__1A14E395" FromRole="GoodsType1" ToRole="GoodsType" />
   </EntityType>
   <EntityType Name="HuDong_texts">
     <Key>
@@ -98,8 +103,8 @@
     <Property Name="TextsId" Type="Int32" />
     <Property Name="GoodsId" Type="Int32" />
     <Property Name="States" Type="Int32" />
-    <NavigationProperty Name="Goods" Relationship="Self.FK__HuDong_te__Goods__36B12243" FromRole="HuDong_texts" ToRole="Goods" />
-    <NavigationProperty Name="Texts" Relationship="Self.FK__HuDong_te__Texts__35BCFE0A" FromRole="HuDong_texts" ToRole="Texts" />
+    <NavigationProperty Name="Goods" Relationship="Self.FK__HuDong_te__Goods__37A5467C" FromRole="HuDong_texts" ToRole="Goods" />
+    <NavigationProperty Name="Texts" Relationship="Self.FK__HuDong_te__Texts__36B12243" FromRole="HuDong_texts" ToRole="Texts" />
   </EntityType>
   <EntityType Name="JuBao">
     <Key>
@@ -113,9 +118,9 @@
     <Property Name="States" Type="Int32" />
     <Property Name="HuiFu" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="CLUserId" Type="Int32" />
-    <NavigationProperty Name="UserInfo" Relationship="Self.FK__JuBao__CLUserId__4316F928" FromRole="JuBao" ToRole="UserInfo" />
-    <NavigationProperty Name="UserInfo1" Relationship="Self.FK__JuBao__UserId__412EB0B6" FromRole="JuBao" ToRole="UserInfo" />
-    <NavigationProperty Name="UserInfo2" Relationship="Self.FK__JuBao__UserId2__4222D4EF" FromRole="JuBao" ToRole="UserInfo" />
+    <NavigationProperty Name="UserInfo" Relationship="Self.FK__JuBao__CLUserId__440B1D61" FromRole="JuBao" ToRole="UserInfo" />
+    <NavigationProperty Name="UserInfo1" Relationship="Self.FK__JuBao__UserId__4222D4EF" FromRole="JuBao" ToRole="UserInfo" />
+    <NavigationProperty Name="UserInfo2" Relationship="Self.FK__JuBao__UserId2__4316F928" FromRole="JuBao" ToRole="UserInfo" />
   </EntityType>
   <EntityType Name="Love">
     <Key>
@@ -125,8 +130,8 @@
     <Property Name="UserId" Type="Int32" />
     <Property Name="GoodsId" Type="Int32" />
     <Property Name="addTiem" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="Goods" Relationship="Self.FK__Love__GoodsId__2C3393D0" FromRole="Love" ToRole="Goods" />
-    <NavigationProperty Name="UserInfo" Relationship="Self.FK__Love__UserId__2B3F6F97" FromRole="Love" ToRole="UserInfo" />
+    <NavigationProperty Name="Goods" Relationship="Self.FK__Love__GoodsId__2D27B809" FromRole="Love" ToRole="Goods" />
+    <NavigationProperty Name="UserInfo" Relationship="Self.FK__Love__UserId__2C3393D0" FromRole="Love" ToRole="UserInfo" />
   </EntityType>
   <EntityType Name="Orders">
     <Key>
@@ -142,10 +147,9 @@
     <Property Name="BuyTime2" Type="DateTime" Precision="3" />
     <Property Name="BuyTime3" Type="DateTime" Precision="3" />
     <Property Name="BuyTime4" Type="DateTime" Precision="3" />
-    <Property Name="BuyTime5" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="Goods" Relationship="Self.FK__Orders__GoodsId__286302EC" FromRole="Orders" ToRole="Goods" />
-    <NavigationProperty Name="UserInfo" Relationship="Self.FK__Orders__UserId1__267ABA7A" FromRole="Orders" ToRole="UserInfo" />
-    <NavigationProperty Name="UserInfo1" Relationship="Self.FK__Orders__UserId2__276EDEB3" FromRole="Orders" ToRole="UserInfo" />
+    <NavigationProperty Name="Goods" Relationship="Self.FK__Orders__GoodsId__29572725" FromRole="Orders" ToRole="Goods" />
+    <NavigationProperty Name="UserInfo" Relationship="Self.FK__Orders__UserId1__276EDEB3" FromRole="Orders" ToRole="UserInfo" />
+    <NavigationProperty Name="UserInfo1" Relationship="Self.FK__Orders__UserId2__286302EC" FromRole="Orders" ToRole="UserInfo" />
   </EntityType>
   <EntityType Name="Pingjia_texts">
     <Key>
@@ -155,8 +159,8 @@
     <Property Name="TextsId" Type="Int32" />
     <Property Name="GoodsId" Type="Int32" />
     <Property Name="States" Type="Int32" />
-    <NavigationProperty Name="Goods" Relationship="Self.FK__Pingjia_t__Goods__3A81B327" FromRole="Pingjia_texts" ToRole="Goods" />
-    <NavigationProperty Name="Texts" Relationship="Self.FK__Pingjia_t__Texts__398D8EEE" FromRole="Pingjia_texts" ToRole="Texts" />
+    <NavigationProperty Name="Goods" Relationship="Self.FK__Pingjia_t__Goods__3B75D760" FromRole="Pingjia_texts" ToRole="Goods" />
+    <NavigationProperty Name="Texts" Relationship="Self.FK__Pingjia_t__Texts__3A81B327" FromRole="Pingjia_texts" ToRole="Texts" />
   </EntityType>
   <EntityType Name="RealName">
     <Key>
@@ -167,7 +171,7 @@
     <Property Name="IdCard" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="AddTime" Type="DateTime" Precision="3" />
     <Property Name="IsDelete" Type="Int32" />
-    <NavigationProperty Name="UserInfo" Relationship="Self.FK__RealName__UserId__164452B1" FromRole="RealName" ToRole="UserInfo" />
+    <NavigationProperty Name="UserInfo" Relationship="Self.FK__RealName__UserId__173876EA" FromRole="RealName" ToRole="UserInfo" />
   </EntityType>
   <EntityType Name="Texts">
     <Key>
@@ -177,10 +181,10 @@
     <Property Name="UserId" Type="Int32" />
     <Property Name="Textbody" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="addTiem" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="Friends_texts" Relationship="Self.FK__Friends_t__Texts__3D5E1FD2" FromRole="Texts" ToRole="Friends_texts" />
-    <NavigationProperty Name="HuDong_texts" Relationship="Self.FK__HuDong_te__Texts__35BCFE0A" FromRole="Texts" ToRole="HuDong_texts" />
-    <NavigationProperty Name="Pingjia_texts" Relationship="Self.FK__Pingjia_t__Texts__398D8EEE" FromRole="Texts" ToRole="Pingjia_texts" />
-    <NavigationProperty Name="UserInfo" Relationship="Self.FK__Texts__UserId__32E0915F" FromRole="Texts" ToRole="UserInfo" />
+    <NavigationProperty Name="Friends_texts" Relationship="Self.FK__Friends_t__Texts__3E52440B" FromRole="Texts" ToRole="Friends_texts" />
+    <NavigationProperty Name="HuDong_texts" Relationship="Self.FK__HuDong_te__Texts__36B12243" FromRole="Texts" ToRole="HuDong_texts" />
+    <NavigationProperty Name="Pingjia_texts" Relationship="Self.FK__Pingjia_t__Texts__3A81B327" FromRole="Texts" ToRole="Pingjia_texts" />
+    <NavigationProperty Name="UserInfo" Relationship="Self.FK__Texts__UserId__33D4B598" FromRole="Texts" ToRole="UserInfo" />
   </EntityType>
   <EntityType Name="UserInfo">
     <Key>
@@ -198,21 +202,22 @@
     <Property Name="AddTime" Type="DateTime" Precision="3" />
     <Property Name="EndTime" Type="DateTime" Precision="3" />
     <Property Name="IsManage" Type="Int32" />
-    <NavigationProperty Name="Addres" Relationship="Self.FK__Addres__UserId__1367E606" FromRole="UserInfo" ToRole="Addres" />
-    <NavigationProperty Name="Friends" Relationship="Self.FK__Friends__UserId1__2F10007B" FromRole="UserInfo" ToRole="Friends" />
-    <NavigationProperty Name="Friends1" Relationship="Self.FK__Friends__UserId2__300424B4" FromRole="UserInfo" ToRole="Friends" />
-    <NavigationProperty Name="Friends_texts" Relationship="Self.FK__Friends_t__UserI__3E52440B" FromRole="UserInfo" ToRole="Friends_texts" />
-    <NavigationProperty Name="Goods" Relationship="Self.FK__Goods__UserId__1ED998B2" FromRole="UserInfo" ToRole="Goods" />
-    <NavigationProperty Name="JuBao" Relationship="Self.FK__JuBao__CLUserId__4316F928" FromRole="UserInfo" ToRole="JuBao" />
-    <NavigationProperty Name="JuBao1" Relationship="Self.FK__JuBao__UserId__412EB0B6" FromRole="UserInfo" ToRole="JuBao" />
-    <NavigationProperty Name="JuBao2" Relationship="Self.FK__JuBao__UserId2__4222D4EF" FromRole="UserInfo" ToRole="JuBao" />
-    <NavigationProperty Name="Love" Relationship="Self.FK__Love__UserId__2B3F6F97" FromRole="UserInfo" ToRole="Love" />
-    <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__UserId1__267ABA7A" FromRole="UserInfo" ToRole="Orders" />
-    <NavigationProperty Name="Orders1" Relationship="Self.FK__Orders__UserId2__276EDEB3" FromRole="UserInfo" ToRole="Orders" />
-    <NavigationProperty Name="RealName" Relationship="Self.FK__RealName__UserId__164452B1" FromRole="UserInfo" ToRole="RealName" />
-    <NavigationProperty Name="Texts" Relationship="Self.FK__Texts__UserId__32E0915F" FromRole="UserInfo" ToRole="Texts" />
+    <Property Name="Sex" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="Addres" Relationship="Self.FK__Addres__UserId__145C0A3F" FromRole="UserInfo" ToRole="Addres" />
+    <NavigationProperty Name="Friends" Relationship="Self.FK__Friends__UserId1__300424B4" FromRole="UserInfo" ToRole="Friends" />
+    <NavigationProperty Name="Friends1" Relationship="Self.FK__Friends__UserId2__30F848ED" FromRole="UserInfo" ToRole="Friends" />
+    <NavigationProperty Name="Friends_texts" Relationship="Self.FK__Friends_t__UserI__3F466844" FromRole="UserInfo" ToRole="Friends_texts" />
+    <NavigationProperty Name="Goods" Relationship="Self.FK__Goods__UserId__1FCDBCEB" FromRole="UserInfo" ToRole="Goods" />
+    <NavigationProperty Name="JuBao" Relationship="Self.FK__JuBao__CLUserId__440B1D61" FromRole="UserInfo" ToRole="JuBao" />
+    <NavigationProperty Name="JuBao1" Relationship="Self.FK__JuBao__UserId__4222D4EF" FromRole="UserInfo" ToRole="JuBao" />
+    <NavigationProperty Name="JuBao2" Relationship="Self.FK__JuBao__UserId2__4316F928" FromRole="UserInfo" ToRole="JuBao" />
+    <NavigationProperty Name="Love" Relationship="Self.FK__Love__UserId__2C3393D0" FromRole="UserInfo" ToRole="Love" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__UserId1__276EDEB3" FromRole="UserInfo" ToRole="Orders" />
+    <NavigationProperty Name="Orders1" Relationship="Self.FK__Orders__UserId2__286302EC" FromRole="UserInfo" ToRole="Orders" />
+    <NavigationProperty Name="RealName" Relationship="Self.FK__RealName__UserId__173876EA" FromRole="UserInfo" ToRole="RealName" />
+    <NavigationProperty Name="Texts" Relationship="Self.FK__Texts__UserId__33D4B598" FromRole="UserInfo" ToRole="Texts" />
   </EntityType>
-  <Association Name="FK__Addres__UserId__1367E606">
+  <Association Name="FK__Addres__UserId__145C0A3F">
     <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
     <End Role="Addres" Type="Self.Addres" Multiplicity="*" />
     <ReferentialConstraint>
@@ -224,7 +229,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Friends__UserId1__2F10007B">
+  <Association Name="FK__Friends__UserId1__300424B4">
     <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
     <End Role="Friends" Type="Self.Friends" Multiplicity="*" />
     <ReferentialConstraint>
@@ -236,7 +241,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Friends__UserId2__300424B4">
+  <Association Name="FK__Friends__UserId2__30F848ED">
     <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
     <End Role="Friends" Type="Self.Friends" Multiplicity="*" />
     <ReferentialConstraint>
@@ -248,7 +253,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Friends_t__Texts__3D5E1FD2">
+  <Association Name="FK__Friends_t__Texts__3E52440B">
     <End Role="Texts" Type="Self.Texts" Multiplicity="0..1" />
     <End Role="Friends_texts" Type="Self.Friends_texts" Multiplicity="*" />
     <ReferentialConstraint>
@@ -260,7 +265,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Friends_t__UserI__3E52440B">
+  <Association Name="FK__Friends_t__UserI__3F466844">
     <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
     <End Role="Friends_texts" Type="Self.Friends_texts" Multiplicity="*" />
     <ReferentialConstraint>
@@ -272,7 +277,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Goods__Goodsaddr__20C1E124">
+  <Association Name="FK__Goods__Goodsaddr__21B6055D">
     <End Role="Goodsaddress" Type="Self.Goodsaddress" Multiplicity="0..1" />
     <End Role="Goods" Type="Self.Goods" Multiplicity="*" />
     <ReferentialConstraint>
@@ -284,7 +289,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Goods__GoodsType__1FCDBCEB">
+  <Association Name="FK__Goods__GoodsType__20C1E124">
     <End Role="GoodsType" Type="Self.GoodsType" Multiplicity="0..1" />
     <End Role="Goods" Type="Self.Goods" Multiplicity="*" />
     <ReferentialConstraint>
@@ -296,7 +301,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Goods__UserId__1ED998B2">
+  <Association Name="FK__Goods__UserId__1FCDBCEB">
     <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
     <End Role="Goods" Type="Self.Goods" Multiplicity="*" />
     <ReferentialConstraint>
@@ -308,7 +313,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Goodsimag__Goods__239E4DCF">
+  <Association Name="FK__Goodsimag__Goods__24927208">
     <End Role="Goods" Type="Self.Goods" Multiplicity="0..1" />
     <End Role="Goodsimage" Type="Self.Goodsimage" Multiplicity="*" />
     <ReferentialConstraint>
@@ -320,7 +325,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__HuDong_te__Goods__36B12243">
+  <Association Name="FK__HuDong_te__Goods__37A5467C">
     <End Role="Goods" Type="Self.Goods" Multiplicity="0..1" />
     <End Role="HuDong_texts" Type="Self.HuDong_texts" Multiplicity="*" />
     <ReferentialConstraint>
@@ -332,7 +337,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Love__GoodsId__2C3393D0">
+  <Association Name="FK__Love__GoodsId__2D27B809">
     <End Role="Goods" Type="Self.Goods" Multiplicity="0..1" />
     <End Role="Love" Type="Self.Love" Multiplicity="*" />
     <ReferentialConstraint>
@@ -344,7 +349,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Orders__GoodsId__286302EC">
+  <Association Name="FK__Orders__GoodsId__29572725">
     <End Role="Goods" Type="Self.Goods" Multiplicity="0..1" />
     <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
     <ReferentialConstraint>
@@ -356,7 +361,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Pingjia_t__Goods__3A81B327">
+  <Association Name="FK__Pingjia_t__Goods__3B75D760">
     <End Role="Goods" Type="Self.Goods" Multiplicity="0..1" />
     <End Role="Pingjia_texts" Type="Self.Pingjia_texts" Multiplicity="*" />
     <ReferentialConstraint>
@@ -368,7 +373,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Goodsaddr__Goods__1BFD2C07">
+  <Association Name="FK__Goodsaddr__Goods__1CF15040">
     <End Role="Goodsaddress" Type="Self.Goodsaddress" Multiplicity="0..1" />
     <End Role="Goodsaddress1" Type="Self.Goodsaddress" Multiplicity="*" />
     <ReferentialConstraint>
@@ -380,7 +385,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__GoodsType__Goods__1920BF5C">
+  <Association Name="FK__GoodsType__Goods__1A14E395">
     <End Role="GoodsType" Type="Self.GoodsType" Multiplicity="0..1" />
     <End Role="GoodsType1" Type="Self.GoodsType" Multiplicity="*" />
     <ReferentialConstraint>
@@ -392,7 +397,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__HuDong_te__Texts__35BCFE0A">
+  <Association Name="FK__HuDong_te__Texts__36B12243">
     <End Role="Texts" Type="Self.Texts" Multiplicity="0..1" />
     <End Role="HuDong_texts" Type="Self.HuDong_texts" Multiplicity="*" />
     <ReferentialConstraint>
@@ -404,7 +409,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__JuBao__CLUserId__4316F928">
+  <Association Name="FK__JuBao__CLUserId__440B1D61">
     <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
     <End Role="JuBao" Type="Self.JuBao" Multiplicity="*" />
     <ReferentialConstraint>
@@ -416,7 +421,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__JuBao__UserId__412EB0B6">
+  <Association Name="FK__JuBao__UserId__4222D4EF">
     <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
     <End Role="JuBao" Type="Self.JuBao" Multiplicity="*" />
     <ReferentialConstraint>
@@ -428,7 +433,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__JuBao__UserId2__4222D4EF">
+  <Association Name="FK__JuBao__UserId2__4316F928">
     <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
     <End Role="JuBao" Type="Self.JuBao" Multiplicity="*" />
     <ReferentialConstraint>
@@ -440,7 +445,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Love__UserId__2B3F6F97">
+  <Association Name="FK__Love__UserId__2C3393D0">
     <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
     <End Role="Love" Type="Self.Love" Multiplicity="*" />
     <ReferentialConstraint>
@@ -452,7 +457,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Orders__UserId1__267ABA7A">
+  <Association Name="FK__Orders__UserId1__276EDEB3">
     <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
     <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
     <ReferentialConstraint>
@@ -464,7 +469,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Orders__UserId2__276EDEB3">
+  <Association Name="FK__Orders__UserId2__286302EC">
     <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
     <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
     <ReferentialConstraint>
@@ -476,7 +481,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Pingjia_t__Texts__398D8EEE">
+  <Association Name="FK__Pingjia_t__Texts__3A81B327">
     <End Role="Texts" Type="Self.Texts" Multiplicity="0..1" />
     <End Role="Pingjia_texts" Type="Self.Pingjia_texts" Multiplicity="*" />
     <ReferentialConstraint>
@@ -488,7 +493,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__RealName__UserId__164452B1">
+  <Association Name="FK__RealName__UserId__173876EA">
     <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
     <End Role="RealName" Type="Self.RealName" Multiplicity="*" />
     <ReferentialConstraint>
@@ -500,7 +505,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Texts__UserId__32E0915F">
+  <Association Name="FK__Texts__UserId__33D4B598">
     <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
     <End Role="Texts" Type="Self.Texts" Multiplicity="*" />
     <ReferentialConstraint>
@@ -528,103 +533,103 @@
     <EntitySet Name="RealName" EntityType="Self.RealName" />
     <EntitySet Name="Texts" EntityType="Self.Texts" />
     <EntitySet Name="UserInfo" EntityType="Self.UserInfo" />
-    <AssociationSet Name="FK__Addres__UserId__1367E606" Association="Self.FK__Addres__UserId__1367E606">
+    <AssociationSet Name="FK__Addres__UserId__145C0A3F" Association="Self.FK__Addres__UserId__145C0A3F">
       <End Role="UserInfo" EntitySet="UserInfo" />
       <End Role="Addres" EntitySet="Addres" />
     </AssociationSet>
-    <AssociationSet Name="FK__Friends__UserId1__2F10007B" Association="Self.FK__Friends__UserId1__2F10007B">
+    <AssociationSet Name="FK__Friends__UserId1__300424B4" Association="Self.FK__Friends__UserId1__300424B4">
       <End Role="UserInfo" EntitySet="UserInfo" />
       <End Role="Friends" EntitySet="Friends" />
     </AssociationSet>
-    <AssociationSet Name="FK__Friends__UserId2__300424B4" Association="Self.FK__Friends__UserId2__300424B4">
+    <AssociationSet Name="FK__Friends__UserId2__30F848ED" Association="Self.FK__Friends__UserId2__30F848ED">
       <End Role="UserInfo" EntitySet="UserInfo" />
       <End Role="Friends" EntitySet="Friends" />
     </AssociationSet>
-    <AssociationSet Name="FK__Friends_t__Texts__3D5E1FD2" Association="Self.FK__Friends_t__Texts__3D5E1FD2">
+    <AssociationSet Name="FK__Friends_t__Texts__3E52440B" Association="Self.FK__Friends_t__Texts__3E52440B">
       <End Role="Texts" EntitySet="Texts" />
       <End Role="Friends_texts" EntitySet="Friends_texts" />
     </AssociationSet>
-    <AssociationSet Name="FK__Friends_t__UserI__3E52440B" Association="Self.FK__Friends_t__UserI__3E52440B">
+    <AssociationSet Name="FK__Friends_t__UserI__3F466844" Association="Self.FK__Friends_t__UserI__3F466844">
       <End Role="UserInfo" EntitySet="UserInfo" />
       <End Role="Friends_texts" EntitySet="Friends_texts" />
     </AssociationSet>
-    <AssociationSet Name="FK__Goods__Goodsaddr__20C1E124" Association="Self.FK__Goods__Goodsaddr__20C1E124">
+    <AssociationSet Name="FK__Goods__Goodsaddr__21B6055D" Association="Self.FK__Goods__Goodsaddr__21B6055D">
       <End Role="Goodsaddress" EntitySet="Goodsaddress" />
       <End Role="Goods" EntitySet="Goods" />
     </AssociationSet>
-    <AssociationSet Name="FK__Goods__GoodsType__1FCDBCEB" Association="Self.FK__Goods__GoodsType__1FCDBCEB">
+    <AssociationSet Name="FK__Goods__GoodsType__20C1E124" Association="Self.FK__Goods__GoodsType__20C1E124">
       <End Role="GoodsType" EntitySet="GoodsType" />
       <End Role="Goods" EntitySet="Goods" />
     </AssociationSet>
-    <AssociationSet Name="FK__Goods__UserId__1ED998B2" Association="Self.FK__Goods__UserId__1ED998B2">
+    <AssociationSet Name="FK__Goods__UserId__1FCDBCEB" Association="Self.FK__Goods__UserId__1FCDBCEB">
       <End Role="UserInfo" EntitySet="UserInfo" />
       <End Role="Goods" EntitySet="Goods" />
     </AssociationSet>
-    <AssociationSet Name="FK__Goodsimag__Goods__239E4DCF" Association="Self.FK__Goodsimag__Goods__239E4DCF">
+    <AssociationSet Name="FK__Goodsimag__Goods__24927208" Association="Self.FK__Goodsimag__Goods__24927208">
       <End Role="Goods" EntitySet="Goods" />
       <End Role="Goodsimage" EntitySet="Goodsimage" />
     </AssociationSet>
-    <AssociationSet Name="FK__HuDong_te__Goods__36B12243" Association="Self.FK__HuDong_te__Goods__36B12243">
+    <AssociationSet Name="FK__HuDong_te__Goods__37A5467C" Association="Self.FK__HuDong_te__Goods__37A5467C">
       <End Role="Goods" EntitySet="Goods" />
       <End Role="HuDong_texts" EntitySet="HuDong_texts" />
     </AssociationSet>
-    <AssociationSet Name="FK__Love__GoodsId__2C3393D0" Association="Self.FK__Love__GoodsId__2C3393D0">
+    <AssociationSet Name="FK__Love__GoodsId__2D27B809" Association="Self.FK__Love__GoodsId__2D27B809">
       <End Role="Goods" EntitySet="Goods" />
       <End Role="Love" EntitySet="Love" />
     </AssociationSet>
-    <AssociationSet Name="FK__Orders__GoodsId__286302EC" Association="Self.FK__Orders__GoodsId__286302EC">
+    <AssociationSet Name="FK__Orders__GoodsId__29572725" Association="Self.FK__Orders__GoodsId__29572725">
       <End Role="Goods" EntitySet="Goods" />
       <End Role="Orders" EntitySet="Orders" />
     </AssociationSet>
-    <AssociationSet Name="FK__Pingjia_t__Goods__3A81B327" Association="Self.FK__Pingjia_t__Goods__3A81B327">
+    <AssociationSet Name="FK__Pingjia_t__Goods__3B75D760" Association="Self.FK__Pingjia_t__Goods__3B75D760">
       <End Role="Goods" EntitySet="Goods" />
       <End Role="Pingjia_texts" EntitySet="Pingjia_texts" />
     </AssociationSet>
-    <AssociationSet Name="FK__Goodsaddr__Goods__1BFD2C07" Association="Self.FK__Goodsaddr__Goods__1BFD2C07">
+    <AssociationSet Name="FK__Goodsaddr__Goods__1CF15040" Association="Self.FK__Goodsaddr__Goods__1CF15040">
       <End Role="Goodsaddress" EntitySet="Goodsaddress" />
       <End Role="Goodsaddress1" EntitySet="Goodsaddress" />
     </AssociationSet>
-    <AssociationSet Name="FK__GoodsType__Goods__1920BF5C" Association="Self.FK__GoodsType__Goods__1920BF5C">
+    <AssociationSet Name="FK__GoodsType__Goods__1A14E395" Association="Self.FK__GoodsType__Goods__1A14E395">
       <End Role="GoodsType" EntitySet="GoodsType" />
       <End Role="GoodsType1" EntitySet="GoodsType" />
     </AssociationSet>
-    <AssociationSet Name="FK__HuDong_te__Texts__35BCFE0A" Association="Self.FK__HuDong_te__Texts__35BCFE0A">
+    <AssociationSet Name="FK__HuDong_te__Texts__36B12243" Association="Self.FK__HuDong_te__Texts__36B12243">
       <End Role="Texts" EntitySet="Texts" />
       <End Role="HuDong_texts" EntitySet="HuDong_texts" />
     </AssociationSet>
-    <AssociationSet Name="FK__JuBao__CLUserId__4316F928" Association="Self.FK__JuBao__CLUserId__4316F928">
+    <AssociationSet Name="FK__JuBao__CLUserId__440B1D61" Association="Self.FK__JuBao__CLUserId__440B1D61">
       <End Role="UserInfo" EntitySet="UserInfo" />
       <End Role="JuBao" EntitySet="JuBao" />
     </AssociationSet>
-    <AssociationSet Name="FK__JuBao__UserId__412EB0B6" Association="Self.FK__JuBao__UserId__412EB0B6">
+    <AssociationSet Name="FK__JuBao__UserId__4222D4EF" Association="Self.FK__JuBao__UserId__4222D4EF">
       <End Role="UserInfo" EntitySet="UserInfo" />
       <End Role="JuBao" EntitySet="JuBao" />
     </AssociationSet>
-    <AssociationSet Name="FK__JuBao__UserId2__4222D4EF" Association="Self.FK__JuBao__UserId2__4222D4EF">
+    <AssociationSet Name="FK__JuBao__UserId2__4316F928" Association="Self.FK__JuBao__UserId2__4316F928">
       <End Role="UserInfo" EntitySet="UserInfo" />
       <End Role="JuBao" EntitySet="JuBao" />
     </AssociationSet>
-    <AssociationSet Name="FK__Love__UserId__2B3F6F97" Association="Self.FK__Love__UserId__2B3F6F97">
+    <AssociationSet Name="FK__Love__UserId__2C3393D0" Association="Self.FK__Love__UserId__2C3393D0">
       <End Role="UserInfo" EntitySet="UserInfo" />
       <End Role="Love" EntitySet="Love" />
     </AssociationSet>
-    <AssociationSet Name="FK__Orders__UserId1__267ABA7A" Association="Self.FK__Orders__UserId1__267ABA7A">
+    <AssociationSet Name="FK__Orders__UserId1__276EDEB3" Association="Self.FK__Orders__UserId1__276EDEB3">
       <End Role="UserInfo" EntitySet="UserInfo" />
       <End Role="Orders" EntitySet="Orders" />
     </AssociationSet>
-    <AssociationSet Name="FK__Orders__UserId2__276EDEB3" Association="Self.FK__Orders__UserId2__276EDEB3">
+    <AssociationSet Name="FK__Orders__UserId2__286302EC" Association="Self.FK__Orders__UserId2__286302EC">
       <End Role="UserInfo" EntitySet="UserInfo" />
       <End Role="Orders" EntitySet="Orders" />
     </AssociationSet>
-    <AssociationSet Name="FK__Pingjia_t__Texts__398D8EEE" Association="Self.FK__Pingjia_t__Texts__398D8EEE">
+    <AssociationSet Name="FK__Pingjia_t__Texts__3A81B327" Association="Self.FK__Pingjia_t__Texts__3A81B327">
       <End Role="Texts" EntitySet="Texts" />
       <End Role="Pingjia_texts" EntitySet="Pingjia_texts" />
     </AssociationSet>
-    <AssociationSet Name="FK__RealName__UserId__164452B1" Association="Self.FK__RealName__UserId__164452B1">
+    <AssociationSet Name="FK__RealName__UserId__173876EA" Association="Self.FK__RealName__UserId__173876EA">
       <End Role="UserInfo" EntitySet="UserInfo" />
       <End Role="RealName" EntitySet="RealName" />
     </AssociationSet>
-    <AssociationSet Name="FK__Texts__UserId__32E0915F" Association="Self.FK__Texts__UserId__32E0915F">
+    <AssociationSet Name="FK__Texts__UserId__33D4B598" Association="Self.FK__Texts__UserId__33D4B598">
       <End Role="UserInfo" EntitySet="UserInfo" />
       <End Role="Texts" EntitySet="Texts" />
     </AssociationSet>

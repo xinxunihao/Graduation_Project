@@ -1,0 +1,69 @@
+﻿
+@model CYESW.Models.RealName
+@using CYESW.Models
+@{
+    UserInfo user = Session["user"] as UserInfo;
+}
+
+<div class="alert alert-success alert-dismissable">
+    <button type="button" class="close" data-dismiss="alert"
+            aria-hidden="true">
+        &times;
+    </button>
+    欢迎来到 <span style="font-size:16px;color:orangered">@TempData["Title"]</span> 板块！认证可提高他人对您的信任哦！
+</div>
+<div class="div_rz">
+    @if (Model != null)
+    {
+        <h3 style="color:orange">恭喜您已完成网站认证！</h3>
+        <div class="bind bind-item">
+            <div class="div_rz_img">
+                <img src="~/images/icopng/实名.png" width="250" />
+            </div>
+            <p class="bindname active">身份证</p>
+            <p class="description">身份证号：43****************<br>绑定时间：@Model.AddTime</p>
+            <p class="go"><a href="/unbind/?type=idcard" class="button button-pink">申请解绑</a></p>
+        </div>
+    }
+    else
+    {
+        <h3 style="color:#806c6ced">您还未进行网站实名认证！</h3>
+        <div class="div_rz_img">
+            <img src="~/images/icopng/实名.png" width="250" class="gray" />
+        </div>
+        <div class="bind bind-item">
+            <button class="a_rz" title="点我进行认证" data-toggle="modal" data-target="#exampleModal" > 点我进行认证</button>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">朝阳网实名认证</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" action="/User/Certification_yz" id="form1" style="padding-left: 150px;">
+                            <input class="form-control" type="text" name="shenfenzhen" value="" placeholder=" 请输入18位身份证号">
+                            <input type="hidden" name="UserId" value="@user.UserId">
+                        </form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" onclick="submits()">提交认证</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+<script type="text/javascript">
+    function submits() {
+        $('#form1').submit();
+    }
+</script>
+
+</div>

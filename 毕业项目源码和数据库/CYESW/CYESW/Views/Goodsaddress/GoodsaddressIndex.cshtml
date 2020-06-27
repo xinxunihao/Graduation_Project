@@ -26,7 +26,7 @@
                                 @foreach (var item2 in shi.Where(p => p.GoodsaddressBId == item1.GoodsaddressId))
                                 {
                                     <li>
-                                        <a href="/Goodsaddress/Update/@item2.TypeName">@item2.TypeName</a>
+                                        <a href="/Goodsaddress/Update/@item2.TypeName?addres=@item2.GoodsaddressId">@item2.TypeName</a>
                                     </li>
                                 }
                             </ul>

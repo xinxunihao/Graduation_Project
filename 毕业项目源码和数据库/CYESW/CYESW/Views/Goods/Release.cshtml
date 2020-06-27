@@ -1,0 +1,79 @@
+﻿@using CYESW.Models
+@{
+
+    ViewBag.Title = "Release";
+    var typelist = ViewData["goodtype"] as List<GoodsType>;
+    int shezhi = 0;//用来设置后面的项在一行；标识
+}
+    <link href="~/Content/jquery-ui-1.9.1.custom.d3ae8ca1.css" rel="stylesheet" />
+<ul class="breadcrumb" style="margin:10px -5px 10px -5px;">
+    <li><a href="/Home/Index">朝阳二手网</a></li>
+    <li class="active">我要发布</li>
+</ul>
+<div class="alert alert-success alert-dismissable">
+    <button type="button" class="close" data-dismiss="alert"
+            aria-hidden="true">
+        &times;
+    </button>
+    欢迎来到发布界面!
+</div>
+<div>
+    <ul class="flow clearfix sep-big">
+        <li class="flow-item active"><label class="i-badge">1</label>选择类目</li>
+        <li class="flow-item"><label class="i-badge1">></label></li>
+        <li class="flow-item"><label class="i-badge">2</label>填写信息</li>
+        <li class="flow-item"><label class="i-badge1">></label></li>
+        <li class="flow-item"><label class="i-badge">3</label>完成发布</li>
+    </ul>
+</div>
+<div>
+    <div class="div_fabu">
+        <ul style="padding-left:0px">
+            @foreach (var item in typelist.Where(p => p.GoodsTypeBId == null))
+            {
+                shezhi++;
+                if (shezhi == 1)
+                {
+                    <li class="type_id_li ul_li list-group-item ">
+                        <h2 class="type_id_div type_id_@item.GoodsTypeId">@item.TypeName</h2>
+                        <ul>
+                            @foreach (var item1 in typelist.Where(p => p.GoodsTypeBId == item.GoodsTypeId))
+                            {
+
+                                <li class="type_i1_li type_id1_@item1.GoodsTypeId">
+                                    <h4 class="type_id1_div type_id1_@item1.GoodsTypeId">@item1.TypeName</h4>
+                                    <ul class="myrow">
+                                        @foreach (var item2 in typelist.Where(p => p.GoodsTypeBId == item1.GoodsTypeId))
+                                        {
+                                            <li class="type_id2_li"><a href="/Goods/Release_1?typeid=@item2.GoodsTypeId" class="a_full">@item2.TypeName</a></li>
+                                        }
+                                    </ul>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                }
+                else
+                {
+                    <li class="type_id_li ul_li list-group-item">
+                        <h2 class="type_id_div type_id_@item.GoodsTypeId">@item.TypeName</h2>
+                        <ul class="myrow">
+                            @foreach (var item1 in typelist.Where(p => p.GoodsTypeBId == item.GoodsTypeId))
+                            {
+
+                                <li class=" type_id2_li ">
+                                    <a href="/Goods/Release_1?typeid=@item1.GoodsTypeId" class="a_full"><h4 class="type_id2_div">@item1.TypeName</h4></a>
+
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                }
+
+            }
+        </ul>
+    </div>
+</div>
+
+
+

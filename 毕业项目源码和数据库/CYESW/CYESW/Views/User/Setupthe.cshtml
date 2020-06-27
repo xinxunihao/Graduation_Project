@@ -1,0 +1,126 @@
+﻿
+@model CYESW.Models.UserInfo
+@{
+    int? type = Session["user_uu"] as int?;
+    string class_1 = "", class_2 = "";//切换类名
+    if (type == 2) { class_2 = "uer_kk_1_active"; }
+    else { class_1 = "uer_kk_1_active"; }
+}
+<div class="alert alert-warning alert-dismissable">
+    <button type="button" class="close" data-dismiss="alert"
+            aria-hidden="true">
+        &times;
+    </button>
+    欢迎来到 <span style="font-size:16px;color:orangered">@TempData["Title"]</span> 板块！谨慎修改自己的个人信息哦！
+</div>
+<div class="row uer_kk" style="margin-left:0px;">
+    <div class="col-lg-2 uer_kk_1 @class_1"><a href="/User/UserIndex?type=1&sextype=4">设置信息</a></div>
+    <div class="col-lg-2 uer_kk_1 @class_2"><a href="/User/UserIndex?type=2&sextype=4">修改账号密码</a></div>
+</div>
+<div class="tab_content">
+    @if (type == 1)
+    {
+        <form action="/User/UserIndex_update" method="post" enctype="multipart/form-data">
+            <table class="tab table user_table">
+                <tr>
+                    <td>用户名：</td>
+                    <td><input type="text" name="UserName" value="@Model.UserName" class="form-control" /></td>
+                </tr>
+                <tr>
+                    <td>头像：</td>
+                    <td>
+                        <div>
+                            <img src="~/images/img/@Model.Images" width="100" />
+                            <input type="file" name="images_user" value="" />
+                            <input type="hidden" name="UserId" value="@Model.UserId" />
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>性别：</td>
+                    <td>
+                        @if (Model.Sex == "男")
+                        {
+                            <input type="radio" name="Sex" value="男" checked="checked" />@:帅哥 &nbsp; &nbsp;
+                            <input type="radio" name="Sex" value="女" />@:美女
+                        }
+                        else
+                        {
+                            <input type="radio" name="Sex" value="男" />@:帅哥 &nbsp; &nbsp;
+                            <input type="radio" name="Sex" value="女" checked="checked" />@:美女
+                        }
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>个人简介：</td>
+                    <td><input type="text" name="Info" value="@Model.Info" class="form-control" /></td>
+                </tr>
+                <tr>
+                    <td>绑定邮箱：</td>
+                    <td><input type="text" name="UserEmile2" value="@Model.UserEmile" class="form-control" disabled="disabled"/></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="submit" value="提 交" class="form-control tijiao" /></td>
+                </tr>
+            </table>
+        </form>
+    }
+    else
+    {
+<form action="/User/UserIndex_update_pwd" method="post">
+    <table class="tab table user_table">
+        <tr>
+            <td>用户昵称：</td>
+            <td><input type="text" name="UserName1" value="@Model.UserName" class="form-control"  disabled="disabled"/>
+                <input type="hidden" name="UserId1" value="@Model.UserId" />
+            </td>
+        </tr>
+        <tr>
+            <td>新密码：</td>
+            <td><input type="password" name="Newpwd" value="" class="form-control" /></td>
+        </tr>
+        <tr>
+            <td>确认新密码：</td>
+            <td><input type="password" name="Newpwd2" value="" class="form-control" /></td>
+        </tr>
+        <tr>
+            <td>注册邮箱：</td>
+            <td><input type="text" name="UserEmile1" id="UserEmile1" value="@Model.UserEmile" class="form-control" disabled="disabled"/>
+                <input type="hidden" name="UserEmile" id="UserEmile" value="@Model.UserEmile" class="form-control"/>
+            </td>
+        </tr>
+        <tr>
+            <td>邮箱验证码：</td>
+            <td style="display:flex"><input type="text" name="yanzhen" value="" class="form-control" />
+                <input type="button" name="yzm" value="发送验证码" onclick="GetYZ()" style="line-height:30px;" /></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" name="yanzhen" value="提交" class="form-control tijiao" /></td>
+        </tr>
+    </table>
+</form>
+    }
+<script type="text/javascript">
+     function GetYZ() {
+            if ($('#UserEmile').val() != null && $('#UserEmile').val() != "") {
+                $.ajax({
+                    type: "POST",
+                    url: "/User/GetYZ",
+                    data: { 'UserEmile': $('#UserEmile').val().toString() },/*参数*/
+                    //dataType: Text,/*参数类型*/
+                    success: function (result) {
+                        alert(result);
+                    }
+                })
+            } else {
+                alert('请先填写邮箱!');
+            }
+        }
+</script>
+</div>
+
+
+
+
+

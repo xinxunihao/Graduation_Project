@@ -44,6 +44,7 @@ namespace CYESW.Models
         public Nullable<System.DateTime> AddTime { get; set; }
         public Nullable<System.DateTime> EndTime { get; set; }
         public Nullable<int> IsManage { get; set; }
+        public string Sex { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Addres> Addres { get; set; }

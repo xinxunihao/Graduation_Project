@@ -1,0 +1,127 @@
+﻿
+@using CYESW.Models
+@{
+    var adress = Session["adress"] ?? "长沙";
+    var adressid = Session["adressid"] ?? 186;
+    ViewBag.Title = "Release_1";
+    var typeid = Session["fabulingshi"];//选择的类别id
+    var TypeName = ViewBag.TypeName;//选择的类别名称
+}
+<link href="~/Content/jquery-ui-1.9.1.custom.d3ae8ca1.css" rel="stylesheet" />
+<ul class="breadcrumb" style="margin:10px -5px 10px -5px;">
+    <li><a href="/Home/Index">朝阳二手网</a></li>
+    <li class="active">我要发布</li>
+</ul>
+<div class="alert alert-success alert-dismissable">
+    <button type="button" class="close" data-dismiss="alert"
+            aria-hidden="true">
+        &times;
+    </button>
+    欢迎来到发布界面!
+</div>
+<div>
+    <ul class="flow clearfix sep-big">
+        <li class="flow-item "><label class="i-badge">1</label>选择类目<a href="Release">(重选)</a></li>
+        <li class="flow-item"><label class="i-badge1">></label></li>
+        <li class="flow-item active"><label class="i-badge">2</label>填写信息</li>
+        <li class="flow-item"><label class="i-badge1">></label></li>
+        <li class="flow-item"><label class="i-badge">3</label>完成发布</li>
+    </ul>
+</div>
+
+<div id="publish" class="publish-detail">
+    <div class="separate">
+        基本信息<a target="_blank" href="#" class="feedback-link">已选择： @TypeName</a><div class="list-alert-mini">
+            <div class="list-alert-bubble">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion"
+                           href="#collapseOne">
+                            @TypeName （点我查看发帖要求）
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        发帖要求&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <br>a)真实、清晰、多角度的物品照片会吸引更多的关注，一图胜百字。&nbsp;&nbsp;
+                        <br>b)详细描述物品的购买时间、新旧程度、为何转让、交易方式及时间等更能快速成交哦
+                        <br>c)请勿发布精仿手机类、求购类、商家全新类信息。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><form id="bxForm" action="/Goods/Release_2" method="post" enctype="multipart/form-data" class="form qishipenjing ershou">
+        <div class="fabuform-tab"></div><div class="fabuform-tab-content">
+            <div class="p-line" id="id_title">
+                <label class="p-label"><span class="required">*</span>标题：</label><div class="publish-detail-item"><input type="text" name="Name" maxlength="25" class="input-60 input"></div><div class="form-tip" style="top: -11px;">
+                    写明品种，如转让仙人掌一盆
+                    <span class="circle"><i class="icon-tips"></i></span>
+                </div>
+            </div>
+            <div class="p-line" id="id_posterType">
+
+            </div>
+            <div class="p-line" id="id_tradingType2">
+                <label class="p-label">配送方式：</label><div class="publish-detail-item"><div class="checkbox-wrapper"><label class="form-label"><input type="radio" name="Peisong" value="快递" class="checkbox-radio" checked="checked">快递</label><label class="form-label"><input type="radio" name="Peisong" value="自取" class="checkbox-radio">自取</label></div></div>
+            </div><div class="p-line" id="id_价格">
+                <label class="p-label"><span class="required">*</span>价格：</label><div class="publish-detail-item"><input type="number" name="Price" maxlength="10" placeholder="请输入价格" class="input-6 input"></div><span class="fabuform-unit">元</span><div class="form-tip">
+                    请输入价格
+                    <span class="circle"><i class="icon-tips"></i></span>
+                </div>
+            </div>
+            <div class="p-line" id="id_原价">
+                <label class="p-label">原价：</label>
+                <div class="publish-detail-item"><input type="number" name="Price_Yuan" maxlength="10" class="input-6 input"></div>
+                <span class="fabuform-unit">元</span>
+            </div>
+            <div class="p-line" id="id_content">
+                <label class="p-label"><span class="required">*</span>描述：</label>
+                <div class="publish-detail-item">
+                    <textarea class="input" name="Info" maxlength="5000" size="5" style="overflow: hidden; overflow-wrap: break-word; resize: horizontal; height: 115px;"></textarea>
+                </div><div class="form-tip" style="top: -22.5px;">
+                    写明宝贝的情况，如特点、大小等
+                    <span class="circle"><i class="icon-tips"></i></span>
+                </div>
+            </div>
+            <div class="p-line" >
+                <label class="p-label"><span class="required">*</span>新旧状态：</label>
+                <div class="publish-detail-item">
+                    <input type="radio" name="IsNew" value="1" checked="checked"/>全新&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="IsNew" value="2" />95新&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="IsNew" value="3" />9成新&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="IsNew" value="4" />8成新&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="IsNew" value="5" />7成新
+                </div><div class="form-tip" style="top: -22.5px;">
+                    写明宝贝的情况，如特点、大小等
+                    <span class="circle"><i class="icon-tips"></i></span>
+                </div>
+            </div>
+            <div class="p-line swfu" id="id_images">
+                <label class="p-label"><span class="required">*</span>上传照片（目前只能上传一张）：</label><div class="publish-detail-item">
+                    <input type="file" name="Photos" value="" />
+                    <input type="hidden" name="GoodsTypeId" value="@typeid" />
+                    <input type="hidden" name="GoodsaddressId" value="@adressid" />
+                </div>
+            </div>
+            <div class="p-line group-wrapper">
+                <label class="p-label">
+                    <span class="required">*</span>城市：
+                </label><input type="text" name="jiade" value="@adress (与您当前定位有关)" disabled="disabled"><input style="width:250px;" type="text" name="GoodsaddressInfo" placeholder="具体地点" maxlength="50" class="input" autocomplete="off" title="您可在此填写具体的交易地点,推荐在人多处交易"><div class="form-tip">
+                    您可在此填写具体的交易地点,推荐在人多处交易
+                </div>
+            </div>
+    <div class="p-line" id="id_contact"><label class="p-label"><span class="required">*</span>联系电话：</label><div class="publish-detail-item"><input type="text" name="Ipone" maxlength="30" class="input-5 input"></div></div>
+            <input type="hidden" name="token" value="0a37162dcd8a380ba1b91103ef24c0fd"><input type="hidden" name="8cb44b44cba8fde" value="f822d2873c1592895779">
+        </div><input name="pay" type="hidden" value=""><iframe style="height:1px;width:1px;overflow:hidden;" frameborder="0" scrolling="no" src="//www.baixing.com/p/uuid_guard.php"></iframe>
+        <div id="spreadSection">
+
+        </div>
+    <p class="p-submit when-spread-p-submit">
+    <input type="submit" value="免费发布信息" id="fabu-form-submit" data-m-check="" class="form-submit button button-green"></p>
+    <div id="formsubmittips" style="" class="small p-submit when-spread-p-submit">
+            <input type="checkbox" id="agreement" name="agreement" checked="">本人已仔细阅读并同意&nbsp;<a target="_blank" href="//www.baixing.com/a/agreement/">百姓网用户服务协议</a>&nbsp;、&nbsp;<a target="_blank" href="//www.baixing.com/a/bangui/">百姓网公约</a>&nbsp;和&nbsp;<a href="//www.baixing.com/a/policy/" target="_blank">百姓网隐私政策条款</a>
+        </div>
+    </form>
+</div>
+

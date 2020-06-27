@@ -4,7 +4,7 @@
     ViewBag.Title = "IndexTwo";
     var goodslist = ViewData["goodslist"] as PagedList.PagedList<CYESW.Models.Goods>;
     var typeid = Session["typeid"];
-    string[] strlist = { "123","默认", "最新发布", "价格"  };
+    string[] strlist = { "123", "默认", "最新发布", "价格" };
 }
 
 <ul class="breadcrumb" style="margin:10px -5px 10px -5px;">
@@ -16,7 +16,7 @@
             aria-hidden="true">
         &times;
     </button>
-    欢迎来到 @TempData["Title"] 板块！为您查询到 @goodslist.Count() 条数据！
+    欢迎来到 <span style="font-size:16px;color:orangered">@TempData["Title"]</span> 板块！为您查询到 <span style="font-size:16px;color:orangered">@goodslist.TotalItemCount</span> 条数据！
 </div>
 <form role="form" action="/Goods/IndexTwo" method="get">
     <input type="hidden" name="typeid" value="@typeid" />
@@ -55,7 +55,7 @@
     <div class="row">
         <div class="col-lg-10">
             <div class="xuanzhe ">
-                价格区间：<input type="number" name="Price_min" value="@ViewBag.Price_min" class="xuanzhe_1" />--<input type="number" name="Price_max" value="@ViewBag.Price_max" class="xuanzhe_1" />
+                价格区间：<input type="number" name="Price_min" value="@ViewBag.Price_min" class="xuanzhe_1" placeholder="  请输入最低价格" />--<input type="number" name="Price_max" value="@ViewBag.Price_max" placeholder="  请输入最高价格" class="xuanzhe_1" />
                 地区限制：<select class="xuanzhe_1" name="Goodsaddress">
                     <option value="0">不限</option>
                     @foreach (var item in ViewBag.address)
@@ -91,12 +91,19 @@
                 }
                 else
                 {
-                    <input type="checkbox" name="IsNew"  />
+                    <input type="checkbox" name="IsNew" />
                 }
                 <input type="submit" name="name" value="高级搜索" class="serach ss_1" />
             </div>
             <div class="body_goodlist">
-
+                @if (goodslist.Count() < 1)
+                {
+                    <div class="no_div" style="margin:0px">
+                        <h2 style="text-align:center">
+                            <img src="~/images/icopng/疑惑的豆丁.png" />试试搜索其他关键词吧!
+                        </h2>
+                    </div>
+                }
                 @for (int i = 0; i < goodslist.Count(); i++)
                 {
                     <div class="list_1 row">
@@ -110,8 +117,8 @@
                             <p>@goodslist[i].GoodsType.TypeName / 最近更新：@goodslist[i].UpdateTime</p>
                         </div>
                         <div class="col-lg-4" style="text-align:right">
-                            <h3 class="jiage">@string.Format("{0:C}", @goodslist[i].Price)</h3>
-                            <a href="/Goods/AddLove?id=@goodslist[i].GoodsId" class="shoucan_1">添加收藏</a><a href="/Goods/Index?id=@goodslist[i].GoodsId" class="shoucan_1">前往查看</a>
+                            <h3 class="jiage">@string.Format("{0:C}", goodslist[i].Price)</h3>
+                            <a href="/Goods/AddLove?id=@goodslist[i].GoodsId" onclick="return addlove(@goodslist[i].GoodsId)" class="shoucan_1">添加收藏</a><a href="/Goods/Index?id=@goodslist[i].GoodsId" class="shoucan_1">前往查看</a>
                         </div>
                     </div>
                 }
@@ -121,7 +128,8 @@
                     @Html.PagedListPager(goodslist, page => Url.Action("IndexTwo", new
                     {
                         page,
-                        typeid = typeid
+                        typeid = typeid,
+
                     }))
                 </div>
             </div>
@@ -169,3 +177,4 @@
     </div>
 
 </form>
+

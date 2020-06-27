@@ -20,9 +20,10 @@ namespace CYESW.Controllers
             return View();
         }
 
-        public ActionResult Update(string id)
+        public ActionResult Update(string id,int? addres)
         {
             Session["adress"] = id;
+            Session["adressid"] = addres;
             return RedirectToAction("Index","Home");
         }
 

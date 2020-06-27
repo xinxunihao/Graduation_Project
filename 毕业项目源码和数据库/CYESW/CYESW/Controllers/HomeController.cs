@@ -26,7 +26,9 @@ namespace CYESW.Controllers
         {
             db.Configuration.LazyLoadingEnabled = false;//关闭延迟加载
             //使用贪婪加载
-            var goodlist = db.Goods.Include("UserInfo").Include("Goodsimage").ToList();
+            var goodlist = db.Goods.Include("UserInfo").Include("Goodsimage").Where(p=>p.IsState==1).ToList();
+            goodlist = goodlist.OrderBy(p=>p.UpdateTime).ToList();
+
             //var goodlistimg = db.Goods.Include("Goodsimage").Where(p => p.Goodsaddress.TypeName == "湖南").ToList();
             //借用newtonsoft。json包进行序列化,防止导航属性循环
             JsonSerializerSettings jsSettings = new JsonSerializerSettings();

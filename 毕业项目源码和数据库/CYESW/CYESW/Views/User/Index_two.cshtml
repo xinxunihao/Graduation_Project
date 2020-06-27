@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewBag.Title = "Index_two";
+
+}
+@model CYESW.Models.UserInfo
+<div class="bg row">
+
+    <div class="avatar-box col-lg-3">
+        <img src="https://img4.baixing.net/9cbabfa17f95d1495eeeb6b1ebce0581.png_180x180wbp">
+    </div>
+    <div class=" col-lg-9">
+        <div class="user-info">
+            <h1 class="user-name">@Model.UserName</h1>@string.Format("{0:yyyy年MM月dd日}",Model.AddTime)  注册
+        </div>
+    </div>
+</div>
+<div class="bg_1"></div>
+<hr />
+<div class="list_f">
+    <div class="col-lg-9">
+
+        @foreach (var item in Model.Goods)
+        {
+            <div class="list_1 row">
+                <div class="col-lg-3 row_1">
+                    <img src="~/images/img/@item.Goodsimage.FirstOrDefault().images" width="200" />
+                    <div class="row_1_1">共 @item.Goodsimage.Count() 图</div>
+                </div>
+                <div class="col-lg-5">
+                    <h3>@item.Name</h3>
+                    <p>@item.Goodsaddress.TypeName</p>
+                    <p>@item.GoodsType.TypeName / 最近更新：@item.UpdateTime</p>
+                </div>
+                <div class="col-lg-4" style="text-align:right">
+                    <h3 class="jiage">@string.Format("{0:C}", @item.Price)</h3>
+                    <a href="/Goods/AddLove?id=@item.GoodsId" onclick="return addlove(@item.GoodsId)" class="shoucan_1">添加收藏</a><a href="/Goods/Index?id=@item.GoodsId" class="shoucan_1">前往查看</a>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="col-lg-3">
+        @if (Model.RealName.Count() > 0)
+        {
+            <div class="div_rz" style="width:280px">
+                <h3 style="color:orange">已认证！</h3>
+                <div class="bind bind-item">
+                    <div class="div_rz_img">
+                        <img src="/images/icopng/%e5%ae%9e%e5%90%8d.png" width="150">
+                    </div>
+                    <p class="bindname active">身份证</p>
+                    <p class="description">身份证号：43****************<br>绑定时间：@Model.RealName.FirstOrDefault().AddTime</p>
+                </div>
+
+            </div>
+        }
+        else
+        {
+            <div class="div_rz" style="width:290px">
+                <h3 class="gray">未认证！</h3>
+                <div class="bind bind-item">
+                    <div class="div_rz_img">
+                        <img src="/images/icopng/%e5%ae%9e%e5%90%8d.png" width="150" class="gray">
+                    </div>
+                </div>
+
+            </div>
+        }
+
+    </div>
+</div>

@@ -2,7 +2,7 @@
 @using PagedList.Mvc
 @model PagedList.PagedList<CYESW.Models.Goods>
 @{
-    int? type = ViewBag.type;
+    int? type = Session["user_gt"] as int?;
     string class_1 = "", class_2 = "", class_3 = "", class_4 = "";//切换类名
     string text_1 = "", color_1;//显示状态,颜色
     if (type == 2) { class_2 = "uer_kk_1_active"; text_1 = "已下架"; color_1 = "#ff000094"; }
@@ -28,12 +28,11 @@
         }
         @for (int i=0; i<Model.Count();i++) {
             var image = Model[i].Goodsimage.FirstOrDefault().images;
-            var a = 1;
             <div class="goods_list1">
                 <div class="row uer_goods">
                     <div class="col-lg-2">
                         <img src="~/images/img/@image " style="width:150px;" />
-                        <p style="align-content:center;margin:22px 0px 0px 5px;font-size: 14px;">发布时间：@Model[i].CreateTime</p>
+                        <p style="align-content:center;margin:22px 0px 0px 5px;font-size: 14px;">更新时间：@Model[i].UpdateTime</p>
                     </div>
                     <div class="col-lg-10 uer_goods_txt">
                         <h3>@Model[i].Name</h3>
@@ -46,29 +45,29 @@
                                 <a href="/Goods/Index?id=@Model[i].GoodsId" class="good_a" style="">
                                     <img src="~/images/icopng/刷新.png" />&nbsp;&nbsp;查看
                                 </a>
-                                <a href="/User/Updata_c?id=@Model[i].GoodsId" class="good_a">
+                                <a href="/User/Updata_c?id=@Model[i].GoodsId&type_e=@type" class="good_a">
                                     <img src="~/images/icopng/顶部.png" /> &nbsp;&nbsp;擦亮
                                 </a>
-                                <a href="/User/Updata_x?id=@Model[i].GoodsId" class="good_a">
+                                <a href="/User/Updata_x?id=@Model[i].GoodsId&state=2&type_e=@type" class="good_a" onclick="return confirm('你确定要下架该宝贝信息吗？')">
                                     <img src="~/images/icopng/行囊.png" />&nbsp;&nbsp;下架
                                 </a>
-                                <a href="/Goods/Play?id=@Model[i].GoodsId" class="good_a">
+                                <a href="/Goods/Updata_g?id=@Model[i].GoodsId" class="good_a">
                                     <img src="~/images/icopng/编辑.png" />&nbsp;&nbsp;编辑
                                 </a>
-                                <a href="/User/Delete?id=@Model[i].GoodsId" class="good_a">
+                                <a href="/User/Delete?id=@Model[i].GoodsId&type_e=@type" class="good_a" onclick="return confirm('你确定要删除该宝贝信息吗？，不想出售可以先下架哦！')">
                                     <img src="~/images/icopng/注意3.png" />&nbsp;&nbsp;删除
                                 </a>
                             }
                             else if (type == 2)
                             {
-                                <a href="#" class="good_a">
-                                    <img src="~/images/icopng/行囊.png" />&nbsp;&nbsp;发布
+                                <a href="/User/Updata_x?id=@Model[i].GoodsId&state=1&type_e=@type" class="good_a">
+                                    <img src="~/images/icopng/行囊.png" />&nbsp;&nbsp;上架
                                 </a>
-                                <a href="#" class="good_a">
+                                <a href="/Goods/Updata_g?id=@Model[i].GoodsId" class="good_a">
                                     <img src="~/images/icopng/编辑.png" />&nbsp;&nbsp;编辑
                                 </a>
-                                <a href="#" class="good_a">
-                                    <img src="~/images/icopng/注意3.png" />&nbsp;&nbsp;删除
+                                <a href="/User/Delete?id=@Model[i].GoodsId&type_e=@type" class="good_a" onclick="return confirm('你确定要删除该宝贝信息吗？，不想出售可以先下架哦！')">
+                                    <img src="~/images/icopng/注意3.png" onclick="return confirm('你确定要删除该宝贝信息吗？')"/>&nbsp;&nbsp;删除
                                 </a>
                             }
                             else if (type == 3)
@@ -77,14 +76,14 @@
                                 if (orders == 1)
                                 {
                                     <span>当前宝贝状态：买家已付款>等待卖家发货</span>
-                                    <a href="#" class="good_a">
-                                        <img src="~/images/icopng/前往.png" />&nbsp;&nbsp;前往发货
+                                    <a href="/Goods/Order_1?Orderid=@Model[i].Orders.FirstOrDefault().OrdersId" class="good_a">
+                                        <img src="~/images/icopng/前往.png" />&nbsp;&nbsp;发货
                                     </a>
                                 }
                                 else if (orders == 2)
                                 {
                                     <span>当前宝贝状态：买家已付款>卖家已发货>等待买家收货</span>
-                                    <a href="#" class="good_a">
+                                    <a href="/Goods/Order_1?Orderid=@Model[i].Orders.FirstOrDefault().OrdersId" class="good_a">
                                         <img src="~/images/icopng/前往.png" />&nbsp;&nbsp;等待收货
                                     </a>
                                 }
@@ -103,7 +102,7 @@
                                 else if (orders == 4)
                                 {
                                     <span>当前宝贝状态：买家已确认收货，双方互评</span>
-                                    <a href="#" class="good_a">
+                                    <a href="/Goods/Order_1?Orderid=@Model[i].Orders.FirstOrDefault().OrdersId" class="good_a">
                                         <img src="~/images/icopng/前往.png" />&nbsp;&nbsp;查看评价
                                     </a>
                                 }

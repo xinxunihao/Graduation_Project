@@ -32,9 +32,14 @@ namespace CYESW.Models
         public string Name { get; set; }
         public string Info { get; set; }
         public Nullable<double> Price { get; set; }
+        public Nullable<double> Price_Yuan { get; set; }
+        public Nullable<int> munber { get; set; }
         public Nullable<int> IsState { get; set; }
         public Nullable<System.DateTime> CreateTime { get; set; }
         public Nullable<System.DateTime> UpdateTime { get; set; }
+        public Nullable<int> Peisong { get; set; }
+        public string GoodsaddressInfo { get; set; }
+        public string Ipone { get; set; }
     
         public virtual Goodsaddress Goodsaddress { get; set; }
         public virtual GoodsType GoodsType { get; set; }

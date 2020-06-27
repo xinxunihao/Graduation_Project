@@ -6,12 +6,31 @@
     UserInfo user = Session["user"] as UserInfo;//访问主人
     int good_1 = 0;//用户商品遍历跳出
     int good_2 = 0;//用户商品图片轮播遍历跳出
+    var mbx = "电脑"; int? mbxnub = 1;
+    var isnew = "全新";//新旧程度，1全新,2-95新，3-9成新，4-8成新，5-7成新
+    if (goods.IsNew == 2) { isnew = "95新"; }
+    else if (goods.IsNew == 3) { isnew = "9成新"; }
+    else if (goods.IsNew == 4) { isnew = "8成新"; }
+    else if (goods.IsNew == 5) { isnew = "7成新"; }
+    if (goods.GoodsType.GoodsTypeBId == 8)//其他
+    {
+        mbx = "其他";
+        mbxnub = 8;
+    }
+    if (goods.GoodsType.GoodsType2.GoodsTypeBId == null)//商品类型的父id的父id为空，剩下即为电脑
+    {
+        mbx = goods.GoodsType.GoodsType2.TypeName.ToString();
+        mbxnub = goods.GoodsType.GoodsTypeBId;
+    }
+    else//电脑类
+    {
+    }
 }
 
 
 <ul class="breadcrumb" style="margin:10px -5px 10px -5px;">
     <li><a href="/Home/Index">朝阳二手网</a></li>
-    <li><a href="/Home/IndexTwo?typeid=1">生活用品</a></li>
+    <li><a href="/Goods/IndexTwo?typeid=@mbxnub">@mbx</a></li>
     <li class="active">@goods.Name</li>
 </ul>
 <div class="row index_xianxi">
@@ -27,6 +46,7 @@
                 {
                     <img src="~/images/img/icon_idcard.png" class="gray" />
                 }
+
             </h2>
         </div>
         <div class="pries_1">
@@ -86,7 +106,7 @@
                 <table class="table_dz">
                     <tr>
                         <td>新旧程度：</td>
-                        <td>8成新</td>
+                        <td>@isnew</td>
                     </tr>
                     <tr>
                         <td>联系：</td>
@@ -95,8 +115,14 @@
                     <tr>
                         <td>操作：</td>
                         <td>
-                            <button class="btn btn-sm mybtn_1"><span class="glyphicon glyphicon-shopping-cart span_white"></span><span class="span_white">购买</span></button>
-                            <button class="btn btn-sm mybtn_2"><span class="glyphicon glyphicon-comment span_white"></span><span class="span_white">私信</span></button>
+                            <button class="btn btn-sm mybtn_1" data-toggle="modal" data-target="#exampleModal">
+                                <span class="glyphicon glyphicon-shopping-cart span_white"></span>
+                                <span class="span_white" >购买</span>
+                            </button>
+                            <button class="btn btn-sm mybtn_2"  data-toggle="modal" data-target="#exampleModa2">
+                                <span class="glyphicon glyphicon-comment span_white"></span>
+                                <span class="span_white">私信</span>
+                            </button>
                         </td>
                     </tr>
                 </table>
@@ -138,7 +164,7 @@
                 </tr>
                 <tr>
                     <td>收藏数：@goods.Love.Count()人</td>
-                    <td>原价：<span class="jiage" style="text-decoration: line-through">@string.Format("{0:C}", goods.Price)</span></td>
+                    <td>原价：<span class="jiage_gray" style="text-decoration: line-through">@string.Format("{0:C}", goods.Price_Yuan)</span></td>
                 </tr>
                 <tr>
                     <td>交易城市：@goods.Goodsaddress.TypeName</td>
@@ -159,7 +185,7 @@
             <div>
                 @foreach (var item in goods.Goodsimage)
                 {
-                <img src="~/images/img/@item.images" width="49%" />
+                    <img src="~/images/img/@item.images" width="49%" />
                 }
             </div>
             <div class="goods_buttom row">
@@ -248,7 +274,7 @@
     <div class="col-lg-3 " style="padding-right:0px">
         <div style="text-align:center " class="index_1">
             <img src="~/images/img/@user_1.Images" class="img-thumbnail user_img" />
-            <h3><a href="/User/UserIndex/">@user_1.UserName</a></h3>
+            <h3><a href="/User/Index_Index_two?UserId=@user_1.UserId">@user_1.UserName</a></h3>
             <p><span class="span_gray">注册时间：@string.Format("{0:yyyy年MM月dd}", user_1.AddTime)</span></p>
             <div class="personal-mybuluo-head">
                 <div class="personal-mybuluo-wording">身份认证</div>
@@ -279,7 +305,7 @@
                 @foreach (var item in user_1.Goods)
                 {
                     good_1++;
-                    if (good_1>2)
+                    if (good_1 > 2)
                     {
                         break;
                     }
@@ -357,6 +383,58 @@
                     </table>
                 </div>
 
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">请扫码付款</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="text-align:center">
+                <img src="~/images/icopng/mm_facetoface_collect_qrcode_1593244876510.png" width="300" />
+            </div>
+            <div class="modal-footer">
+                <form action="/Goods/Play_buy?GoodsId=@goods.GoodsId" method="post" style="text-align:center">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <input type="submit" class="btn btn-primary" value="已付款" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModa2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">请自行联系哦！</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table tab" style="text-align:center">
+                    <tr>
+                        <td>邮箱：</td>
+                        <td>@user_1.UserEmile</td>
+                    </tr>
+                    <tr>
+                        <td>手机：</td>
+                        <td>@goods.Ipone</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer" style="text-align:center">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary"  data-dismiss="modal">确定</button>
             </div>
         </div>
     </div>

@@ -4,47 +4,47 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="8e37444b5d4147339b8c89e969835614" Name="Diagram1">
-        <EntityTypeShape EntityType="CYESWModel.Addres" Width="1.5" PointX="3" PointY="11.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CYESWModel.Friends" Width="1.5" PointX="3" PointY="14.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="CYESWModel.Friends_texts" Width="1.5" PointX="5.25" PointY="24.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CYESWModel.Goods" Width="1.5" PointX="3" PointY="18" IsExpanded="true" />
-        <EntityTypeShape EntityType="CYESWModel.Goodsaddress" Width="1.5" PointX="0.75" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CYESWModel.Goodsimage" Width="1.5" PointX="5.25" PointY="19.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="CYESWModel.GoodsType" Width="1.5" PointX="0.75" PointY="23.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CYESWModel.HuDong_texts" Width="1.5" PointX="5.25" PointY="28.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="CYESWModel.JuBao" Width="1.5" PointX="3" PointY="25.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CYESWModel.Love" Width="1.5" PointX="5.25" PointY="16.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="CYESWModel.Orders" Width="1.5" PointX="8.25" PointY="17.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CYESWModel.Pingjia_texts" Width="1.5" PointX="8.25" PointY="25.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="CYESWModel.RealName" Width="1.5" PointX="3" PointY="29.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CYESWModel.Texts" Width="1.5" PointX="3" PointY="32.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CYESWModel.UserInfo" Width="1.5" PointX="0.75" PointY="16.375" IsExpanded="true" />
-        <AssociationConnector Association="CYESWModel.FK__Addres__UserId__1367E606" ManuallyRouted="false" />
-        <AssociationConnector Association="CYESWModel.FK__Friends__UserId1__2F10007B" ManuallyRouted="false" />
-        <AssociationConnector Association="CYESWModel.FK__Friends__UserId2__300424B4" ManuallyRouted="false" />
-        <AssociationConnector Association="CYESWModel.FK__Friends_t__Texts__3D5E1FD2" ManuallyRouted="false" />
-        <AssociationConnector Association="CYESWModel.FK__Friends_t__UserI__3E52440B" ManuallyRouted="false" />
-        <AssociationConnector Association="CYESWModel.FK__Goods__Goodsaddr__20C1E124" ManuallyRouted="false" />
-        <AssociationConnector Association="CYESWModel.FK__Goods__GoodsType__1FCDBCEB" ManuallyRouted="false" />
-        <AssociationConnector Association="CYESWModel.FK__Goods__UserId__1ED998B2" ManuallyRouted="false" />
-        <AssociationConnector Association="CYESWModel.FK__Goodsimag__Goods__239E4DCF" ManuallyRouted="false" />
-        <AssociationConnector Association="CYESWModel.FK__HuDong_te__Goods__36B12243" ManuallyRouted="false" />
-        <AssociationConnector Association="CYESWModel.FK__Love__GoodsId__2C3393D0" ManuallyRouted="false" />
-        <AssociationConnector Association="CYESWModel.FK__Orders__GoodsId__286302EC" ManuallyRouted="false" />
-        <AssociationConnector Association="CYESWModel.FK__Pingjia_t__Goods__3A81B327" ManuallyRouted="false" />
-        <AssociationConnector Association="CYESWModel.FK__Goodsaddr__Goods__1BFD2C07" ManuallyRouted="false" />
-        <AssociationConnector Association="CYESWModel.FK__GoodsType__Goods__1920BF5C" ManuallyRouted="false" />
-        <AssociationConnector Association="CYESWModel.FK__HuDong_te__Texts__35BCFE0A" ManuallyRouted="false" />
-        <AssociationConnector Association="CYESWModel.FK__JuBao__CLUserId__4316F928" ManuallyRouted="false" />
-        <AssociationConnector Association="CYESWModel.FK__JuBao__UserId__412EB0B6" ManuallyRouted="false" />
-        <AssociationConnector Association="CYESWModel.FK__JuBao__UserId2__4222D4EF" ManuallyRouted="false" />
-        <AssociationConnector Association="CYESWModel.FK__Love__UserId__2B3F6F97" ManuallyRouted="false" />
-        <AssociationConnector Association="CYESWModel.FK__Orders__UserId1__267ABA7A" ManuallyRouted="false" />
-        <AssociationConnector Association="CYESWModel.FK__Orders__UserId2__276EDEB3" ManuallyRouted="false" />
-        <AssociationConnector Association="CYESWModel.FK__Pingjia_t__Texts__398D8EEE" ManuallyRouted="false" />
-        <AssociationConnector Association="CYESWModel.FK__RealName__UserId__164452B1" ManuallyRouted="false" />
-        <AssociationConnector Association="CYESWModel.FK__Texts__UserId__32E0915F" ManuallyRouted="false" />
+      <Diagram DiagramId="f5fe6c33878f4926bc8c9236f13a8e3d" Name="Diagram1">
+        <EntityTypeShape EntityType="CYESWModel.Addres" Width="1.5" PointX="3" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CYESWModel.Friends" Width="1.5" PointX="3" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CYESWModel.Friends_texts" Width="1.5" PointX="5.25" PointY="24.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CYESWModel.Goods" Width="1.5" PointX="3" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CYESWModel.Goodsaddress" Width="1.5" PointX="0.75" PointY="23.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CYESWModel.Goodsimage" Width="1.5" PointX="5.25" PointY="20.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CYESWModel.GoodsType" Width="1.5" PointX="0.75" PointY="26.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CYESWModel.HuDong_texts" Width="1.5" PointX="5.25" PointY="28" IsExpanded="true" />
+        <EntityTypeShape EntityType="CYESWModel.JuBao" Width="1.5" PointX="3" PointY="26.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CYESWModel.Love" Width="1.5" PointX="5.25" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="CYESWModel.Orders" Width="1.5" PointX="8.25" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CYESWModel.Pingjia_texts" Width="1.5" PointX="8.25" PointY="26" IsExpanded="true" />
+        <EntityTypeShape EntityType="CYESWModel.RealName" Width="1.5" PointX="3" PointY="30.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CYESWModel.Texts" Width="1.5" PointX="3" PointY="33.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CYESWModel.UserInfo" Width="1.5" PointX="0.75" PointY="16.25" IsExpanded="true" />
+        <AssociationConnector Association="CYESWModel.FK__Addres__UserId__145C0A3F" ManuallyRouted="false" />
+        <AssociationConnector Association="CYESWModel.FK__Friends__UserId1__300424B4" ManuallyRouted="false" />
+        <AssociationConnector Association="CYESWModel.FK__Friends__UserId2__30F848ED" ManuallyRouted="false" />
+        <AssociationConnector Association="CYESWModel.FK__Friends_t__Texts__3E52440B" ManuallyRouted="false" />
+        <AssociationConnector Association="CYESWModel.FK__Friends_t__UserI__3F466844" ManuallyRouted="false" />
+        <AssociationConnector Association="CYESWModel.FK__Goods__Goodsaddr__21B6055D" ManuallyRouted="false" />
+        <AssociationConnector Association="CYESWModel.FK__Goods__GoodsType__20C1E124" ManuallyRouted="false" />
+        <AssociationConnector Association="CYESWModel.FK__Goods__UserId__1FCDBCEB" ManuallyRouted="false" />
+        <AssociationConnector Association="CYESWModel.FK__Goodsimag__Goods__24927208" ManuallyRouted="false" />
+        <AssociationConnector Association="CYESWModel.FK__HuDong_te__Goods__37A5467C" ManuallyRouted="false" />
+        <AssociationConnector Association="CYESWModel.FK__Love__GoodsId__2D27B809" ManuallyRouted="false" />
+        <AssociationConnector Association="CYESWModel.FK__Orders__GoodsId__29572725" ManuallyRouted="false" />
+        <AssociationConnector Association="CYESWModel.FK__Pingjia_t__Goods__3B75D760" ManuallyRouted="false" />
+        <AssociationConnector Association="CYESWModel.FK__Goodsaddr__Goods__1CF15040" ManuallyRouted="false" />
+        <AssociationConnector Association="CYESWModel.FK__GoodsType__Goods__1A14E395" ManuallyRouted="false" />
+        <AssociationConnector Association="CYESWModel.FK__HuDong_te__Texts__36B12243" ManuallyRouted="false" />
+        <AssociationConnector Association="CYESWModel.FK__JuBao__CLUserId__440B1D61" ManuallyRouted="false" />
+        <AssociationConnector Association="CYESWModel.FK__JuBao__UserId__4222D4EF" ManuallyRouted="false" />
+        <AssociationConnector Association="CYESWModel.FK__JuBao__UserId2__4316F928" ManuallyRouted="false" />
+        <AssociationConnector Association="CYESWModel.FK__Love__UserId__2C3393D0" ManuallyRouted="false" />
+        <AssociationConnector Association="CYESWModel.FK__Orders__UserId1__276EDEB3" ManuallyRouted="false" />
+        <AssociationConnector Association="CYESWModel.FK__Orders__UserId2__286302EC" ManuallyRouted="false" />
+        <AssociationConnector Association="CYESWModel.FK__Pingjia_t__Texts__3A81B327" ManuallyRouted="false" />
+        <AssociationConnector Association="CYESWModel.FK__RealName__UserId__173876EA" ManuallyRouted="false" />
+        <AssociationConnector Association="CYESWModel.FK__Texts__UserId__33D4B598" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

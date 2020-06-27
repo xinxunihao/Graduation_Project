@@ -11,7 +11,7 @@
 				<input type="text" name="name" placeholder=" 搜二手 出二手 淘二手" class="sousuo" /><input type="button" name="name" value="搜索" class="anniu" />
 			</div>
 			<div class="itmes">
-				<a href="#" class="play">免费发布二手产品信息</a>
+				<a href="/Goods/Release" class="play">免费发布二手产品信息</a>
 			</div>
 		</div>
 	</div>
@@ -45,13 +45,14 @@
 	</div>
 	<!-- 轮播（Carousel）导航 -->
 	<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-		<span class="svg_1" style="margin-top:125px;">
-			<svg t="1592297211798" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9449" width="57" height="57"><path d="M752.4 172.6L413 512l339.4 339.4-70.7 70.7L271.6 512l410.1-410.1 70.7 70.7z" fill="#f4ea2a" p-id="9450"></path></svg></span>
+		<span class="svg_1" >
+			<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+		</span>
 		<span class="sr-only">上一个</span>
 	</a>
 	<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
 		<span class="svg_1"  style="margin-top:125px;">
-			<svg t="1592297151883" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8620" width="48" height="48"><path d="M237.685 912.71l80.141 80.137 480.85-480.844-480.85-480.844-80.146 80.141 400.717 400.707z" p-id="8621" fill="#f4ea2a"></path></svg>
+			<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 		</span>
 		<span class="sr-only">下一个</span>
 	</a>
@@ -91,7 +92,7 @@
 <script>
 	//屏幕默认大小,初始化图片的占用位置
 	var windowHeight = window.screen.height + 500;
-	var imgId = 3;
+	var imgId = 0;
 
     var goods = {};//用来存储后台商品数据
 	var images = "";//用来存储后台商品图片数据
@@ -162,9 +163,10 @@
             //插入图片
 			try{
 				console.log(msg[imgId].Goodsimage[0].images);
-				imgId++;
+				console.log("发生错误了,跳出计时器。error：" + imgId+"追加了")
 				var parentdiv = $('<div class="thumbnail"><a href="/Goods/Index?id='+msg[imgId].GoodsId+'"><img src="/images/img/'+msg[imgId].Goodsimage[0].images+'" /><div class="caption"><h3>'+msg[imgId].Name+'</h3><div><span class="monye_1">'+msg[imgId].Price+'</span><span style="color:gray;margin-left:10px;">长沙</span></div><p>'+msg[imgId].Info+'</p><hr /><div class="userinfo_sm"><img src="/images/img/' + msg[imgId].UserInfo.Images+ '" />' + msg[imgId].UserInfo.UserName+ '</div></div></a></div>');
-				mDiv.append(parentdiv);
+                mDiv.append(parentdiv);
+				imgId++;
             } catch (error) {
                 console.log("发生错误了,跳出计时器。error：" + error)
 				clearInterval(inter);//停止定时器

@@ -1,7 +1,17 @@
 ﻿@using CYESW.Models
+
 @{
     ViewBag.Title = "UserIndex";
     var user = Session["user"] as UserInfo;
+    int sextype = int.Parse(ViewData["sextype"].ToString());
+    string[] class_1 = { "","","","","",""};//切换类名
+    for (int i = 1; i <= 5; i++)
+    {
+        if (sextype==i)
+        {
+            class_1[i - 1] = "user_ul_li_active";
+        }
+    }
 }
 
 
@@ -11,8 +21,8 @@
             <img src="~/images/img/@user.Images" class="img_tx" />
         </div>
         <div class="col-lg-10 uer_wb">
-            <p><span style="font-size:25px;font-weight:bold">@user.UserName</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>周末快乐！</span></p>
-            <p><span>邮箱：@user.UserEmile</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>id：@user.UserId</span></p>
+            <p><span style="font-size:25px;font-weight:bold">欢迎！ @user.UserName</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>周末快乐！</span></p>
+            <p><span>邮箱：@user.UserEmile</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>id：@user.UserId</span></p>
         </div>
     </div>
     <div class="row user_ul_big">
@@ -20,20 +30,49 @@
             <div class="user_ul">
                 <h3>用户中心</h3>
                 <ul>
-                    <li class="user_ul_li_active" value="1">我发布的</li>
-                    <li value="2">我收藏的</li>
-                    <li value="3">我的消息</li>
+                    <li class="@class_1[0]"><a class="a_full" href="/User/UserIndex?sextype=1">我发布的</a></li>
+                    <li class="@class_1[1]"><a class="a_full" href="/User/UserIndex?sextype=2">我收藏的</a></li>
+                    <li class="@class_1[2]"><a class="a_full" href="/User/UserIndex?sextype=3">我拍下的</a></li>
                 </ul>
                 <h3>账户管理</h3>
                 <ul>
-                    <li value="4">我的资料</li>
-                    <li value="5">我的认证</li>
-                    <li value="6">我的反馈</li>
+                    <li class="@class_1[3]"><a class="a_full" href="/User/UserIndex?sextype=4">我的资料</a></li>
+                    <li class="@class_1[4]"><a class="a_full" href="/User/UserIndex?sextype=5">我的认证</a></li>
+                    <li class="@class_1[5]"><a class="a_full" href="/User/UserIndex?sextype=6">我的反馈</a></li>
                 </ul>
             </div>
         </div>
         <div class="col-lg-9 ">
-                @{Html.RenderPartial("Publish");}
+            @if (sextype == 1)
+            {
+                Html.RenderPartial("Publish");
+            }
+            else if (sextype == 2)
+            {
+                Html.RenderPartial("Love");
+            }
+            else if (sextype == 3)
+            {
+                Html.RenderPartial("Theorder");
+            }
+            else if (sextype == 4)
+            {
+                Html.RenderPartial("Setupthe");
+            }
+            else if (sextype == 5)
+            {
+                Html.RenderPartial("Certification");
+            }
+            else if (sextype == 6)
+            {
+                Html.RenderPartial("Feedback");
+            }
+            else
+            {
+                //多余的？？？
+                Html.RenderPartial("Publish");
+            }
+
         </div>
     </div>
 </div>

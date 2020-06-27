@@ -45,9 +45,14 @@
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Info" ColumnName="Info" />
           <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Price_Yuan" ColumnName="Price_Yuan" />
+          <ScalarProperty Name="munber" ColumnName="munber" />
           <ScalarProperty Name="IsState" ColumnName="IsState" />
           <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
           <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+          <ScalarProperty Name="Peisong" ColumnName="Peisong" />
+          <ScalarProperty Name="GoodsaddressInfo" ColumnName="GoodsaddressInfo" />
+          <ScalarProperty Name="Ipone" ColumnName="Ipone" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -125,7 +130,6 @@
           <ScalarProperty Name="BuyTime2" ColumnName="BuyTime2" />
           <ScalarProperty Name="BuyTime3" ColumnName="BuyTime3" />
           <ScalarProperty Name="BuyTime4" ColumnName="BuyTime4" />
-          <ScalarProperty Name="BuyTime5" ColumnName="BuyTime5" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -175,6 +179,7 @@
           <ScalarProperty Name="AddTime" ColumnName="AddTime" />
           <ScalarProperty Name="EndTime" ColumnName="EndTime" />
           <ScalarProperty Name="IsManage" ColumnName="IsManage" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

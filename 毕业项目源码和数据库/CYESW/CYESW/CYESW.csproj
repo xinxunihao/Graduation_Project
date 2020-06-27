@@ -143,6 +143,7 @@
     <Compile Include="Controllers\GoodsaddressController.cs" />
     <Compile Include="Controllers\GoodsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\idCard.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -220,15 +221,19 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\jquery-ui-1.9.1.custom.d3ae8ca1.css" />
     <Content Include="Content\mycss.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\style.css" />
+    <Content Include="Content\xxyx.css" />
     <Content Include="Content\zzsc.css" />
     <Content Include="favicon.ico" />
     <Content Include="foots\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="images\icopng\info.png" />
+    <Content Include="images\icopng\mm_facetoface_collect_qrcode_1593244876510.png" />
+    <Content Include="images\icopng\u_top_bg.jpg" />
     <Content Include="images\icopng\关闭.png" />
     <Content Include="images\icopng\分享.png" />
     <Content Include="images\icopng\刷新.png" />
@@ -236,12 +241,15 @@
     <Content Include="images\icopng\反馈.png" />
     <Content Include="images\icopng\喜欢.png" />
     <Content Include="images\icopng\喜欢_fill.png" />
+    <Content Include="images\icopng\女.png" />
+    <Content Include="images\icopng\实名.png" />
     <Content Include="images\icopng\客服.png" />
     <Content Include="images\icopng\小贴士.png" />
     <Content Include="images\icopng\推广.png" />
     <Content Include="images\icopng\收藏.png" />
     <Content Include="images\icopng\更多.png" />
     <Content Include="images\icopng\注意3.png" />
+    <Content Include="images\icopng\男.png" />
     <Content Include="images\icopng\疑惑的豆丁.png" />
     <Content Include="images\icopng\编辑.png" />
     <Content Include="images\icopng\行囊.png" />
@@ -443,6 +451,10 @@
     <Content Include="layui\font\iconfont.ttf" />
     <Content Include="layui\font\iconfont.woff" />
     <Content Include="layui\font\iconfont.woff2" />
+    <Content Include="foots\glyphicons-halflings-regular.eot" />
+    <Content Include="foots\glyphicons-halflings-regular.ttf" />
+    <Content Include="foots\glyphicons-halflings-regular.woff" />
+    <Content Include="foots\glyphicons-halflings-regular.woff2" />
     <EntityDeploy Include="Models\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -450,10 +462,6 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
-    <Content Include="foots\glyphicons-halflings-regular.eot" />
-    <Content Include="foots\glyphicons-halflings-regular.ttf" />
-    <Content Include="foots\glyphicons-halflings-regular.woff" />
-    <Content Include="foots\glyphicons-halflings-regular.woff2" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -575,6 +583,17 @@
     <Content Include="Views\User\Publish.cshtml" />
     <Content Include="Views\Goods\IndexTwo.cshtml" />
     <Content Include="Views\Goods\SearchList.cshtml" />
+    <Content Include="Views\Goods\Release.cshtml" />
+    <Content Include="Views\Goods\Release_1.cshtml" />
+    <Content Include="Views\Goods\Release_2.cshtml" />
+    <Content Include="Views\Goods\Updata_g.cshtml" />
+    <Content Include="Views\User\Theorder.cshtml" />
+    <Content Include="Views\User\Setupthe.cshtml" />
+    <Content Include="Views\User\Certification.cshtml" />
+    <Content Include="Views\User\Feedback.cshtml" />
+    <Content Include="Views\Goods\Order_1.cshtml" />
+    <Content Include="Views\User\Index_two.cshtml" />
+    <Content Include="Views\Goods\Order_2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

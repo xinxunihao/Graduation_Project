@@ -2,10 +2,13 @@
 --create database CYESW
 --drop database CYESW
 --go
---商品浏览次数，新旧程度，int类型吧，分为1全新,2-95新，3-9成新，，，--原价--详细地址。添加两个时间，擦亮
+--商品浏览次数，新旧程度，int类型吧，分为1全新,2-95新，3-9成新，，，--原价--详细地址。
 --添加站内推广表，站外推广表
+--其实订单表和商品表是1对1的关系吧？？
+--最后的商品评价其实可以给订单表？？
 
 use CYESW
+--use shsl
 go
 if exists(select * from sysobjects where name='UserInfo')
 drop table UserInfo;
@@ -24,11 +27,13 @@ create table UserInfo(
   AddTime datetime,--注册时间
   EndTime datetime,--最后时间
   IsManage int default(0),--是否为管理员，1为是
+  Sex char(2) check(sex='男' or sex='女'),--男或女
 )
+--update UserInfo set UserEmile='3089218762@qq.com' where UserId=1
 go
 --select * from userinfo
-insert into UserInfo values('admin','123456@qq.com','123456',20,200.2,'我是帅哥，高冷，不想说话','man.jpg',0,GETDATE(),GETDATE(),0)
-insert into UserInfo values('admin2','1234567@qq.com','123456',20,200.2,'我是美女，hi，一起play啊','women.jpg',0,GETDATE(),GETDATE(),1)
+insert into UserInfo values('admin','3089218762@qq.com','123456',20,200.2,'我是帅哥，高冷，不想说话','man.jpg',0,GETDATE(),GETDATE(),0,'男')
+insert into UserInfo values('admin2','1234567@qq.com','123456',20,200.2,'我是美女，hi，一起play啊','women.jpg',0,GETDATE(),GETDATE(),1,'女')
 
 go
 if exists(select * from sysobjects where name='Addres')
@@ -80,7 +85,7 @@ go
 --select * from GoodsType
 insert into GoodsType values('电脑',null),('手机平板',null),('办公用品',null),('数码产品',null),('生活用品',null),('图书',null),('虚拟道具',null),('其它',null)
 go
-insert into GoodsType values('笔记本',1),('电脑组件',1),('外设产品',1),('台式机',1),('其它电脑',1)
+insert into GoodsType values('笔记本',1),('电脑组件',1),('外设产品',1),('台式机',1)
 go
 insert into GoodsType values('苹果手机',2),('小米手机',2),('华为手机',2),('OPPO手机',2),('vivo手机',2),('三星手机',2),('魅族手机',2),('诺基亚手机',2),('锤子手机',2),('联想手机',2),('酷派手机',2),
 ('苹果平板',2),('华为平板',2),('小米平板',2),('微软平板',2),('三星平板',2),('谷歌平板',2),('戴尔平板',2),('联想平板',2),('其它手机平板',2)
@@ -88,10 +93,12 @@ insert into GoodsType values('打印机',3),('投影机',3),('传真设备',3),('点钞机',3
 insert into GoodsType values('耳机',4),('音箱',4),('游戏机',4),('相机',4),('穿戴设备',4),('随身听',4),('其他数码产品',4)
 insert into GoodsType values('男装',5),('女装',5),('鞋',5),('包包',5),('厨具',5),('家电',5),('其他生活用品',5)
 insert into GoodsType values('文学小说',6),('经管励志',6),('儿童教育',6),('人文社科',6),('科技科普',6),('生活艺术',6),('教材辅助',6),('外文原版',6),('唱片影片',6),('其他图书',6)
+insert into GoodsType values('游戏账号',7),('游戏道具',7),('优惠券',7),('Q币充值',7),('其它虚拟道具',7)
 insert into GoodsType values('苹果笔记本',9),('联想笔记本',9),('戴尔笔记本',9),('惠普笔记本',9),('ThinkPad笔记本',9),('三星笔记本',9),('东芝笔记本',9),('华为笔记本',9),('小米笔记本',9),('华硕笔记本',9),('微软笔记本',9),('神舟笔记本',9),('雷神笔记本',9),('索尼笔记本',9),('炫龙笔记本',9),('其它笔记本',9)
 insert into GoodsType values('内存',10),('硬盘',10),('机箱',10),('电源',10),('声卡',10),('刻录机',10),('路由器',10),('装机配件',10),('显示器',10),('CPU处理器',10),('其他电脑组件',10)
 insert into GoodsType values('鼠标',11),('键盘',11),('U盘',11),('手写板',11),('硬盘盒',11),('摄像头',11),('其他外设产品',11)
 insert into GoodsType values('苹果台式机',12),('联想台式机',12),('戴尔台式机',12),('惠普台式机',12),('ThinkPad台式机',12),('三星台式机',12),('东芝台式机',12),('华为台式机',12),('小米台式机',12),('华硕台式机',12),('微软台式机',12),('神舟台式机',12),('雷神台式机',12),('索尼台式机',12),('炫龙台式机',12),('其它台式机',12)
+
 
 go
 if exists(select * from sysobjects where name='Goodsaddress')
@@ -161,41 +168,48 @@ create table Goods(
   UserId int foreign key references UserInfo(UserId),--用户表
   GoodsTypeId int foreign key references GoodsType(GoodsTypeId),--类型表
   GoodsaddressId int foreign key references Goodsaddress(GoodsaddressId),--地区表--城市
-
-  IsNew int,--是否全新
+  IsNew int,--1全新,2-95新，3-9成新，4-8成新，5-7成新
   Name nvarchar(100) not null ,--商品名称,标题
   Info nvarchar(200) not null ,--商品信息
   Price float,--价格
+  Price_Yuan float,--原来价格
+  munber int,--浏览次数
   IsState int,--商品状态，1上架，2下架，3卖出，4删除
   CreateTime datetime,--发布时间
   UpdateTime datetime ,--更新时间（点亮宝贝）
+  Peisong int,--配送方式1，邮寄.2，自提
+  GoodsaddressInfo nvarchar(200) ,--具体地址
+  Ipone nvarchar(50),--联系电话
+
 )
 go
 --select * from Goods
+--delete RealName where  RealNameId=3
+update RealName set IsDelete=1 where UserId=1
 
-insert into Goods values(1,14,18,1,'测试数据一','全新的联想电脑，便宜出了12312312',8880.5,1,getdate(),getdate())
-insert into Goods values(1,13,18,1,'测试数据二','全新的苹果电脑，随便出，是打发法',9980.5,1,getdate(),getdate())
-insert into Goods values(1,13,18,1,'测试数据三，大甩卖','啊沙发沙发打赏没有介绍',1280.25,0,getdate(),getdate())
-insert into Goods values(1,13,18,1,'测试数据四，快乐送','啊发大水发大水范德萨给点钱意思一下',0,1,getdate(),getdate())
-insert into Goods values(1,14,18,1,'测试数据五，便宜送','全新的苹果电脑，随便出，给点钱意思一下',9280.5,2,getdate(),getdate())
+insert into Goods values(1,73,69,1,'测试数据一','全新的联想电脑，便宜出了12312312',8880.5,9999.9,10,1,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
+insert into Goods values(1,74,70,1,'测试数据二','全新的苹果电脑，随便出，是打发法',9980.5,9999.9,10,1,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
+insert into Goods values(1,75,71,1,'测试数据三，大甩卖','啊沙发沙发打赏没有介绍',1280.25,9999.9,10,1,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
+insert into Goods values(1,76,72,1,'测试数据四，快乐送','啊发大水发大水范德萨给点钱意思一下',0,9999.9,10,1,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
+insert into Goods values(1,77,73,1,'测试数据五，便宜送','全新的苹果电脑，随便出，给点钱意思一下',9280.5,9999.9,10,2,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
 
-insert into Goods values(1,14,18,1,'测试数据六','全新的联想电脑，便宜出了',180.5,2,getdate(),getdate())
-insert into Goods values(1,13,18,1,'测试数据七','全新的苹果电脑，随便出，给点钱意思一下',2660.5,2,getdate(),getdate())
-insert into Goods values(1,13,18,1,'测试数据八，大甩卖','没有介绍',2666.25,0,getdate(),getdate())
-insert into Goods values(1,13,18,1,'测试数据九，快乐送','5555，随便出，给点钱意思一下',188,2,getdate(),getdate())
-insert into Goods values(1,14,18,1,'测试数据十，便宜送','给弄了，随便出，给点钱意思一下',18758.5,2,getdate(),getdate())
+insert into Goods values(1,78,74,1,'测试数据六','全新的联想电脑，便宜出了',180.5,9999.9,10,2,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
+insert into Goods values(1,79,75,1,'测试数据七','全新的苹果电脑，随便出，给点钱意思一下',2660.5,9999.9,10,2,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
+insert into Goods values(1,81,76,1,'测试数据八，大甩卖','没有介绍',2666.25,9999.9,10,1,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
+insert into Goods values(1,82,77,1,'测试数据九，快乐送','5555，随便出，给点钱意思一下',188,9999.9,10,2,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
+insert into Goods values(1,83,78,1,'测试数据十，便宜送','给弄了，随便出，给点钱意思一下',18758.5,9999.9,10,1,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
 
-insert into Goods values(1,14,18,1,'测试数据十一','全新钱钱222，便宜出了',1280.5,2,getdate(),getdate())
-insert into Goods values(1,13,18,1,'测试数据十二','全新的苹果电脑，随便出，给点钱意思一下',22.5,2,getdate(),getdate())
-insert into Goods values(1,13,18,1,'测试数据十三，大甩卖','没有介绍',280.25,0,getdate(),getdate())
-insert into Goods values(1,13,18,1,'测试数据十四，快乐送','全新的苹果电脑，随便出，给点钱意思一下',888,2,getdate(),getdate())
-insert into Goods values(1,14,18,1,'测试数据十五，啊撒范德萨发生发生','全新的苹果电脑，随便出，给点钱意思一下',10.5,2,getdate(),getdate())
+insert into Goods values(1,88,79,1,'测试数据十一','全新钱钱222，便宜出了',1280.5,9999.9,10,1,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
+insert into Goods values(1,85,89,1,'测试数据十二','全新的苹果电脑，随便出，给点钱意思一下',22.5,9999.9,10,1,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
+insert into Goods values(1,99,88,1,'测试数据十三，大甩卖','没有介绍',280.25,9999.9,10,1,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
+insert into Goods values(1,111,90,1,'测试数据十四，快乐送','全新的苹果电脑，随便出，给点钱意思一下',888,9999.9,10,1,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
+insert into Goods values(1,122,99,1,'测试数据十五，啊撒范德萨发生发生','全新的苹果电脑，随便出，给点钱意思一下',10.5,9999.9,10,1,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
 
-insert into Goods values(1,14,18,1,'测试数据十六','全新的联想电脑，便宜出了',1280.5,2,getdate(),getdate())
-insert into Goods values(1,13,18,1,'测试数据十七','全新的苹果电脑，随便出，给点钱意思一下',280.5,2,getdate(),getdate())
-insert into Goods values(1,13,18,1,'测试数据十八，大甩卖','没有介绍',280.25,0,getdate(),getdate())
-insert into Goods values(1,13,18,1,'测试数据十九，快乐送','全新的苹果电脑，随便出，给点钱意思一下',858,2,getdate(),getdate())
-insert into Goods values(1,14,18,1,'测试数据二十，便宜送','全新的苹果电脑，随便出，给点钱意思一下',980.5,2,getdate(),getdate())
+insert into Goods values(1,66,22,1,'测试数据十六','全新的联想电脑，便宜出了',1280.5,9999.9,10,1,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
+insert into Goods values(1,55,25,1,'测试数据十七','全新的苹果电脑，随便出，给点钱意思一下',280.5,9999.9,10,1,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
+insert into Goods values(1,44,28,1,'测试数据十八，大甩卖','没有介绍',280.25,9999.9,10,1,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
+insert into Goods values(1,78,33,1,'测试数据十九，快乐送','全新的苹果电脑，随便出，给点钱意思一下',858,9999.9,10,1,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
+insert into Goods values(1,55,66,1,'测试数据二十，便宜送','全新的苹果电脑，随便出，给点钱意思一下',980.5,9999.9,10,2,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
 go
 if exists(select * from sysobjects where name='Goodsimage')
 drop table Goodsimage;
@@ -208,20 +222,22 @@ create table Goodsimage(
 )
 go
 --select * from Goodsimage
-insert into Goodsimage values('联想电脑图片1.jpg',1),
+insert into Goodsimage values('联想电脑图片1.jpg',2),
 ('联想电脑图片2.jpg',1),
 ('联想电脑图片3.jpg',5),
 ('联想电脑图片4.jpg',15),
-('苹果电脑图片1.jpg',2),
+('苹果电脑图片1.jpg',11),
 ('苹果电脑图片2.jpg',3),
 ('苹果电脑图片3.jpg',4)
-insert into Goodsimage values('联想电脑图片1.jpg',2),
+go
+insert into Goodsimage values('联想电脑图片1.jpg',1),
 ('联想电脑图片2.jpg',2),
 ('联想电脑图片3.jpg',3),
 ('联想电脑图片4.jpg',4),
 ('苹果电脑图片1.jpg',6),
 ('苹果电脑图片2.jpg',7),
 ('苹果电脑图片3.jpg',8)
+go
 insert into Goodsimage values('联想电脑图片1.jpg',9),
 ('联想电脑图片2.jpg',10),
 ('联想电脑图片3.jpg',11),
@@ -229,6 +245,7 @@ insert into Goodsimage values('联想电脑图片1.jpg',9),
 ('苹果电脑图片1.jpg',15),
 ('苹果电脑图片2.jpg',13),
 ('苹果电脑图片3.jpg',14)
+go
 insert into Goodsimage values('联想电脑图片1.jpg',11),
 ('联想电脑图片2.jpg',20),
 ('联想电脑图片3.jpg',19),
@@ -247,17 +264,16 @@ create table Orders(
   UserId1 int foreign key references UserInfo(UserId),--用户表-发布
   UserId2 int foreign key references UserInfo(UserId),--用户表-购买
   GoodsId int foreign key references Goods(GoodsId),--商品表
-  IsState int ,--订单状态（1-买家已付款，2-卖家已发货，3-买家已收货，4-已完成，未评价，5-已完成，已评价）
+  IsState int ,--订单状态（1-买家已付款，2-卖家已发货，3-买家已收货，4-已完成，已评价，4-交易结束）
   Wuliu nvarchar(50),--物流单号
   BuyTime1 datetime,--购买时间
   BuyTime2 datetime,--发货时间
   BuyTime3 datetime,--收货时间
-  BuyTime4 datetime,--完成时间
-  BuyTime5 datetime,--评价时间
+  BuyTime4 datetime,--评价完成时间
 )
 go
 --select * from Orders
-insert into Orders values(1,2,4,1,'s120254845154',getdate(),getdate(),getdate(),getdate(),getdate())
+insert into Orders values(1,2,4,1,'s120254845154',getdate(),getdate(),getdate(),getdate())
 
 
 
@@ -303,7 +319,7 @@ go
 create table Texts(
   TextsId int primary key identity(1,1),
   UserId int foreign key references UserInfo(UserId),--用户表(主)
-  Textbody nvarchar(100),--文本
+  Textbody nvarchar(150),--文本
   addTiem datetime,--时间
 )
 go
