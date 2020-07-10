@@ -27,7 +27,7 @@
                 </div>
                 <div class="cont_forms">
                     <div class="cont_img_back_">  </div>
-                    <form action="/Home/Login" method="post">
+                    <form action="/Home/Login" method="post" id="form2">
                         <div class="cont_form_login">
                             <a href="#" onClick="ocultar_login_sign_up()">
                                 <svg t="1592291901105" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3707" width="16" height="16"><path d="M72.145455 660.154182H302.545455L49.338182 913.221818a47.941818 47.941818 0 1 0 67.863273 67.863273l257.11709-257.117091v228.445091a47.988364 47.988364 0 0 0 96.023273 0v-340.386909c0-26.530909-21.504-47.988364-48.034909-47.988364H72.145455a47.988364 47.988364 0 0 0 0 96.116364zM602.298182 459.403636h350.208a47.988364 47.988364 0 0 0 0-95.976727h-230.306909l253.207272-253.207273A47.941818 47.941818 0 1 0 907.543273 42.356364l-257.210182 257.117091V71.074909a47.988364 47.988364 0 0 0-96.023273 0v340.340364c0 26.530909 21.504 47.988364 48.034909 47.988363z" fill="#efb336" p-id="3708"></path></svg>
@@ -38,17 +38,26 @@
                             <input type="submit" value="登录" class=" btn_login" style="font-size:18px;text-align:center;color:white" />
                         </div>
                     </form>
-                    <form action="/Home/Register" method="post">
+                    <form action="/Home/Register" method="post" id="form1">
                         <div class="cont_form_sign_up">
                             <a href="#" onClick="ocultar_login_sign_up()">
                                 <svg t="1592291901105" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3707" width="16" height="16"><path d="M72.145455 660.154182H302.545455L49.338182 913.221818a47.941818 47.941818 0 1 0 67.863273 67.863273l257.11709-257.117091v228.445091a47.988364 47.988364 0 0 0 96.023273 0v-340.386909c0-26.530909-21.504-47.988364-48.034909-47.988364H72.145455a47.988364 47.988364 0 0 0 0 96.116364zM602.298182 459.403636h350.208a47.988364 47.988364 0 0 0 0-95.976727h-230.306909l253.207272-253.207273A47.941818 47.941818 0 1 0 907.543273 42.356364l-257.210182 257.117091V71.074909a47.988364 47.988364 0 0 0-96.023273 0v340.340364c0 26.530909 21.504 47.988364 48.034909 47.988363z" fill="#efb336" p-id="3708"></path></svg>
                             </a>
                             <h2>注册</h2>
                             <input type="text" placeholder="邮箱" id="UserEmile1" name="UserEmile1" />
-                            <input type="text" placeholder="用户名" id="UserName" name="UserName" />
                             <input type="password" placeholder="密码" id="UserPwd1" name="UserPwd1" />
-                            <input type="password" placeholder="确认密码" id="UserPwd2" name="UserPwd2" />
-                            <input type="submit" value="注册" class="btn_sign_up" style="font-size:18px;text-align:center;color:white" />
+                            <input type="password" placeholder="重复密码" id="UserPwd1_1" name="UserPwd1_1" />
+                            <div class="zixie_1 row">
+                                <div class="col-lg-7">
+                                    <input class="form-control" type="text"
+                                           placeholder="验证码" required="required"
+                                           name="validateCode" id="validateCode" />
+                                </div>
+                                <div class=" col-lg-3">
+                                    <img src="~/Handler/ValidateCodeHandler.ashx?id=1" onclick="this.src=this.src+1" />
+                                </div>
+                            </div>
+                            <input type="submit" value="注册" class="btn_sign_up" style="font-size:18px;text-align:center;color:white"/>
                         </div>
                     </form>
                 </div>
@@ -56,5 +65,7 @@
         </div>
     </div>
     <script src="~/Scripts/login/index.js"></script>
+    
+
 
 

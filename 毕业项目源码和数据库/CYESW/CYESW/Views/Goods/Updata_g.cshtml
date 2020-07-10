@@ -3,20 +3,20 @@
 @using CYESW.Models
 @model Goods
 @{
-    string[] check1 = { "false", "false", "false", "false", "false" };
+    string[] check1 = { "", "", "", "", "" };
     for (int i = 1; i <= 5; i++)
     {
         if (i == Model.IsNew)
         {
-            check1[i - 1] = "checked";
+            check1[i - 1] = "checked='checked'";
         }
     }
-    string[] check2 = { "false", "false" };
+    string[] check2 = { "", "" };
     for (int i = 1; i <= 2; i++)
     {
         if (i == Model.Peisong)
         {
-            check2[i - 1] = "checked";
+            check2[i - 1] = "checked='checked'";
         }
     }
 
@@ -56,10 +56,11 @@
                 </div>
             </div>
         </div>
-    </div><form id="bxForm" action="/Goods/Updata_g" method="post" enctype="multipart/form-data" class="form qishipenjing ershou">
+    </div>
+    <form id="bxForm" action="/Goods/Updata_g" method="post" enctype="multipart/form-data" class="form qishipenjing ershou">
         <div class="fabuform-tab"></div><div class="fabuform-tab-content">
             <div class="p-line" id="id_title">
-                <label class="p-label"><span class="required">*</span>标题：</label><div class="publish-detail-item"><input type="text" name="Name" maxlength="25" class="input-60 input" value="@Model.Name"></div><div class="form-tip" style="top: -11px;">
+                <label class="p-label"><span class="required">*</span>标题：</label><div class="publish-detail-item"><input type="text" name="Name" maxlength="25" id="Name" class="input-60 input" value="@Model.Name"></div><div class="form-tip" style="top: -11px;">
                     写明品种，如转让仙人掌一盆
                     <span class="circle"><i class="icon-tips"></i></span>
                 </div>
@@ -72,15 +73,15 @@
                 <div class="publish-detail-item">
                     <div class="checkbox-wrapper">
                         <label class="form-label">
-                            <input type="radio" name="Peisong" value="1" class="checkbox-radio" checked="@check2[0]">快递
+                            <input type="radio" name="Peisong" value="1" class="checkbox-radio" @check2[0]>快递
                         </label>
                         <label class="form-label">
-                            <input type="radio" name="Peisong" value="2" class="checkbox-radio" checked="@check2[1]">自取
+                            <input type="radio" name="Peisong" value="2" class="checkbox-radio" @check2[1]>自取
                         </label>
                     </div>
                 </div>
             </div><div class="p-line" id="id_价格">
-                <label class="p-label"><span class="required">*</span>价格：</label><div class="publish-detail-item"><input type="number" name="Price" maxlength="10" placeholder="请输入价格" class="input-6 input" value="@Model.Price" title="请输入价格"></div><span class="fabuform-unit">元</span><div class="form-tip">
+                <label class="p-label"><span class="required">*</span>价格：</label><div class="publish-detail-item"><input type="number" name="Price" id="Price"  maxlength="10" placeholder="请输入价格" class="input-6 input" value="@Model.Price" title="请输入价格,为空0元"></div><span class="fabuform-unit">元</span><div class="form-tip">
                     请输入价格
                     <span class="circle"><i class="icon-tips"></i></span>
                 </div>
@@ -93,45 +94,61 @@
             <div class="p-line" id="id_content">
                 <label class="p-label"><span class="required">*</span>描述：</label>
                 <div class="publish-detail-item">
-                    <textarea class="input" name="Info" maxlength="5000" size="5" style="overflow: hidden; overflow-wrap: break-word; resize: horizontal; height: 115px;">@Model.Info</textarea>
+                    <textarea class="input" id="Info" name="Info" maxlength="5000" size="5" style="overflow: hidden; overflow-wrap: break-word; resize: horizontal; height: 115px;">@Model.Info</textarea>
                 </div>
             </div>
             <div class="p-line">
                 <label class="p-label"><span class="required">*</span>新旧状态：</label>
                 <div class="publish-detail-item">
-                    <input type="radio" name="IsNew" value="1" checked="@check1[0]" />全新&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="radio" name="IsNew" value="2" checked="@check1[1]" />95新&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="radio" name="IsNew" value="3" checked="@check1[2]" />9成新&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="radio" name="IsNew" value="4" checked="@check1[3]" />8成新&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="radio" name="IsNew" value="5" checked="@check1[4]" />7成新
+                    <input type="radio" name="IsNew" value="1" @check1[0] />全新&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="IsNew" value="2" @check1[1] />95新&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="IsNew" value="3" @check1[2] />9成新&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="IsNew" value="4" @check1[3] />8成新&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="IsNew" value="5" @check1[4] />7成新
                 </div>
             </div>
             <div class="p-line swfu" id="id_images">
-                <label class="p-label"><span class="required">*</span>上传照片（目前只能上传一张）：</label><div class="publish-detail-item">
-    <input type="file" name="Photos" value="" />
-    <input type="hidden" name="GoodsId" value="@Model.GoodsId" />
-    @*<input type="hidden" name="GoodsTypeId" value="@Model.GoodsTypeId" />
-    <input type="hidden" name="GoodsaddressId" value="@Model.GoodsaddressId" />
-    <input type="hidden" name="munber" value="@Model.munber" />
-    <input type="hidden" name="CreateTime" value="@Model.CreateTime" />
-    <input type="hidden" name="UserId" value="@Model.UserId" />*@
-</div>
+                <label class="p-label"><span class="required">*</span>追加照片（可以一次性选择多张）：</label><div class="publish-detail-item">
+                    <div>
+                        @foreach (var item in Model.Goodsimage)
+                        {
+                        <div style="width:500px;margin-bottom:15px;border-bottom:2px solid #bdbdbd" class="row">
+                            <div class="col-lg-9" >
+                                <img src="~/images/img/@item.images" width="120" />
+                            </div>
+                            <div class="col-lg-3">
+                                <a href="/Goods/Updata_g_deleteimg/@item.GoodsimageId?goodsid=@Model.GoodsId" class="btn btn-danger" style="color:white;margin-top: 15px;">删除</a>
+                            </div>
+                        </div>
+                        }
+                    </div>
+                    <div>
+                        <input type="file" name="Photos" value="" multiple="multiple" style="margin-top:30px;" />
+                        <input type="hidden" name="GoodsId" value="@Model.GoodsId" />
+                    </div>
+                    
+                    @*<input type="hidden" name="GoodsTypeId" value="@Model.GoodsTypeId" />
+                        <input type="hidden" name="GoodsaddressId" value="@Model.GoodsaddressId" />
+                        <input type="hidden" name="munber" value="@Model.munber" />
+                        <input type="hidden" name="CreateTime" value="@Model.CreateTime" />
+                        <input type="hidden" name="UserId" value="@Model.UserId" />*@
+                </div>
             </div>
             <div class="p-line group-wrapper">
                 <label class="p-label">
                     <span class="required">*</span>城市：
-                </label><input type="text" name="jiade" value="@Model.Goodsaddress.TypeName (无法修改)" disabled="disabled"><input style="width:250px;" type="text" name="GoodsaddressInfo" placeholder="  具体地点" maxlength="50" class="input" value="@Model.GoodsaddressInfo" autocomplete="off" title="您可在此填写具体的交易地点,推荐在人多处交易"><div class="form-tip">
+                </label><input type="text" name="jiade" value="@Model.Goodsaddress.TypeName (无法修改)" disabled="disabled"><input style="width:250px;" type="text" name="GoodsaddressInfo" id="GoodsaddressInfo" placeholder="  具体地点" maxlength="50" class="input" value="@Model.GoodsaddressInfo" autocomplete="off" title="您可在此填写具体的交易地点,推荐在人多处交易"><div class="form-tip">
                     您可在此填写具体的交易地点,推荐在人多处交易
                 </div>
             </div>
-            <div class="p-line" id="id_contact"><label class="p-label"><span class="required">*</span>联系电话：</label><div class="publish-detail-item"><input type="text" name="Ipone" maxlength="30" class="input-5 input" value="@Model.Ipone"></div></div>
+            <div class="p-line" id="id_contact"><label class="p-label"><span class="required">*</span>联系电话：</label><div class="publish-detail-item"><input type="text" id="Ipone" name="Ipone" maxlength="30" class="input-5 input" value="@Model.Ipone"></div></div>
             <input type="hidden" name="token" value="0a37162dcd8a380ba1b91103ef24c0fd"><input type="hidden" name="8cb44b44cba8fde" value="f822d2873c1592895779">
         </div>
         <p class="p-submit when-spread-p-submit">
             <input type="submit" value="保存修改信息并上架" id="fabu-form-submit" data-m-check="" class="form-submit button button-green">
         </p>
         <div id="formsubmittips" style="" class="small p-submit when-spread-p-submit">
-            <input type="checkbox" id="agreement" name="agreement" checked="">本人已仔细阅读并同意&nbsp;<a target="_blank" href="//www.baixing.com/a/agreement/">百姓网用户服务协议</a>&nbsp;、&nbsp;<a target="_blank" href="//www.baixing.com/a/bangui/">百姓网公约</a>&nbsp;和&nbsp;<a href="//www.baixing.com/a/policy/" target="_blank">百姓网隐私政策条款</a>
+            <input type="checkbox" id="agreement" name="agreement" checked="">本人已仔细阅读并同意&nbsp;<a target="_blank" href="//www.baixing.com/a/agreement/">朝阳网用户服务协议</a>&nbsp;、&nbsp;<a target="_blank" href="//www.baixing.com/a/bangui/">朝阳网公约</a>&nbsp;和&nbsp;<a href="//www.baixing.com/a/policy/" target="_blank">朝阳网隐私政策条款</a>
         </div>
     </form>
 </div>

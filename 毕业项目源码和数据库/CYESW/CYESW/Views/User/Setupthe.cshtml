@@ -20,7 +20,7 @@
 <div class="tab_content">
     @if (type == 1)
     {
-        <form action="/User/UserIndex_update" method="post" enctype="multipart/form-data">
+        <form action="/User/UserIndex_update" method="post" enctype="multipart/form-data" id="form1">
             <table class="tab table user_table">
                 <tr>
                     <td>用户名：</td>
@@ -30,8 +30,8 @@
                     <td>头像：</td>
                     <td>
                         <div>
-                            <img src="~/images/img/@Model.Images" width="100" />
-                            <input type="file" name="images_user" value="" />
+                            <img src="~/images/img/@Model.Images" width="100" style="border:1px solid white;border-radius:5px"/>
+                            <input type="file" name="images_user" value="" style="    line-height: 10px;margin-top: 10px;"/>
                             <input type="hidden" name="UserId" value="@Model.UserId" />
                         </div>
                     </td>
@@ -68,7 +68,7 @@
     }
     else
     {
-<form action="/User/UserIndex_update_pwd" method="post">
+<form action="/User/UserIndex_update_pwd" method="post" id="form2">
     <table class="tab table user_table">
         <tr>
             <td>用户昵称：</td>
@@ -78,11 +78,11 @@
         </tr>
         <tr>
             <td>新密码：</td>
-            <td><input type="password" name="Newpwd" value="" class="form-control" /></td>
+            <td><input type="password" name="Newpwd" id="Newpwd" value="" class="form-control" /></td>
         </tr>
         <tr>
             <td>确认新密码：</td>
-            <td><input type="password" name="Newpwd2" value="" class="form-control" /></td>
+            <td><input type="password" name="Newpwd2" id="Newpwd2" value="" class="form-control" /></td>
         </tr>
         <tr>
             <td>注册邮箱：</td>
@@ -92,7 +92,7 @@
         </tr>
         <tr>
             <td>邮箱验证码：</td>
-            <td style="display:flex"><input type="text" name="yanzhen" value="" class="form-control" />
+            <td style="display:flex"><input type="text" name="yanzhen" value="" class="form-control" id="yanzhen"/>
                 <input type="button" name="yzm" value="发送验证码" onclick="GetYZ()" style="line-height:30px;" /></td>
         </tr>
         <tr>

@@ -35,10 +35,14 @@ namespace CYESW.Models
         public virtual DbSet<HuDong_texts> HuDong_texts { get; set; }
         public virtual DbSet<JuBao> JuBao { get; set; }
         public virtual DbSet<Love> Love { get; set; }
+        public virtual DbSet<LunBo> LunBo { get; set; }
         public virtual DbSet<Orders> Orders { get; set; }
         public virtual DbSet<Pingjia_texts> Pingjia_texts { get; set; }
         public virtual DbSet<RealName> RealName { get; set; }
         public virtual DbSet<Texts> Texts { get; set; }
         public virtual DbSet<UserInfo> UserInfo { get; set; }
+        public virtual DbSet<WebIn> WebIn { get; set; }
+        public virtual DbSet<WebOut> WebOut { get; set; }
+        public virtual DbSet<WeiGui> WeiGui { get; set; }
     }
 }

@@ -1,0 +1,57 @@
+﻿
+@using PagedList.Mvc
+@model CYESW.Models.JuBao
+@{
+    ViewBag.Title = "User_JuBao";
+    var zhauntai = "未审阅";
+    if (Model.States == 1)
+    {
+        zhauntai = "已审阅";
+    }
+}
+<ul class="breadcrumb" style="margin:10px -5px 10px -5px;">
+    <li><a href="/Home/Index">朝阳二手网</a></li>
+    <li class="active">@TempData["Title"]</li>
+</ul>
+<div class="jubao_fa">
+    <h4 style="padding-top:30px;border-top:5px solid red;">举报用户：<span class="color_1">@Model.UserInfo1.UserName</span>&nbsp;&nbsp;&nbsp;&nbsp;id：<span class="color_1">@Model.UserId</span></h4>
+    <hr />
+    <div class="jubao_zhi">
+        <h2 style="">@Model.JuBaoName</h2>
+        <h5>
+            类型：<span class="color_1">@(Model.JubaoType == 1 ? "举报用户" : "反馈内容")</span>
+            @if (Model.JubaoType == 1)
+            {
+                <span>&nbsp;&nbsp;&nbsp;&nbsp; 被举报用户id：<a href="/User/UserIndex">@Model.UserId2</a></span>
+            }
+            &nbsp;&nbsp;&nbsp;&nbsp;提交时间：<span class="color_1">@Model.addTiem</span>&nbsp;&nbsp;&nbsp;&nbsp;状态：<span class="color_1">@zhauntai</span>
+        </h5>
+        <hr />
+
+        <div>
+            <p style="        line-height: 43px;
+        text-indent: 2em;
+        font-size: 16px;
+        word-spacing: 10px">
+                @Model.JuBao_body 
+            </p>
+            <hr />
+            @if (Model.States == 1)
+            {
+                <div class="huifu">
+                    <h3>处理员：<span>@Model.UserInfo.UserName</span></h3>
+                    <div>
+                        <p style="line-height:43px;text-indent:2em; ">
+                            @Model.HuiFu
+                        </p>
+                    </div>
+                    <hr />
+                </div>
+            }
+        </div>
+    </div>
+
+</div>
+
+
+

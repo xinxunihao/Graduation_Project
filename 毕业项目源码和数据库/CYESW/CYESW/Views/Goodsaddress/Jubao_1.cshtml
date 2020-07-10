@@ -1,0 +1,123 @@
+﻿
+@using CYESW.Models
+@{
+    ViewBag.Title = "Jubao_1";
+    UserInfo user = Session["user"] as UserInfo;
+    int? type = Session["address_type"] as int?;
+    string class_1 = "", class_2 = "";//切换类名
+    if (type == 2) { class_2 = "jubao_active"; }
+    else { class_1 = "jubao_active"; }
+}
+<ul class="breadcrumb" style="margin:10px -5px 10px -5px;">
+    <li><a href="/Home/Index">朝阳二手网</a></li>
+    <li class="active">@TempData["Title"]</li>
+</ul>
+<div class="jubao_div row">
+    <div class="col-lg-2">
+        <ul class="user_ul user_ul_1">
+            <li class="@class_1" onclick="qiehuan(1)" id="qiehuan11">举报用户</li>
+            <li class="@class_2" onclick="qiehuan(2)" id="qiehuan22">体验反馈</li>
+        </ul>
+    </div>
+    <div class="col-lg-10">
+        <div class="jubao_display jubao_display_black" id="qiehaun1">
+            <form action="/Goodsaddress/Jubao_1_1" method="post" style="padding:35px;" id="form1">
+                <table class="table table-hover table-responsive">
+                    <tr>
+                        <td colspan="2">
+                            <h4>请如实填写举报信息！</h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            举报标题：
+                        </td>
+                        <td>
+                            <input type="text" name="JuBaoName" id="JuBaoName" value="" class="form-control" placeholder="  内容概括" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            被举报用户id：
+                        </td>
+                        <td>
+                            <input type="text" name="UserId2"  id="UserId2" value="@ViewBag.id" class="form-control" placeholder="  可在该用户个人中心查看id" />
+                            <input type="hidden" name="UserId" value="@user.UserId" />
+                            <input type="hidden" name="JubaoType" value="1" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            举报内容：
+                        </td>
+                        <td>
+                            <textarea name="JuBao_body" class="form-control" id="JuBao_body"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <input type="submit" name="name" value="提交" class="form-control tijiao" />
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div class="jubao_display" id="qiehaun2">
+            <form action="/Goodsaddress/Jubao_1_1" method="post" style="padding:35px;" id="form2">
+                <table class="table table-hover table-responsive">
+                    <tr>
+                        <td colspan="2">
+                            <h4>欢迎给我们一些宝贵的建议哦！</h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            建议标题：
+                        </td>
+                        <td>
+                            <input type="text" name="JuBaoName"  id="JuBaoName" value="" class="form-control" placeholder="  内容概括" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            建议内容：
+                        </td>
+                        <td>
+                            <textarea name="JuBao_body" class="form-control" id="JuBao_body" title="建议一但采取即可获得一份网站资源礼包哦">  </textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="hidden" name="JubaoType" value="2" />
+                        </td>
+                        <td>
+                            <input type="hidden" name="UserId" value="@user.UserId" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <input type="submit" name="name" value="提交" class="form-control tijiao" />
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript">
+    function qiehuan(id) {
+        if (id == 1) {
+            $('#qiehuan11').addClass("jubao_active");
+            $('#qiehaun1').addClass("jubao_display_black");
+            $('#qiehuan22').removeClass("jubao_active");
+            $('#qiehaun2').removeClass("jubao_display_black");
+        } else {
+            $('#qiehuan11').removeClass("jubao_active");
+            $('#qiehaun1').removeClass("jubao_display_black");
+            $('#qiehuan22').addClass("jubao_active");;
+            $('#qiehaun2').addClass("jubao_display_black");
+        }
+    }
+</script>
+

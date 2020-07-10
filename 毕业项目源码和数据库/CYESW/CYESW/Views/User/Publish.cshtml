@@ -80,7 +80,7 @@
                                         <img src="~/images/icopng/前往.png" />&nbsp;&nbsp;发货
                                     </a>
                                 }
-                                else if (orders == 2)
+                                else
                                 {
                                     <span>当前宝贝状态：买家已付款>卖家已发货>等待买家收货</span>
                                     <a href="/Goods/Order_1?Orderid=@Model[i].Orders.FirstOrDefault().OrdersId" class="good_a">
@@ -91,25 +91,18 @@
                             }
                             else
                             {
-                                int? orders = Model[i].Orders.Where(p => p.GoodsId == Model[i].GoodsId).SingleOrDefault().IsState;//获取订单状态,3,4,5
+                                int? orders = Model[i].Orders.Where(p => p.GoodsId == Model[i].GoodsId).SingleOrDefault().IsState;//获取订单状态,3,4,
                                 if (orders == 3)
                                 {
-                                    <span>当前宝贝状态：买家已确认收货，双方互评</span>
-                                    <a href="#" class="good_a">
-                                        <img src="~/images/icopng/前往.png" />&nbsp;&nbsp;前往评价
-                                    </a>
-                                }
-                                else if (orders == 4)
-                                {
-                                    <span>当前宝贝状态：买家已确认收货，双方互评</span>
+                        <span>当前宝贝状态：买家已确认收货，等待评价</span>
                                     <a href="/Goods/Order_1?Orderid=@Model[i].Orders.FirstOrDefault().OrdersId" class="good_a">
-                                        <img src="~/images/icopng/前往.png" />&nbsp;&nbsp;查看评价
+                                        <img src="~/images/icopng/前往.png" />&nbsp;&nbsp;等待评价
                                     </a>
                                 }
                                 else
                                 {
                                     <span>当前宝贝状态：双方已互评，交易结束。</span>
-                                    <a href="#" class="good_a">
+                                    <a href="/Goods/Order_1?Orderid=@Model[i].Orders.FirstOrDefault().OrdersId" class="good_a">
                                         <img src="~/images/icopng/前往.png" />&nbsp;&nbsp;前往查看
                                     </a>
                                 }

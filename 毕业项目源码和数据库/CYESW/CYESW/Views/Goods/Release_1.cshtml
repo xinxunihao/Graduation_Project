@@ -98,17 +98,19 @@
                 </div>
             </div>
             <div class="p-line swfu" id="id_images">
-                <label class="p-label"><span class="required">*</span>上传照片（目前只能上传一张）：</label><div class="publish-detail-item">
-                    <input type="file" name="Photos" value="" />
+                <label class="p-label"><span class="required">*</span>上传照片（一次性可选择多张）：</label><div class="publish-detail-item">
+                    <input type="file" name="Photos" value="" multiple="multiple"/>
                     <input type="hidden" name="GoodsTypeId" value="@typeid" />
                     <input type="hidden" name="GoodsaddressId" value="@adressid" />
                 </div>
             </div>
             <div class="p-line group-wrapper">
                 <label class="p-label">
-                    <span class="required">*</span>城市：
-                </label><input type="text" name="jiade" value="@adress (与您当前定位有关)" disabled="disabled"><input style="width:250px;" type="text" name="GoodsaddressInfo" placeholder="具体地点" maxlength="50" class="input" autocomplete="off" title="您可在此填写具体的交易地点,推荐在人多处交易"><div class="form-tip">
-                    您可在此填写具体的交易地点,推荐在人多处交易
+                    <span class="required">*</span>地址：
+                </label>
+                <input type="text" name="jiade" value="@adress (与您当前定位有关)" disabled="disabled">
+                <input style="width:250px;" type="text" name="GoodsaddressInfo" placeholder="具体地点" maxlength="50" class="input" autocomplete="off" title="您可在此填写具体的交易地点,推荐在人多处交易"><div class="form-tip">
+                    您可在此填写具体的交易地点,选择自提
                 </div>
             </div>
     <div class="p-line" id="id_contact"><label class="p-label"><span class="required">*</span>联系电话：</label><div class="publish-detail-item"><input type="text" name="Ipone" maxlength="30" class="input-5 input"></div></div>

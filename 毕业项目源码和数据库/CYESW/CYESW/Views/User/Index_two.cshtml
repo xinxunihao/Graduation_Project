@@ -7,7 +7,7 @@
 <div class="bg row">
 
     <div class="avatar-box col-lg-3">
-        <img src="https://img4.baixing.net/9cbabfa17f95d1495eeeb6b1ebce0581.png_180x180wbp">
+        <img src="~/images/img/@Model.Images" />
     </div>
     <div class=" col-lg-9">
         <div class="user-info">
@@ -17,10 +17,11 @@
 </div>
 <div class="bg_1"></div>
 <hr />
+<h3>全部在售</h3>
 <div class="list_f">
     <div class="col-lg-9">
 
-        @foreach (var item in Model.Goods)
+        @foreach (var item in Model.Goods.Where(p => p.IsState == 1))
         {
             <div class="list_1 row">
                 <div class="col-lg-3 row_1">
@@ -35,6 +36,24 @@
                 <div class="col-lg-4" style="text-align:right">
                     <h3 class="jiage">@string.Format("{0:C}", @item.Price)</h3>
                     <a href="/Goods/AddLove?id=@item.GoodsId" onclick="return addlove(@item.GoodsId)" class="shoucan_1">添加收藏</a><a href="/Goods/Index?id=@item.GoodsId" class="shoucan_1">前往查看</a>
+                </div>
+            </div>
+        }
+        @foreach (var item in Model.Goods.Where(p => p.IsState != 1))
+        {
+            <div class="list_1 row gray" >
+                <div class="col-lg-3 row_1">
+                    <img src="~/images/img/@item.Goodsimage.FirstOrDefault().images" width="200" />
+                    <div class="row_1_1">共 @item.Goodsimage.Count() 图</div>
+                </div>
+                <div class="col-lg-5">
+                    <h3>@item.Name</h3>
+                    <p>@item.Goodsaddress.TypeName</p>
+                    <p>@item.GoodsType.TypeName / 最近更新：@item.UpdateTime</p>
+                </div>
+                <div class="col-lg-4" style="text-align:right">
+                    <h3 class="jiage">@string.Format("{0:C}", @item.Price)</h3>
+                    <span  class="shoucan_1">已失效</span>
                 </div>
             </div>
         }

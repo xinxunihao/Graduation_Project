@@ -145,8 +145,12 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\idCard.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Filter\LoginAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Handler\ValidateCodeHandler.ashx.cs">
+      <DependentUpon>ValidateCodeHandler.ashx</DependentUpon>
     </Compile>
     <Compile Include="Models\Addres.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -176,6 +180,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Love.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LunBo.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Model1.Context.cs">
@@ -208,6 +215,15 @@
     <Compile Include="Models\UserInfo.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\WebIn.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WebOut.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WeiGui.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -223,6 +239,7 @@
     <Content Include="Content\glyphicons-halflings-regular.svg" />
     <Content Include="Content\jquery-ui-1.9.1.custom.d3ae8ca1.css" />
     <Content Include="Content\mycss.css" />
+    <Content Include="Content\mycss_back.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\style.css" />
     <Content Include="Content\xxyx.css" />
@@ -234,24 +251,32 @@
     <Content Include="images\icopng\info.png" />
     <Content Include="images\icopng\mm_facetoface_collect_qrcode_1593244876510.png" />
     <Content Include="images\icopng\u_top_bg.jpg" />
+    <Content Include="images\icopng\u盘.png" />
+    <Content Include="images\icopng\vr.png" />
     <Content Include="images\icopng\关闭.png" />
     <Content Include="images\icopng\分享.png" />
     <Content Include="images\icopng\刷新.png" />
     <Content Include="images\icopng\前往.png" />
+    <Content Include="images\icopng\单反.png" />
     <Content Include="images\icopng\反馈.png" />
     <Content Include="images\icopng\喜欢.png" />
     <Content Include="images\icopng\喜欢_fill.png" />
+    <Content Include="images\icopng\图书.png" />
     <Content Include="images\icopng\女.png" />
     <Content Include="images\icopng\实名.png" />
     <Content Include="images\icopng\客服.png" />
     <Content Include="images\icopng\小贴士.png" />
+    <Content Include="images\icopng\手机.png" />
     <Content Include="images\icopng\推广.png" />
     <Content Include="images\icopng\收藏.png" />
     <Content Include="images\icopng\更多.png" />
     <Content Include="images\icopng\注意3.png" />
+    <Content Include="images\icopng\游戏机.png" />
+    <Content Include="images\icopng\电脑.png" />
     <Content Include="images\icopng\男.png" />
     <Content Include="images\icopng\疑惑的豆丁.png" />
     <Content Include="images\icopng\编辑.png" />
+    <Content Include="images\icopng\耳机.png" />
     <Content Include="images\icopng\行囊.png" />
     <Content Include="images\icopng\订单.png" />
     <Content Include="images\icopng\评论.png" />
@@ -302,6 +327,18 @@
     <Content Include="images\users\timg %285%29.jpg" />
     <Content Include="images\users\timg2.jpg" />
     <Content Include="images\users\zzl.jpg" />
+    <Content Include="images\webout\banner1.jpg" />
+    <Content Include="images\webout\banner2.jpg" />
+    <Content Include="images\webout\case2.jpg" />
+    <Content Include="images\webout\nav_img1.jpg" />
+    <Content Include="images\webout\nav_img2.jpg" />
+    <Content Include="images\webout\nav_img3.jpg" />
+    <Content Include="images\webout\Product_img1.jpg" />
+    <Content Include="images\webout\Product_img2.jpg" />
+    <Content Include="images\webout\Product_img3.jpg" />
+    <Content Include="images\webout\us_img1.jpg" />
+    <Content Include="images\webout\us_img2.jpg" />
+    <Content Include="images\webout\us_img3.jpg" />
     <Content Include="layui\css\layui.css" />
     <Content Include="layui\css\layui.mobile.css" />
     <Content Include="layui\css\modules\code.css" />
@@ -455,6 +492,7 @@
     <Content Include="foots\glyphicons-halflings-regular.ttf" />
     <Content Include="foots\glyphicons-halflings-regular.woff" />
     <Content Include="foots\glyphicons-halflings-regular.woff2" />
+    <Content Include="Handler\ValidateCodeHandler.ashx" />
     <EntityDeploy Include="Models\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -546,6 +584,7 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Scripts\valuedate.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -594,6 +633,21 @@
     <Content Include="Views\Goods\Order_1.cshtml" />
     <Content Include="Views\User\Index_two.cshtml" />
     <Content Include="Views\Goods\Order_2.cshtml" />
+    <Content Include="Views\User\Address.cshtml" />
+    <Content Include="Views\Goods\Play_buy.cshtml" />
+    <Content Include="Views\User\User_JuBao.cshtml" />
+    <Content Include="Views\BackgRound\Tabinfo.cshtml" />
+    <Content Include="Views\BackgRound\LunBo.cshtml" />
+    <Content Include="Views\BackgRound\WebIn.cshtml" />
+    <Content Include="Views\BackgRound\WebOut.cshtml" />
+    <Content Include="Views\BackgRound\GoodsInfo.cshtml" />
+    <Content Include="Views\BackgRound\GoodsType.cshtml" />
+    <Content Include="Views\BackgRound\Orders.cshtml" />
+    <Content Include="Views\BackgRound\UserList.cshtml" />
+    <Content Include="Views\BackgRound\UserFank.cshtml" />
+    <Content Include="Views\Goodsaddress\Jubao_1.cshtml" />
+    <Content Include="Views\Goodsaddress\useraddres.cshtml" />
+    <Content Include="Views\BackgRound\UserFank_1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

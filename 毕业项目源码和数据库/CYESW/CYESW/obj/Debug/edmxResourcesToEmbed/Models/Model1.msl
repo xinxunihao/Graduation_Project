@@ -7,6 +7,8 @@
           <ScalarProperty Name="AddresId" ColumnName="AddresId" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="GoodsaddressId1" ColumnName="GoodsaddressId1" />
+          <ScalarProperty Name="GoodsaddressId2" ColumnName="GoodsaddressId2" />
           <ScalarProperty Name="Addresss1" ColumnName="Addresss1" />
           <ScalarProperty Name="Addresss2" ColumnName="Addresss2" />
           <ScalarProperty Name="Phone" ColumnName="Phone" />
@@ -104,6 +106,9 @@
           <ScalarProperty Name="States" ColumnName="States" />
           <ScalarProperty Name="HuiFu" ColumnName="HuiFu" />
           <ScalarProperty Name="CLUserId" ColumnName="CLUserId" />
+          <ScalarProperty Name="JuBaoName" ColumnName="JuBaoName" />
+          <ScalarProperty Name="JubaoType" ColumnName="JubaoType" />
+          <ScalarProperty Name="endTiem" ColumnName="endTiem" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -114,6 +119,17 @@
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="GoodsId" ColumnName="GoodsId" />
           <ScalarProperty Name="addTiem" ColumnName="addTiem" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LunBo">
+      <EntityTypeMapping TypeName="CYESWModel.LunBo">
+        <MappingFragment StoreEntitySet="LunBo">
+          <ScalarProperty Name="LunBoId" ColumnName="LunBoId" />
+          <ScalarProperty Name="images" ColumnName="images" />
+          <ScalarProperty Name="a_1" ColumnName="a_1" />
+          <ScalarProperty Name="addtime" ColumnName="addtime" />
+          <ScalarProperty Name="type_1" ColumnName="type_1" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -138,7 +154,7 @@
         <MappingFragment StoreEntitySet="Pingjia_texts">
           <ScalarProperty Name="Pingjia_textsId" ColumnName="Pingjia_textsId" />
           <ScalarProperty Name="TextsId" ColumnName="TextsId" />
-          <ScalarProperty Name="GoodsId" ColumnName="GoodsId" />
+          <ScalarProperty Name="OrdersId" ColumnName="OrdersId" />
           <ScalarProperty Name="States" ColumnName="States" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -180,6 +196,43 @@
           <ScalarProperty Name="EndTime" ColumnName="EndTime" />
           <ScalarProperty Name="IsManage" ColumnName="IsManage" />
           <ScalarProperty Name="Sex" ColumnName="Sex" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WebIn">
+      <EntityTypeMapping TypeName="CYESWModel.WebIn">
+        <MappingFragment StoreEntitySet="WebIn">
+          <ScalarProperty Name="WebInId" ColumnName="WebInId" />
+          <ScalarProperty Name="GoodsId" ColumnName="GoodsId" />
+          <ScalarProperty Name="addtime" ColumnName="addtime" />
+          <ScalarProperty Name="type_1" ColumnName="type_1" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WebOut">
+      <EntityTypeMapping TypeName="CYESWModel.WebOut">
+        <MappingFragment StoreEntitySet="WebOut">
+          <ScalarProperty Name="WebOutId" ColumnName="WebOutId" />
+          <ScalarProperty Name="images" ColumnName="images" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Info" ColumnName="Info" />
+          <ScalarProperty Name="a_1" ColumnName="a_1" />
+          <ScalarProperty Name="addtime" ColumnName="addtime" />
+          <ScalarProperty Name="type_1" ColumnName="type_1" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WeiGui">
+      <EntityTypeMapping TypeName="CYESWModel.WeiGui">
+        <MappingFragment StoreEntitySet="WeiGui">
+          <ScalarProperty Name="WeiGuiId" ColumnName="WeiGuiId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Info" ColumnName="Info" />
+          <ScalarProperty Name="a_1" ColumnName="a_1" />
+          <ScalarProperty Name="addtime" ColumnName="addtime" />
+          <ScalarProperty Name="type_1" ColumnName="type_1" />
+          <ScalarProperty Name="GLuser" ColumnName="GLuser" />
+          <ScalarProperty Name="UserId1" ColumnName="UserId1" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

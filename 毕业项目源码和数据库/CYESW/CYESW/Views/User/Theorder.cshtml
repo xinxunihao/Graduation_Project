@@ -36,12 +36,9 @@
                         <h3>@Model[i].Goods.Name</h3>
                         <p><span>@Model[i].Goods.Info</span></p>
                         <p><span class="jiage">@Model[i].Goods.Price</span>/<span>@Model[i].Goods.GoodsType.TypeName</span></p>
-
                         <div class="uer_goods_foot">
-
                             @if (type == 1)//两种状态，交易中和已完成
                             {
-
                                 int? orders = Model[i].Goods.Orders.Where(p => p.GoodsId == Model[i].GoodsId).SingleOrDefault().IsState;//获取订单状态1,2
                                 if (orders == 1)
                                 {

@@ -1,0 +1,206 @@
+﻿
+@using CYESW.Models
+@{
+    Layout = null;
+    UserInfo user = Session["user"] as UserInfo;
+}
+@model List<WebIn>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>LunBo</title>
+    <link href="~/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        var date = new Date().getTime();
+        document.write("<link rel='stylesheet' href='../Content/mycss_back.css'?v=" + date + "'>");
+    </script>
+    @if (TempData["exebg"] != null)
+    {
+        <script type="text/javascript">
+                alert('@TempData["exebg"]');
+        </script>
+    }
+</head>
+<body>
+    <div>
+        <div class="homeback">
+            <h2>猜你喜欢（站内）</h2>
+            <br />
+            <div>
+                <a href="" class="layui-btn layui-btn-normal" data-toggle="modal" data-target="#exampleModal">新增</a>
+            </div>
+            <table class="layui-table layui-table-hover layui-table-header">
+                <tr>
+                    <th>宝贝id</th>
+                    <th>宝贝名称</th>
+                    <th>宝贝价格</th>
+                    <th>宝贝页面</th>
+                    <th>开始时间</th>
+                    <th>类别</th>
+                    <th>操作</th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Goods.GoodsId</td>
+                        <td>@item.Goods.Name</td>
+                        <td>@item.Goods.Price</td>
+                        <td><a href="/Goods/Index/@item.GoodsId" onclick="return confirm('确定跳转到前端商品页吗？右键上方切换框刷新可返回')">点我跳转</a></td>
+                        <td>@item.addtime</td>
+                        <td>@item.type_1</td>
+                        <td><a href="#" class="layui-btn"  data-toggle="modal" data-target="#exampleModa2" onclick="Selset_WebIn(@item.WebInId)">修改</a><a href="#" onclick="Delete_Webin(@item.WebInId)" class="layui-btn layui-btn-danger">删除</a></td>
+                    </tr>
+                }
+
+
+            </table>
+        </div>
+    </div>
+    <!-- Modal 修改-->
+    <div class="modal fade" id="exampleModa2" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">修改猜你喜欢（站内）</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="/BackgRound/Update_WebIn" id="form2" class="form_addres" enctype="multipart/form-data">
+                        <table class="table">
+                            <tr>
+                                <td>
+                                    推广宝贝id:
+                                </td>
+                                <td>
+                                    <input type="text" name="GoodsId" id="GoodsId_1" value="" class="form-control" placeholder=" 在商品详情也可查看id" />
+                                    <input type="hidden" name="WebInId" id="WebInId" value="" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    类别：
+                                </td>
+                                <td>
+                                    <input type="text" name="type_1" id="type_1_1" value="" class="form-control" placeholder=" 请输入类别" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                </td>
+                                <td>
+                                    <button type="submit" class="btn btn-primary">保存</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 新增-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">新增猜你喜欢（站内）</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="/BackgRound/Add_Webin" id="form1" class="form_addres" enctype="multipart/form-data">
+                        <table class="table">
+                            <tr>
+                                <td>
+                                    推广宝贝id:
+                                </td>
+                                <td>
+                                    <input type="text" name="GoodsId" id="GoodsId" value="" class="form-control" placeholder=" 在商品详情也可查看id" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    类别：
+                                </td>
+                                <td>
+                                    <input type="text" name="type_1" id="type_1" value="" class="form-control" placeholder=" 请输入类别" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                </td>
+                                <td>
+                                    <button type="submit" class="btn btn-primary">保存</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        function Selset_WebIn(id) {
+            $.ajax({
+                type: "post",
+                data: { "id": id },
+                async: false,//不异步请求
+                url: "/BackgRound/Selset_WebIn",
+                success: function (data) {
+                    var msg = jQuery.parseJSON(data);//那以后每次用的收都将goods转化为这个形式
+                    console.log(msg);
+                    $('#GoodsId_1').val(msg.GoodsId);
+                    $('#type_1_1').val(msg.type_1);
+                    $('#WebInId').val(msg.WebInId);
+                },
+                error: function (e) {
+                    alert("失败了？？：" + e);
+                    console.log(e.status);
+                    console.log(e.responseText);
+                }
+            })
+        }
+
+
+        function Delete_Webin(id) {
+            if (confirm('你确定要删除该站内推广吗？')) {
+                $.ajax({
+                    type: "post",
+                    data: { "id": id },
+                    async: false,//不异步请求
+                    url: "/BackgRound/Delete_Webin",
+                    success: function (data) {
+                        alert(data);
+                        location.reload();
+                    },
+                    error: function (e) {
+                        alert("失败了？？：" + e);
+                        console.log(e.status);
+                        console.log(e.responseText);
+                    }
+                })
+            }
+
+        }
+    </script>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/valuedate.js"></script>
+</body>
+
+</html>
+

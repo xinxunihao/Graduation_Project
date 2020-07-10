@@ -16,7 +16,7 @@ go
 --用户表
 create table UserInfo(
   UserId int primary key identity(1,1),
-  UserName nvarchar(10) not null,--用户名称
+  UserName nvarchar(10) not null,--用户名称、
   UserEmile nvarchar(100) not null ,--用户邮箱
   UserPwd nvarchar(100) not null ,--用户密码
   Age int , --年龄
@@ -29,29 +29,13 @@ create table UserInfo(
   IsManage int default(0),--是否为管理员，1为是
   Sex char(2) check(sex='男' or sex='女'),--男或女
 )
---update UserInfo set UserEmile='3089218762@qq.com' where UserId=1
+--update UserInfo set UserEmile='308921876@qq.com' where UserId=3
+delete from UserInfo where UserId=5
 go
---select * from userinfo
+--select * from userinfo 
 insert into UserInfo values('admin','3089218762@qq.com','123456',20,200.2,'我是帅哥，高冷，不想说话','man.jpg',0,GETDATE(),GETDATE(),0,'男')
-insert into UserInfo values('admin2','1234567@qq.com','123456',20,200.2,'我是美女，hi，一起play啊','women.jpg',0,GETDATE(),GETDATE(),1,'女')
-
-go
-if exists(select * from sysobjects where name='Addres')
-drop table Addres;
-go
---地址表
-create table Addres(
-  AddresId int primary key identity(1,1),
-  Name nvarchar(20) not null ,--收获人姓名
-  UserId int foreign key references UserInfo(UserId),--用户表
-  Addresss1 nvarchar(100) not null ,--大致地址（省，市，县）
-  Addresss2 nvarchar(100) not null ,--详细地址
-  Phone nvarchar(20),--手机号码
-  IsDelete int ,--是否删除
-)
-go
---select * from Addres
-insert into Addres values('陈能武',1,'湖南省，长沙市，长沙县','湘龙街道100号','15855698562',0)
+insert into UserInfo values('admin2','1234567@qq.com','123456',20,200.2,'我是美女，hi，一起play啊','women.jpg',0,GETDATE(),GETDATE(),0,'女')
+insert into UserInfo values('小明啊！','112233@qq.com','123456',20,200.2,'我是帅哥，hi，一起play啊','man.jpg',0,GETDATE(),GETDATE(),1,'男')
 
 
 go
@@ -111,7 +95,7 @@ create table Goodsaddress(
   GoodsaddressBId int foreign key references Goodsaddress(GoodsaddressId),--外键自己的主键，二级类型，三级类型
 )
 go
---select * from Goodsaddress
+--select * from Goodsaddress where TypeName='长沙'
 insert into Goodsaddress values('华东地区',null),('华南地区',null),('华中地区',null),('华北地区',null),('东北地区',null),('西南地区',null),('西北地区',null)
 go
 insert into Goodsaddress values('江苏',1),('浙江',1),('福建',1),('山东',1),('江西',1),('安徽',1)
@@ -159,6 +143,31 @@ insert into Goodsaddress values('兰州',34),('白银',34),('定西',34),('甘南',34),(
 
 
 go
+if exists(select * from sysobjects where name='Addres')
+drop table Addres;
+go
+--地址表
+create table Addres(
+  AddresId int primary key identity(1,1),
+  Name nvarchar(20) not null ,--收货人姓名
+  UserId int foreign key references UserInfo(UserId),--用户表
+  GoodsaddressId1 int foreign key references Goodsaddress(GoodsaddressId),--地区表--省
+  GoodsaddressId2 int foreign key references Goodsaddress(GoodsaddressId),--地区表--城市
+  Addresss1 nvarchar(100) not null ,--大致地址
+  Addresss2 nvarchar(100) not null ,--详细地址
+  Phone nvarchar(20),--手机号码
+  IsDelete int ,--是否默认
+)
+go
+--select * from Addres
+insert into Addres values('陈能武1',1,18,186,'湖南省-长沙市','湘龙街道100号','15855698562',1),
+('柏鹏1',2,18,186,'湖南省-长沙市','湘龙街道100号','15855698562',0),
+('能悟',3,18,186,'湖南省-长沙市','湘龙街道100号','15855698562',0)
+
+
+
+
+go
 if exists(select * from sysobjects where name='Goods')
 drop table Goods;
 go
@@ -174,7 +183,7 @@ create table Goods(
   Price float,--价格
   Price_Yuan float,--原来价格
   munber int,--浏览次数
-  IsState int,--商品状态，1上架，2下架，3卖出，4删除
+  IsState int,--商品状态，1上架，2下架，3卖出，4完成
   CreateTime datetime,--发布时间
   UpdateTime datetime ,--更新时间（点亮宝贝）
   Peisong int,--配送方式1，邮寄.2，自提
@@ -187,28 +196,28 @@ go
 --delete RealName where  RealNameId=3
 update RealName set IsDelete=1 where UserId=1
 
-insert into Goods values(1,73,69,1,'测试数据一','全新的联想电脑，便宜出了12312312',8880.5,9999.9,10,1,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
-insert into Goods values(1,74,70,1,'测试数据二','全新的苹果电脑，随便出，是打发法',9980.5,9999.9,10,1,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
-insert into Goods values(1,75,71,1,'测试数据三，大甩卖','啊沙发沙发打赏没有介绍',1280.25,9999.9,10,1,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
-insert into Goods values(1,76,72,1,'测试数据四，快乐送','啊发大水发大水范德萨给点钱意思一下',0,9999.9,10,1,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
-insert into Goods values(1,77,73,1,'测试数据五，便宜送','全新的苹果电脑，随便出，给点钱意思一下',9280.5,9999.9,10,2,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
+insert into Goods values(1,73,69,1,'测试数据一','全新的联想电脑，便宜出了12312312',8880.5,9999.9,10,1,getdate(),getdate(),2,'湘龙街道北100号 工程职业技术学院',181799858541)
+insert into Goods values(2,74,70,2,'测试数据二','全新的苹果电脑，随便出，是打发法',9980.5,9999.9,10,2,getdate(),getdate(),2,'湘龙街道北100号 工程职业技术学院',181799858541)
+insert into Goods values(1,75,71,3,'测试数据三，大甩卖','啊沙发沙发打赏没有介绍',1280.25,9999.9,10,2,getdate(),getdate(),2,'湘龙街道北100号 工程职业技术学院',181799858541)
+insert into Goods values(1,76,72,4,'测试数据四，快乐送','啊发大水发大水范德萨给点钱意思一下',0,9999.9,10,2,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
+insert into Goods values(1,77,73,3,'测试数据五，便宜送','全新的苹果电脑，随便出，给点钱意思一下',9280.5,9999.9,10,3,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
 
-insert into Goods values(1,78,74,1,'测试数据六','全新的联想电脑，便宜出了',180.5,9999.9,10,2,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
-insert into Goods values(1,79,75,1,'测试数据七','全新的苹果电脑，随便出，给点钱意思一下',2660.5,9999.9,10,2,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
-insert into Goods values(1,81,76,1,'测试数据八，大甩卖','没有介绍',2666.25,9999.9,10,1,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
-insert into Goods values(1,82,77,1,'测试数据九，快乐送','5555，随便出，给点钱意思一下',188,9999.9,10,2,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
-insert into Goods values(1,83,78,1,'测试数据十，便宜送','给弄了，随便出，给点钱意思一下',18758.5,9999.9,10,1,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
+insert into Goods values(1,78,74,1,'测试数据六','全新的联想电脑，便宜出了',180.5,9999.9,10,2,getdate(),getdate(),3,'湘龙街道北100号 工程职业技术学院',181799858541)
+insert into Goods values(2,79,75,2,'测试数据七','全新的苹果电脑，随便出，给点钱意思一下',2660.5,9999.9,10,2,getdate(),getdate(),4,'湘龙街道北100号 工程职业技术学院',181799858541)
+insert into Goods values(2,81,76,3,'测试数据八，大甩卖','没有介绍',2666.25,9999.9,10,3,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
+insert into Goods values(1,82,77,1,'测试数据九，快乐送','5555，随便出，给点钱意思一下',188,9999.9,10,2,getdate(),getdate(),2,'湘龙街道北100号 工程职业技术学院',181799858541)
+insert into Goods values(1,83,78,3,'测试数据十，便宜送','给弄了，随便出，给点钱意思一下',18758.5,9999.9,10,1,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
 
 insert into Goods values(1,88,79,1,'测试数据十一','全新钱钱222，便宜出了',1280.5,9999.9,10,1,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
 insert into Goods values(1,85,89,1,'测试数据十二','全新的苹果电脑，随便出，给点钱意思一下',22.5,9999.9,10,1,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
-insert into Goods values(1,99,88,1,'测试数据十三，大甩卖','没有介绍',280.25,9999.9,10,1,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
-insert into Goods values(1,111,90,1,'测试数据十四，快乐送','全新的苹果电脑，随便出，给点钱意思一下',888,9999.9,10,1,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
+insert into Goods values(2,99,88,1,'测试数据十三，大甩卖','没有介绍',280.25,9999.9,10,1,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
+insert into Goods values(2,111,90,1,'测试数据十四，快乐送','全新的苹果电脑，随便出，给点钱意思一下',888,9999.9,10,1,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
 insert into Goods values(1,122,99,1,'测试数据十五，啊撒范德萨发生发生','全新的苹果电脑，随便出，给点钱意思一下',10.5,9999.9,10,1,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
 
 insert into Goods values(1,66,22,1,'测试数据十六','全新的联想电脑，便宜出了',1280.5,9999.9,10,1,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
-insert into Goods values(1,55,25,1,'测试数据十七','全新的苹果电脑，随便出，给点钱意思一下',280.5,9999.9,10,1,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
+insert into Goods values(2,55,25,1,'测试数据十七','全新的苹果电脑，随便出，给点钱意思一下',280.5,9999.9,10,1,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
 insert into Goods values(1,44,28,1,'测试数据十八，大甩卖','没有介绍',280.25,9999.9,10,1,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
-insert into Goods values(1,78,33,1,'测试数据十九，快乐送','全新的苹果电脑，随便出，给点钱意思一下',858,9999.9,10,1,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
+insert into Goods values(2,78,33,1,'测试数据十九，快乐送','全新的苹果电脑，随便出，给点钱意思一下',858,9999.9,10,1,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
 insert into Goods values(1,55,66,1,'测试数据二十，便宜送','全新的苹果电脑，随便出，给点钱意思一下',980.5,9999.9,10,2,getdate(),getdate(),1,'湘龙街道北100号 工程职业技术学院',181799858541)
 go
 if exists(select * from sysobjects where name='Goodsimage')
@@ -273,7 +282,10 @@ create table Orders(
 )
 go
 --select * from Orders
-insert into Orders values(1,2,4,1,'s120254845154',getdate(),getdate(),getdate(),getdate())
+insert into Orders values(1,2,5,1,null,getdate(),null,null,null),
+(1,2,6,2,'s120254845154',getdate(),getdate(),null,null),
+(2,1,7,4,'s120254845154',getdate(),getdate(),getdate(),getdate()),
+(2,1,8,2,'s120254845154',getdate(),getdate(),null,null)
 
 
 
@@ -356,12 +368,12 @@ go
 create table Pingjia_texts(
   Pingjia_textsId int primary key identity(1,1),
   TextsId int foreign key references Texts(TextsId),--文字(主)
-  GoodsId int foreign key references Goods(GoodsId),--商品表
+  OrdersId int foreign key references Orders(OrdersId),--评价表
   States int,--状态，0-未读，1-已读（商品表主人）
 )
 go
 --select * from Pingjia_texts
-insert into Pingjia_texts values(1,4,0)
+insert into Pingjia_texts values(1,3,0)
 
 go
 if exists(select * from sysobjects where name='Friends_texts')
@@ -391,12 +403,107 @@ create table JuBao(
   JuBao_body nvarchar(500),--举报内容
   addTiem datetime,--时间
   States int,--状态，0-已提交，1-已处理
-  HuiFu nvarchar(100),--已处理后的答复
+  HuiFu nvarchar(500),--已处理后的答复
   CLUserId int foreign key references UserInfo(UserId),--处理管理员(客服？)
+  JuBaoName nvarchar(20),--举报标题
+  JubaoType int,--举报类别1用户，2建议
+  endTiem datetime,--时间
 )
 go
 --select * from JuBao
-insert into JuBao values(1,2,'卖假货，这个骗子，气死我了',getdate(),0,null,null)
+insert into JuBao values(1,2,'卖假货，这个骗子，气死我了',getdate(),0,null,null,'嘤嘤嘤，被骗了',1,null),
+(1,2,'卖假货，这个骗子，气死我了',getdate(),1,'已经封禁，感谢举报，',3,'嘤嘤嘤，被骗了',1,getdate()),
+(3,null,'想要一个站内通信了',getdate(),0,null,null,'想要一个站内通信',2,null),
+(3,null,'想要一个站内通信了',getdate(),1,'太难了，臣妾做不到啊',3,'想要一个站内通信',2,getdate())
+
+go
+if exists(select * from sysobjects where name='LunBo')
+drop table LunBo;
+go
+--轮播图
+create table LunBo(
+  LunBoId int primary key identity(1,1),
+  images nvarchar(50),--添加图片名
+  a_1 nvarchar(500),--链接地址
+  addtime datetime,--添加时间
+  type_1 nvarchar(10),--添加类别
+)
+go
+--select * from LunBo
+insert into LunBo values('1.jpg','https://www.baidu.com',getdate(),'电脑')
+,('2.jpg','https://www.baidu.com',getdate(),'电脑')
+,('3.jpg','https://www.baidu.com',getdate(),'电脑')
+,('4.jpg','https://www.baidu.com',getdate(),'电脑')
+,('5.jpg','https://www.baidu.com',getdate(),'电脑')
+,('6.jpg','https://www.baidu.com',getdate(),'电脑')
+,('7.jpg','https://www.baidu.com',getdate(),'电脑')
+
+
+
+go
+if exists(select * from sysobjects where name='WebIn')
+drop table WebIn;
+go
+--站内推广表
+create table WebIn(
+  WebInId int primary key identity(1,1),
+  GoodsId int foreign key references Goods(GoodsId),--商品表,推广商品
+  addtime datetime,--添加时间
+  type_1 nvarchar(10),--添加类别
+)
+go
+--select * from WebIn
+insert into WebIn values(1,getdate(),'电脑'),(3,getdate(),'电脑'),(4,getdate(),'电脑')
+
+
+
+go
+if exists(select * from sysobjects where name='WebOut')
+drop table WebOut;
+go
+--站外推广表
+create table WebOut(
+  WebOutId int primary key identity(1,1),
+  images nvarchar(50),--添加图片名
+  Name nvarchar(50),--标题
+  Info nvarchar(120),--内容
+  a_1 nvarchar(500),--链接地址
+  addtime datetime,--添加时间
+  type_1 nvarchar(10),--添加类别
+)
+go
+--select * from WebOut
+insert into WebOut values
+('联想电脑图片1.jpg','推广戴尔电脑1','电脑连锁品牌，你值得信赖哦，有意加盟者，请联系13845874744，cell我哦！！！','https://www.baidu.com',getdate(),'广告'),
+('联想电脑图片2.jpg','推广戴尔电脑2','啦啦啦啦啦，好电脑便宜卖了，','https://www.baidu.com',getdate(),'广告'),
+('联想电脑图片3.jpg','推广戴尔电脑3','火热招募101名心怀梦想的少女，组成火箭筒少女，选出9位成员c位出道','https://www.baidu.com',getdate(),'广告')
+
+go
+if exists(select * from sysobjects where name='WeiGui')
+drop table WeiGui;
+go
+--违规处理表
+create table WeiGui(
+  WeiGuiId int primary key identity(1,1),
+  Name nvarchar(50),--标题，原因
+  Info nvarchar(120),--具体处理内容
+  a_1 nvarchar(500),--链接地址
+  addtime datetime,--添加时间
+  type_1 nvarchar(10),--违规类别
+  GLuser int foreign key references UserInfo(UserId),--用户表(处理员)
+  UserId1 int foreign key references UserInfo(UserId),--用户表(被处理用户)
+)
+go
+--select * from WeiGui
+insert into WeiGui values('乱发小广告','扣除金币10','www.baidu.com',getdate(),'广告',3,1)
+
+
+
+
+--萨芬
+--alter table JuBao add JuBaoName nvarchar(20);
+--alter table JuBao add JubaoType int;
+
 
 
 

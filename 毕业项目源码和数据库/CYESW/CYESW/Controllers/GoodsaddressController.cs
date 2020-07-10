@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using CYESW.Filter;
 using CYESW.Models;
 
 namespace CYESW.Controllers
 {
+    [Login]
     public class GoodsaddressController : Controller
     {
         CYESWEntities db = new CYESWEntities();
@@ -26,6 +28,51 @@ namespace CYESW.Controllers
             Session["adressid"] = addres;
             return RedirectToAction("Index","Home");
         }
+
+
+        [Login]
+        public ActionResult Jubao_1(string userid,int? address_type = 1)//userid为其他页面传过来的举报用户id
+        {
+            if (userid!=null)
+            {
+                ViewBag.id = userid;
+            }
+            Session["address_type"] = address_type;
+            TempData["Title"] = "反馈举报";
+            return View();
+        }
+
+        public ActionResult Jubao_1_1(JuBao jubao)
+        {
+            try
+            {
+                if (db.UserInfo.Find(jubao.UserId2)==null)
+                {
+                    TempData["Title"] = "反馈举报";
+                    TempData["exe"] = "举报失败，为查询到该用户id";
+                    return RedirectToAction("Jubao_1");
+                }
+                jubao.States = 0;
+                jubao.addTiem = DateTime.Now;
+                db.JuBao.Add(jubao);
+                db.SaveChanges();
+                TempData["Title"] = "反馈举报";
+                TempData["exe"] = "保存成功！";
+                return RedirectToAction("Jubao_1");
+            }
+            catch (Exception ex)
+            {
+                TempData["exe"] = "出现未知异常，请联系管理员解决。异常：" + ex.Message;
+                return RedirectToAction("Jubao_1");
+            }
+        }
+
+        public ActionResult useraddres(int id)
+        {
+            List<Addres> list = db.Addres.Where(p => p.UserId == id).ToList();
+            return View(list);
+        }
+
 
         public ActionResult abcd()
         {

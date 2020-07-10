@@ -1,1 +1,56 @@
 ﻿
+
+
+@using PagedList.Mvc
+@model PagedList.PagedList<CYESW.Models.JuBao>
+<div class="alert alert-warning alert-dismissable">
+    <button type="button" class="close" data-dismiss="alert"
+            aria-hidden="true">
+        &times;
+    </button>
+    欢迎来到 <span style="font-size:16px;color:orangered">@TempData["Title"]</span> 板块！为您查询到 <span style="font-size:16px;color:orangered">@Model.TotalItemCount</span> 条反馈信息！
+</div>
+
+@if (Model.TotalItemCount < 1)
+{
+    <div class="tab-content">
+        <div class="wo-empty">
+            <strong style="font-size: 24px;color: #333;font-weight: 400;">
+                <img src="~/images/icopng/info.png" width="50" />您还没有反馈过。
+            </strong>
+
+            <p><a href="/Goodsaddress/Jubao_1" class="feedback">点击这里直接反馈</a>。</p>
+        </div>
+    </div>
+}
+<div class="tab_content">
+    <ul class="favs-list">
+        @foreach (var item in Model.OrderBy(p => p.States).OrderByDescending(p => p.addTiem))
+        {
+            var zhauntai = "未受理"; var zhauntai1 = "举报";
+            if (item.States == 1)
+            { zhauntai = "已受理"; }
+            if (item.JubaoType == 2)
+            { zhauntai1 = "反馈"; }
+            <li class="row">
+                <div class="title col-lg-7">
+                    [@zhauntai1] <a target="_blank" href="/User/User_JuBao?JuBaoId=@item.JuBaoId">@item.JuBaoName --@zhauntai</a>
+                </div>
+                <div class="col-lg-3"><time>提交时间 @string.Format("{0:yyyy年MM月dd}", item.addTiem)</time></div>
+
+                <div class="cancel col-lg-2">
+                    <a href="/User/User_JuBao?JuBaoId=@item.JuBaoId" class="unfav-button">查看</a>
+                </div>
+            </li>
+
+        }
+    </ul>
+    <div style="padding:10px;text-align:center;background-color:white;border-radius:15px">
+        当前页/总页数（ @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount ）
+
+        @Html.PagedListPager(Model, page => Url.Action("UserIndex", new
+        {
+            page
+        }))
+    </div>
+</div>

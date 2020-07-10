@@ -21,7 +21,7 @@ namespace CYESW.Models
             this.HuDong_texts = new HashSet<HuDong_texts>();
             this.Love = new HashSet<Love>();
             this.Orders = new HashSet<Orders>();
-            this.Pingjia_texts = new HashSet<Pingjia_texts>();
+            this.WebIn = new HashSet<WebIn>();
         }
     
         public int GoodsId { get; set; }
@@ -53,6 +53,6 @@ namespace CYESW.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Orders> Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Pingjia_texts> Pingjia_texts { get; set; }
+        public virtual ICollection<WebIn> WebIn { get; set; }
     }
 }

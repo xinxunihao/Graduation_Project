@@ -7,23 +7,43 @@ using System.Web.Mvc;
 using CYESW.Models;
 using Newtonsoft.Json;
 using PagedList;
+using CYESW.Filter;
 
 namespace CYESW.Controllers
 {
+    [Login]
     public class GoodsController : Controller
     {
         CYESWEntities db = new CYESWEntities();
         // GET: Goods
-        public ActionResult Index(int? id)
+        [Login]
+        public ActionResult Index(int? id = 9)
         {
-            if (Session["user"]!=null)//登录的用户
-            {
-                //TempData["exe"] = "请先登录，谢谢！";
-                //return RedirectToAction("Login", "Home");
-                Session["user"] = db.UserInfo.Find(1);//便于调试，项目完成后可注释
-            }
+            //if (Session["user"]!=null)//登录的用户
+            //{
+            //    //TempData["exe"] = "请先登录，谢谢！";
+            //    //return RedirectToAction("Login", "Home");
+            //    Session["user"] = db.UserInfo.Find(1);//便于调试，项目完成后可注释
+            //}
+            ViewBag.WebOut = db.WebOut.ToList();
+            ViewBag.WebIn = db.WebIn.ToList();
+           
             TempData["Title"] = "商品详情";
-            ViewData["goodsinfo"] = db.Goods.Find(id);
+            Goods goods = db.Goods.Find(id);
+            if (goods.IsState!=1)
+            {
+                TempData["Title"] = "首页";
+                TempData["exe"] = "该商品已下架或已卖出！";
+                return RedirectToAction("Index", "Home");
+            }
+            goods.munber++;
+            db.SaveChanges();
+
+
+            List<GoodsType> list = db.GoodsType.Where(p => p.GoodsTypeBId == goods.GoodsType.GoodsTypeBId).ToList();//获取相关类目
+
+            ViewBag.GoodsType = list;
+            ViewData["goodsinfo"] = goods;
             ViewData["user_1"] = db.UserInfo.Find(db.Goods.Find(id).UserId);//卖出的用户
             return View();
         }
@@ -35,6 +55,7 @@ namespace CYESW.Controllers
         /// <param name="typeid">类别id（八种）</param>
         /// <param name="page">分页id</param>
         /// <returns></returns>
+
         public ActionResult IndexTwo(int? typeid, int? page, int? paixu, int? Price_min, int? Price_max, string Name = "")
         {
             int? goodsaddres = 0, isnew = 0;//地区限制，是否全新
@@ -115,21 +136,22 @@ namespace CYESW.Controllers
         {
             return View(list);
         }
-        //public ActionResult getdata_ajax()
-        //{
-        //    db.Configuration.LazyLoadingEnabled = false;//关闭延迟加载
-        //    //使用贪婪加载
-        //    var goodlist = db.Goods.Include("UserInfo").Include("Goodsimage").ToList();
-        //    //var goodlistimg = db.Goods.Include("Goodsimage").Where(p => p.Goodsaddress.TypeName == "湖南").ToList();
-        //    //借用newtonsoft。json包进行序列化,防止导航属性循环
-        //    JsonSerializerSettings jsSettings = new JsonSerializerSettings();
-        //    jsSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-        //    string ret = JsonConvert.SerializeObject(goodlist, jsSettings);
-        //    //string retimg = JsonConvert.SerializeObject(goodlistimg, jsSettings);
-        //    //转换为json格式输出
-        //    var result = Json(ret, JsonRequestBehavior.AllowGet);
-        //    return result;
-        //}
+        public ActionResult getdata_ajax()
+        {
+            db.Configuration.LazyLoadingEnabled = false;//关闭延迟加载
+            //使用贪婪加载
+            var goodlist = db.Goods.Include("UserInfo").Include("Goodsimage").ToList();
+            //var goodlistimg = db.Goods.Include("Goodsimage").Where(p => p.Goodsaddress.TypeName == "湖南").ToList();
+            //借用newtonsoft。json包进行序列化,防止导航属性循环
+            JsonSerializerSettings jsSettings = new JsonSerializerSettings();
+            jsSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            string ret = JsonConvert.SerializeObject(goodlist, jsSettings);
+            //string retimg = JsonConvert.SerializeObject(goodlistimg, jsSettings);
+            //转换为json格式输出
+            var result = Json(ret, JsonRequestBehavior.AllowGet);
+            return result;
+        }
+
 
         public ActionResult Release()
         {
@@ -138,6 +160,7 @@ namespace CYESW.Controllers
             return View();
         }
 
+        [Login]
         public ActionResult Release_1(int typeid = 1)
         {
             try
@@ -160,8 +183,14 @@ namespace CYESW.Controllers
 
         }
 
+        //用来给修改界面过来的跳转
+        public ActionResult Release_2() {
+            return View();
+        }
+
         [HttpPost]
-        public ActionResult Release_2(Goods goods, HttpPostedFileBase Photos)
+        [Login]
+        public ActionResult Release_2(Goods goods, List<HttpPostedFileBase> Photos)
         {
             try
             {
@@ -185,14 +214,18 @@ namespace CYESW.Controllers
                         db.Goods.Add(goods);
                         if (db.SaveChanges() > 0)//影响的行数大于0
                         {
-                            string fileName = Path.GetFileName(Photos.FileName);
-                            Photos.SaveAs(Server.MapPath("~/images/img/" + fileName));
-                            Goodsimage image = new Goodsimage()
+                            foreach (var item in Photos)//将图片集合遍历出来
                             {
-                                GoodsId = goods.GoodsId,
-                                images = fileName
-                            };
-                            db.Goodsimage.Add(image);
+                                string fileName = Path.GetFileName(item.FileName);
+                                item.SaveAs(Server.MapPath("~/images/img/" + fileName));
+                                Goodsimage image = new Goodsimage()
+                                {
+                                    GoodsId = goods.GoodsId,
+                                    images = fileName
+                                };
+                                db.Goodsimage.Add(image);
+                            }
+
                             db.SaveChanges();
                             TempData["exe"] = "发布成功！";
                             goods = db.Goods.Find(goods.GoodsId);
@@ -234,7 +267,7 @@ namespace CYESW.Controllers
 
 
         [HttpPost]
-        public ActionResult Updata_g(Goods goods)
+        public ActionResult Updata_g(Goods goods, List<HttpPostedFileBase> Photos)
         {
             try
             {
@@ -254,9 +287,26 @@ namespace CYESW.Controllers
 
                 db.Entry(goods1).State = System.Data.Entity.EntityState.Modified;//修改
                 db.SaveChanges();
-                
-                Session["goods_ls"] = goods1;
-                return RedirectToAction("Release_2");
+
+                foreach (var item in Photos)//将图片集合遍历出来
+                {
+                    if (item==null)
+                    {
+                        continue;
+                    }
+                    string fileName = Path.GetFileName(item.FileName);
+                    item.SaveAs(Server.MapPath("~/images/img/" + fileName));
+                    Goodsimage image = new Goodsimage()
+                    {
+                        GoodsId = goods.GoodsId,
+                        images = fileName
+                    };
+                    db.Goodsimage.Add(image);
+                }
+                db.SaveChanges();
+
+                Session["goods_ls"] = goods1;//到Release_2页面需要的数据（商品）
+                return View("Release_2");
             }
             catch (Exception ex)
             {
@@ -267,12 +317,41 @@ namespace CYESW.Controllers
 
         }
 
+        
+        //使用删除图片
+        public ActionResult Updata_g_deleteimg(int id,int goodsid)
+        {
+            db.Goodsimage.Remove(db.Goodsimage.Find(id));
+            db.SaveChanges();
+            TempData["exe"] = "删除成功！";
+            return RedirectToAction("Updata_g",new { id = goodsid });
+        }
+
         //商家的订单详情
         public ActionResult Order_1(int Orderid)
         {
             TempData["Title"] = "订单详情";
-            Orders order1= db.Orders.Find(Orderid);
+            Orders order1 = db.Orders.Find(Orderid);
             return View(order1);
+        }
+
+        //商家发货
+        public ActionResult Order_1_wl(int id, string Wuliu)
+        {
+            try
+            {
+                Orders orders = db.Orders.Find(id);
+                orders.IsState = 2;
+                orders.BuyTime2 = DateTime.Now;
+                orders.Wuliu = Wuliu;
+                db.SaveChanges();
+                return RedirectToAction("Order_1", new { Orderid = id });
+            }
+            catch (Exception ex)
+            {
+                TempData["exe"] = "出现未知异常，请联系管理员。异常：" + ex.Message;
+                return RedirectToAction("Order_1", new { Orderid = id });
+            }
         }
 
         //买家的订单详情
@@ -290,7 +369,9 @@ namespace CYESW.Controllers
                 Orders orders = db.Orders.Find(id);
                 orders.IsState = 3;
                 orders.BuyTime3 = DateTime.Now;
+                orders.Goods.IsState = 4;//将商品表状态改为已完成
                 db.SaveChanges();
+                TempData["exe"] = "确认收获成功！给宝贝一个评价吧";
                 return RedirectToAction("Order_2", new { Orderid = id });
             }
             catch (Exception ex)
@@ -303,23 +384,25 @@ namespace CYESW.Controllers
 
         //买家评价
         [HttpPost]
-        public ActionResult Order_2_2(int id,string pingjia)
+        public ActionResult Order_2_2(int id, string pingjia)
         {
             try
             {
                 Orders orders = db.Orders.Find(id);
                 UserInfo us = Session["user"] as UserInfo;
-                Texts txt = new Texts() { UserId=us.UserId,addTiem=DateTime.Now,Textbody=pingjia };
+                Texts txt = new Texts() { UserId = us.UserId, addTiem = DateTime.Now, Textbody = pingjia };
                 db.Texts.Add(txt);
                 db.SaveChanges();
 
-                Pingjia_texts htxt = new Pingjia_texts() {TextsId= txt.TextsId,GoodsId= orders.GoodsId, States=0 };
+                Pingjia_texts htxt = new Pingjia_texts() { TextsId = txt.TextsId, OrdersId = id, States = 0 };
                 db.Pingjia_texts.Add(htxt);
                 db.SaveChanges();
 
                 orders.IsState = 4;
                 orders.BuyTime4 = DateTime.Now;
+
                 db.SaveChanges();
+                TempData["exe"] = "评价成功，交易结束！";
                 return RedirectToAction("Order_2", new { Orderid = id });
             }
             catch (Exception ex)
@@ -331,18 +414,19 @@ namespace CYESW.Controllers
         }
 
 
-
+        
         //商品收藏--用ajax实现order_state
         public string AddLove(int id)
         {
             UserInfo user = Session["user"] as UserInfo;
-            if (db.Love.Where(p => p.UserId == user.UserId&&p.GoodsId==id).Count()>0)
+            if (db.Love.Where(p => p.UserId == user.UserId && p.GoodsId == id).Count() > 0)
             {
                 return "你已经添加过了！";
             }
             else
             {
-                Love love_1 = new Love() {
+                Love love_1 = new Love()
+                {
                     GoodsId = id,
                     UserId = user.UserId,
                     addTiem = DateTime.Now
@@ -351,26 +435,70 @@ namespace CYESW.Controllers
                 db.SaveChanges();
                 return "添加成功！";
             }
+
+        }
+
+        public ActionResult Play_buy(int GoodsId)
+        {
+            
+            return View(db.Goods.Find(GoodsId));
+        }
+
+        [HttpPost]
+        public ActionResult Play_buy_addres_ajax(int userid) {//ajax获取用户收货地址集合
+
+            db.Configuration.LazyLoadingEnabled = false;
+            List<Addres> goodlist = db.Addres.Where(p => p.UserId==userid).ToList();
+            JsonSerializerSettings jsSettings = new JsonSerializerSettings();
+            jsSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            string ret = JsonConvert.SerializeObject(goodlist, jsSettings);
+            var result = Json(ret, JsonRequestBehavior.AllowGet);
+            return result;
+        }
+
+        public ActionResult Play_buy_addres(int GoodsId ,int AddresId)
+        {
+            try
+            {
+                Addres addres = db.Addres.Find(AddresId);
+                List<Addres> addreslist = db.Addres.Where(p => p.UserId == addres.UserId).ToList();//将该用户其他地址全部设为非默认
+                foreach (var item in addreslist)
+                {
+                    item.IsDelete = 0;
+                }
+                addres.IsDelete = 1;
+                db.SaveChanges();
+                TempData["exe"] = "设置成功！";
+                Session["user"] = db.UserInfo.Find(addres.UserId);//刷新界面用户信息（用户的收货地址）
+                return RedirectToAction("Play_buy",new { GoodsId = GoodsId });
+            }
+            catch (Exception ex)
+            {
+                TempData["exe"] = "出现未知异常，请联系管理员解决。异常：" + ex.Message;
+                return RedirectToAction("Play_buy", new { GoodsId = GoodsId });
+            }
             
         }
+        
+
 
         //商品购买
         [HttpPost]
-        public ActionResult Play_buy(int GoodsId)
+        public ActionResult Play_buy_1(int GoodsId)
         {
             try
             {
                 UserInfo us = Session["user"] as UserInfo;
                 int? userid = db.Goods.Find(GoodsId).UserId;
-                if (userid==us.UserId)
+                if (userid == us.UserId)
                 {
                     TempData["Title"] = "商品详情";
                     //ViewData["goodsinfo"] = db.Goods.Find(GoodsId);
                     //ViewData["user_1"] = db.UserInfo.Find(db.Goods.Find(GoodsId).UserId);//卖出的用户
                     TempData["exe"] = "我的天啊！这是你自己发布的啊小伙子！";
-                    return RedirectToAction("Index",new {id= GoodsId });
+                    return RedirectToAction("Index", new { id = GoodsId });
                 }
-                if (db.Orders.Where(p=>p.GoodsId==GoodsId).Count()>0)
+                if (db.Orders.Where(p => p.GoodsId == GoodsId).Count() > 0)
                 {
                     TempData["exe"] = "抱歉，该商品已被人购买！";
                     return RedirectToAction("IndexTwo");
@@ -378,30 +506,46 @@ namespace CYESW.Controllers
                 else
                 {
                     db.Goods.Find(GoodsId).IsState = 3;
-                    Orders order1 = new Orders() { 
-                     UserId2= us.UserId,
-                     UserId1= userid,
-                     GoodsId= GoodsId,
-                     IsState=1,
-                     BuyTime1=DateTime.Now
+                    Orders order1 = new Orders()
+                    {
+                        UserId2 = us.UserId,
+                        UserId1 = userid,
+                        GoodsId = GoodsId,
+                        IsState = 1,
+                        BuyTime1 = DateTime.Now
                     };
                     db.Orders.Add(order1);
                     db.SaveChanges();
-                    return RedirectToAction("Order_1", new { Orderid = order1.OrdersId });
+                    return RedirectToAction("Order_2", new { Orderid = order1.OrdersId });
                 }
-                
+
             }
             catch (Exception ex)
             {
                 TempData["exe"] = "出现未知异常，请联系管理员。异常：" + ex.Message;
                 return RedirectToAction("IndexTwo");
             }
-            
+
         }
 
 
+        public ActionResult Goods_qxLove(int loveid)
+        {
+            try
+            {
+                Love love = db.Love.Find(loveid);
+                db.Love.Remove(love);
+                db.SaveChanges();
+                TempData["exe"] = "已经取消收藏！";
+                return RedirectToAction("UserIndex", "User", new { sextype = 2 });
+            }
+            catch (Exception ex)
+            {
+                TempData["exe"] = "出现未知异常，请联系管理员。异常：" + ex.Message;
+                return RedirectToAction("UserIndex", "User", new { sextype = 2 });
+            }
+        }
 
-        
 
     }
 }

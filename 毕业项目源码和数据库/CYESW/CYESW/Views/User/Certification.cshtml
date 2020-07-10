@@ -22,7 +22,7 @@
             </div>
             <p class="bindname active">身份证</p>
             <p class="description">身份证号：43****************<br>绑定时间：@Model.AddTime</p>
-            <p class="go"><a href="/unbind/?type=idcard" class="button button-pink">申请解绑</a></p>
+            <p class="go"><a href="" class="button button-pink" onclick="return confirm('目前无法解绑！！') ">申请解绑</a></p>
         </div>
     }
     else
@@ -47,7 +47,7 @@
                     </div>
                     <div class="modal-body">
                         <form method="post" action="/User/Certification_yz" id="form1" style="padding-left: 150px;">
-                            <input class="form-control" type="text" name="shenfenzhen" value="" placeholder=" 请输入18位身份证号">
+                            <input class="form-control" type="text" name="shenfenzhen" value="" placeholder=" 请输入18位身份证号" id="shenfenzhen">
                             <input type="hidden" name="UserId" value="@user.UserId">
                         </form>
 

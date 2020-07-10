@@ -55,15 +55,20 @@
                     <td>@Model.Goods.CreateTime</td>
                 </tr>
                 <tr>
-                    <td>最近更新：</td>
-                    <td>@Model.Goods.UpdateTime</td>
-                </tr>
-                <tr>
                     <td>
                         商品介绍：
                     </td>
                     <td>
-                        <textarea class="form-control" disabled="disabled">@Model.Goods.Info</textarea>
+                        <p class="form-control" disabled="disabled">@Model.Goods.Info</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        收货地址：
+                    </td>
+                    <td>
+                        <p>@Model.UserInfo1.Addres.FirstOrDefault().Name--@Model.UserInfo1.Addres.FirstOrDefault().Phone</p>
+                        <p>@Model.UserInfo1.Addres.FirstOrDefault().Addresss1 &nbsp; &nbsp; @Model.UserInfo1.Addres.FirstOrDefault().Addresss2</p>
                     </td>
                 </tr>
             </table>
@@ -87,20 +92,39 @@
     <div class="order_div_1">
         @if (Model.IsState == 1)
         {
-            <table class="table table-striped">
-                <tr>
-                    <td>您已拍下，请等待卖家发货.拍下时间：@Model.BuyTime1</td>
-                    <td></td>
-                </tr>
-            </table>
+            if (Model.Goods.Peisong == 2)//选择自提
+            {
+                <form action="/Goods/Order_2_1" method="get">
+                    <table class="table table-striped">
+                        <tr>
+                            <td>
+                                您已拍下，该交易为自提，请前往该地点(@Model.Goods.Goodsaddress.TypeName)：@Model.Goods.GoodsaddressInfo  收货满意后，可以确认收获哦
+                                <input type="hidden" name="id" value="@Model.OrdersId" />@*想起来了，表单提交不能用地址，，*@
+                            </td>
+                            <td><input type="submit" name="" class="input_ti" value="确认收货" /></td>
+                        </tr>
+                    </table>
+                </form>
+            }
+            else
+            {
+                <table class="table table-striped">
+                    <tr>
+                        <td>您已拍下，请等待卖家发货.拍下时间：@Model.BuyTime1</td>
+                        <td></td>
+                    </tr>
+                </table>
+            }
+
         }
         else if (Model.IsState == 2)
         {
             <form action="/Goods/Order_2_1" method="get">
                 <table class="table table-striped">
                     <tr>
-                        <td>卖家已发布，物流单号： <span>@Model.Wuliu</span> 收货满意后，可以确认收获哦
-                                        <input type="hidden" name="id" value="@Model.OrdersId" />@*想起来了，表单提交不能用地址，，*@
+                        <td>
+                            卖家已发货，物流单号： <span>@Model.Wuliu</span> 收货满意后，可以确认收获哦
+                            <input type="hidden" name="id" value="@Model.OrdersId" />@*想起来了，表单提交不能用地址，，*@
                         </td>
                         <td><input type="submit" name="" class="input_ti" value="确认收货" /></td>
                     </tr>
@@ -203,8 +227,8 @@
                 </div>
                 <div class="col-lg-7">
                     <h3>我的评价：</h3>
-                    <div> @Model.Goods.Pingjia_texts.FirstOrDefault().Texts.Textbody</div>
-
+                    <div> @Model.Pingjia_texts.FirstOrDefault().Texts.Textbody</div>
+                    <p>评价时间：@Model.Pingjia_texts.FirstOrDefault().Texts.addTiem</p>
                 </div>
             </div>
         }

@@ -1,5 +1,15 @@
 ﻿@using CYESW.Models
 @{
+    if (Session["adress"]==null)
+    {
+        Session["adress"] = "长沙";
+        Session["adressid"] = 186;
+    }
+    List<WebOut> list1 = ViewBag.WebOut;//站外推广
+    List<WebIn> list2 = ViewBag.WebIn;//站内推广
+    List<GoodsType> list3=ViewBag.GoodsType;//相关栏目
+    string adress = Session["adress"].ToString();//地址name
+    string adressid = Session["adressid"].ToString();//地址id
     ViewBag.Title = "Index";
     Goods goods = ViewData["goodsinfo"] as Goods;
     UserInfo user_1 = ViewData["user_1"] as UserInfo;//商品主人
@@ -25,6 +35,8 @@
     else//电脑类
     {
     }
+
+    var addressin = user.Addres.OrderByDescending(p => p.IsDelete).FirstOrDefault();//获取收货地址信息
 }
 
 
@@ -50,10 +62,10 @@
             </h2>
         </div>
         <div class="pries_1">
-            <h3>￥@goods.Price</h3><span>@string.Format("{0:yyyy年MM月dd}", goods.CreateTime)</span><span>10次浏览</span>
+            <h3>￥@goods.Price</h3><span>@string.Format("{0:yyyy年MM月dd}", goods.CreateTime)</span><span>浏览：@goods.munber 人</span><span>id：@goods.GoodsId </span>
             @if (user_1.UserId == user.UserId)
             {
-                <a href="#" class="btn btn-info btn-xs" style="margin:4px;text-align:center;background-color:#aadf9d">
+                <a href="/User/UserIndex" class="btn btn-info btn-xs" style="margin:4px;text-align:center;background-color:#aadf9d" onclick="confirm('别懒，自己前往个人中心管理，谢谢')">
                     <span class="glyphicon glyphicon-cog"></span> 管理
                 </a>
             }
@@ -115,10 +127,10 @@
                     <tr>
                         <td>操作：</td>
                         <td>
-                            <button class="btn btn-sm mybtn_1" data-toggle="modal" data-target="#exampleModal">
+                            <a class="btn btn-sm mybtn_1" href="/Goods/Play_buy?GoodsId=@goods.GoodsId">
                                 <span class="glyphicon glyphicon-shopping-cart span_white"></span>
                                 <span class="span_white" >购买</span>
-                            </button>
+                            </a>
                             <button class="btn btn-sm mybtn_2"  data-toggle="modal" data-target="#exampleModa2">
                                 <span class="glyphicon glyphicon-comment span_white"></span>
                                 <span class="span_white">私信</span>
@@ -137,21 +149,29 @@
                 <h3>宝贝介绍</h3>
             </div>
             <div class="itmes">
-                <span class="zhenti">
-                    <span class="glyphicon glyphicon-heart glyphicon_color"></span><span>
-                        收藏
+                <a href="#" onclick="return addlove(@goods.GoodsId)">
+                    <span class="zhenti">
+                        <span class="glyphicon glyphicon-heart glyphicon_color"></span><span>
+                            收藏
+                        </span>
                     </span>
-                </span>|
-                <span class="zhenti">
-                    <span class="glyphicon glyphicon-share-alt glyphicon_color"></span><span>
-                        分享
+                </a>
+                |
+                <a href="#" onclick="return confirm('请等待我们开发谢谢！')">
+                    <span class="zhenti">
+                        <span class="glyphicon glyphicon-share-alt glyphicon_color"></span><span>
+                            分享
+                        </span>
                     </span>
-                </span>|
-                <span class="zhenti">
-                    <span class="glyphicon glyphicon-flag glyphicon_color"></span><span>
-                        举报
+                </a>
+                |
+                <a href="#" onclick="return confirm('请等待我们开发谢谢！')">
+                    <span class="zhenti">
+                        <span class="glyphicon glyphicon-flag glyphicon_color"></span><span>
+                            举报
+                        </span>
                     </span>
-                </span>
+                </a>
             </div>
 
         </div>
@@ -203,7 +223,17 @@
                 <h3>为你精选</h3>
                 <hr />
                 <div class="row ">
-                    <div class="col-lg-3">
+                    @for (int i = 0; i < 3; i++)
+                    {
+                        <div class="col-lg-3">
+                            <div class="dztp">
+                                <img src="~/images/img/@list2[i].Goods.Goodsimage.FirstOrDefault().images" width="100%" />
+                            </div>
+                            <p class="goods_jxgoods_p" style="margin-top:10px"><a href="/Goods/Index/@list2[i].Goods.GoodsId">@list2[i].Goods.Name</a></p>
+                            <p><span style="color:#ff4757">@list2[i].Goods.Price</span>/<span style="color:#a4b0be">@list2[i].type_1</span></p>
+                        </div>
+                    }
+                    @*<div class="col-lg-3">
                         <div class="dztp">
                             <img src="~/images/img/联想电脑图片1.jpg" width="100%" />
                         </div>
@@ -223,7 +253,7 @@
                         </div>
                         <p class="goods_jxgoods_p">朝阳二手网平台不介入任何交易过程，请仔细阅读防骗提示，以免蒙受损失</p>
                         <p><span style="color:#ff4757">￥230</span>/<span style="color:#a4b0be">电脑</span></p>
-                    </div>
+                    </div>*@
                     <div class="col-lg-3 ">
                         <a href="#" class="a_full_gd">
                             更
@@ -235,18 +265,22 @@
             <div class="goods_tsgoods">
                 <h3>推送消息</h3>
                 <hr />
-                <div class="row tsxx">
-                    <div class="col-lg-3">
-                        <img src="~/images/img/联想电脑图片4.jpg" width="100%" />
+                @for (int i = 0; i < 3; i++)
+                {
+                    <div class="row tsxx">
+                        <div class="col-lg-3">
+                            <img src="~/images/webout/@list1[i].images" width="100%" />
+                        </div>
+                        <div class="col-lg-8">
+                            <p style="color:black;font-size:25px;"><a href="@list1[i].a_1">@list1[i].Name</a></p>
+                        </div>
+                        <div class="tsxx_gg col-lg-1" style="line-height:15px;">
+                            <a href="#">@list1[i].type_1</a>
+                        </div>
                     </div>
-                    <div class="col-lg-8">
-                        <p style="color:black;font-size:25px;"><a href="#">广告招租，有意请联系网站客服</a></p>
-                    </div>
-                    <div class="tsxx_gg col-lg-1" style="line-height:15px;">
-                        <a href="#">广告</a>
-                    </div>
-                </div>
-                <div class="row tsxx">
+                }
+
+                @*<div class="row tsxx">
                     <div class="col-lg-3">
                         <img src="~/images/img/联想电脑图片4.jpg" width="100%" />
                     </div>
@@ -267,14 +301,14 @@
                     <div class="tsxx_gg col-lg-1" style="line-height:15px;">
                         <a href="#">广告</a>
                     </div>
-                </div>
+                </div>*@
             </div>
         </div>
     </div>
     <div class="col-lg-3 " style="padding-right:0px">
         <div style="text-align:center " class="index_1">
             <img src="~/images/img/@user_1.Images" class="img-thumbnail user_img" />
-            <h3><a href="/User/Index_Index_two?UserId=@user_1.UserId">@user_1.UserName</a></h3>
+            <h3><a href="/User/Index_two?UserId=@user_1.UserId">@user_1.UserName</a></h3>
             <p><span class="span_gray">注册时间：@string.Format("{0:yyyy年MM月dd}", user_1.AddTime)</span></p>
             <div class="personal-mybuluo-head">
                 <div class="personal-mybuluo-wording">身份认证</div>
@@ -314,7 +348,7 @@
                 }
 
                 <hr />
-                <button class="btn_genduo">查看TA发布的更多信息></button>
+                <a class="btn_genduo" style="display:block" href="/User/Index_two?UserId=@user_1.UserId">查看TA发布的更多信息></a>
             </div>
         </div>
 
@@ -326,17 +360,21 @@
                     </h4>
                 </div>
                 <hr />
+                @for (int i = 0; i < 3; i++)
+                {
                 <div class="row">
                     <div class="zntg col-lg-4">
-                        <img src="~/images/img/联想电脑图片1.jpg" width="100%" />
+                        <img src="~/images/img/@list2[i].Goods.Goodsimage.FirstOrDefault().images" width="100%" />
                     </div>
                     <div class="col-lg-8">
-                        <a href="#" class="zntg_a chaochu_150" title="全新的华为电脑，免费送了！！">全新的华为电脑，免费送了！！</a><br />
-                        <p><span style="color:#ff4757">￥230</span>/<span style="color:#a4b0be">长沙</span></p>
+                        <a href="/Goods/Index/@list2[i].Goods.GoodsId" class="zntg_a chaochu_150" title="全新的华为电脑，免费送了！！">@list2[i].Goods.Name</a><br />
+                        <p><span style="color:#ff4757">@string.Format("{0:C}",list2[i].Goods.Price)</span>/<span style="color:#a4b0be">@list2[i].Goods.Goodsaddress.TypeName</span></p>
                     </div>
-
                 </div>
-                <div class="row">
+                }
+
+
+                @*<div class="row">
                     <div class="zntg col-lg-4">
                         <img src="~/images/img/联想电脑图片3.jpg" width="100%" />
                     </div>
@@ -353,7 +391,7 @@
                         <a href="#" class="zntg_a chaochu_150" title="全新的华为电脑，免费送了！！">全新的华为电脑，免费送了！！</a><br />
                         <p><span style="color:#ff4757">￥230</span>/<span style="color:#a4b0be">长沙</span></p>
                     </div>
-                </div>
+                </div>*@
                 <hr />
                 <div style="text-align:center"><button class="btn_genduo">查看更多站内推广</button></div>
 
@@ -368,18 +406,13 @@
                 </div>
                 <div>
                     <table class="tab-content table">
-                        <tr>
-                            <td><a href="#">长沙电脑</a></td>
-                            <td><a href="#">长沙手机</a></td>
-                        </tr>
-                        <tr>
-                            <td><a href="#">长沙衣物</a></td>
-                            <td><a href="#">长沙农产品</a></td>
-                        </tr>
-                        <tr>
-                            <td><a href="#">长沙生活用品</a></td>
-                            <td><a href="#">长沙自行车</a></td>
-                        </tr>
+                        @for (int i = 0; i < 6; i+=2)
+                        {
+                            <tr>
+                                <td><a href="/Goods/IndexTwo?typeid=1&page=1&Name=@list3[i].TypeName">@adress @list3[i].TypeName</a></td>
+                                <td><a href="/Goods/IndexTwo?typeid=1&page=1&Name=@list3[i+1].TypeName">@adress @list3[i+1].TypeName</a></td>
+                            </tr>
+                        }
                     </table>
                 </div>
 
@@ -387,28 +420,7 @@
         </div>
     </div>
 </div>
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">请扫码付款</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" style="text-align:center">
-                <img src="~/images/icopng/mm_facetoface_collect_qrcode_1593244876510.png" width="300" />
-            </div>
-            <div class="modal-footer">
-                <form action="/Goods/Play_buy?GoodsId=@goods.GoodsId" method="post" style="text-align:center">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                    <input type="submit" class="btn btn-primary" value="已付款" />
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModa2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

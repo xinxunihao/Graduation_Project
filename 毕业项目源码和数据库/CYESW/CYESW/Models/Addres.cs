@@ -17,11 +17,15 @@ namespace CYESW.Models
         public int AddresId { get; set; }
         public string Name { get; set; }
         public Nullable<int> UserId { get; set; }
+        public Nullable<int> GoodsaddressId1 { get; set; }
+        public Nullable<int> GoodsaddressId2 { get; set; }
         public string Addresss1 { get; set; }
         public string Addresss2 { get; set; }
         public string Phone { get; set; }
         public Nullable<int> IsDelete { get; set; }
     
+        public virtual Goodsaddress Goodsaddress { get; set; }
+        public virtual Goodsaddress Goodsaddress1 { get; set; }
         public virtual UserInfo UserInfo { get; set; }
     }
 }

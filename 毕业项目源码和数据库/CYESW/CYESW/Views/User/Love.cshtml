@@ -19,7 +19,7 @@
         </div>
     }
     <ul class="favs-list">
-        @foreach (var item in Model.OrderByDescending(p => p.addTiem))
+        @foreach (var item in Model.OrderByDescending(p=>p.addTiem).OrderBy(p=>p.Goods.IsState))
         {
             if (item.Goods.IsState == 1)
             {
@@ -30,7 +30,7 @@
                     <div class="col-lg-3"><time>收藏于 @string.Format("{0:yyyy年MM月dd}", item.addTiem)</time></div>
 
                     <div class="cancel col-lg-2">
-                        <a href="/Goods/Index?id=@item.GoodsId" class="unfav-button">取消收藏</a>
+                        <a href="/Goods/Goods_qxLove?loveid=@item.LoveId" class="unfav-button">取消收藏</a>
                     </div>
                 </li>
             }
@@ -43,7 +43,7 @@
                     <div class="col-lg-3"><time>收藏于 @string.Format("{0:yyyy年MM月dd}", item.addTiem)</time></div>
 
                     <div class="cancel col-lg-2">
-                        <a href="/Goods/Index?id=@item.GoodsId" class="unfav-button">取消收藏</a>
+                        <a href="/Goods/Goods_qxLove?loveid=@item.LoveId" class="unfav-button"  style="color:#80808052">取消收藏</a>
                     </div>
                 </li>
             }

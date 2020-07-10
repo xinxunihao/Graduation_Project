@@ -1,0 +1,56 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+@model List<CYESW.Models.Addres>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>靠自己</title>
+    <link href="~/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+    <script type="text/javascript">
+        var date = new Date().getTime();
+        document.write("<link rel='stylesheet' href='../Content/mycss_back.css'?v=" + date + "'>");
+    </script>
+</head>
+<body>
+    <div>
+
+        <a href="/BackgRound/UserList" class="a_fanhui">返回</a>
+        <div class="table_div">
+            <table class="table table-hover">
+                <tr>
+                    <td></td>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr style="border-radius:10px;border-bottom:1px solid red;line-height:50px">
+                        <td>
+                            <div>
+                                <h3>@item.Name</h3>
+                                <p>@item.Addresss1</p>
+                                <p>@item.Addresss2</p>
+                            </div>
+                        </td>
+                        <td>
+                            <h3>@item.Phone</h3>
+                        </td>
+                        <td>
+                            <br /> <br />
+                            <button class="btn btn-primary btn_my" data-toggle="modal" data-target="#exampleModa2" onclick="Update_Addres(@item.AddresId)">修改</button>
+                            <a href="/Goodsaddress/Delete_Addres?AddresId=@item.AddresId" class="btn btn-danger btn_my" onclick="return confirm('你确定你要删除该地址吗？<给你一次后悔的机会😡>')">删除</a>
+                            <a href="/Goodsaddress/Defult_Addres?AddresId=@item.AddresId" class="btn btn-warning btn_my">设为默认</a>
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+</body>
+</html>

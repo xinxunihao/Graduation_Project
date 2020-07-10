@@ -54,15 +54,20 @@
                     <td>@Model.Goods.CreateTime</td>
                 </tr>
                 <tr>
-                    <td>最近更新：</td>
-                    <td>@Model.Goods.UpdateTime</td>
-                </tr>
-                <tr>
                     <td>
                         商品介绍：
                     </td>
                     <td>
-                        <textarea class="form-control" disabled="disabled">@Model.Goods.Info</textarea>
+                        <p class="form-control" disabled="disabled">@Model.Goods.Info</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        收货地址：
+                    </td>
+                    <td>
+                        <p>@Model.UserInfo1.Addres.FirstOrDefault().Name--@Model.UserInfo1.Addres.FirstOrDefault().Phone</p>
+                        <p>@Model.UserInfo1.Addres.FirstOrDefault().Addresss1 &nbsp; &nbsp; @Model.UserInfo1.Addres.FirstOrDefault().Addresss2</p>
                     </td>
                 </tr>
             </table>
@@ -80,17 +85,20 @@
                 @:待填写
             }
             </h4>
-            <a href="/Goods/Index?id=@Model.Goods.GoodsId" title="卖家或买家虚假交易，诈骗？">举报此订单</a>
+            <a href="/Goodsaddress/Jubao_1?userid=@Model.Goods.GoodsId" title="卖家或买家虚假交易，诈骗？">举报此订单</a>
         </div>
     </div>
     <div class="order_div_1">
         @if (Model.IsState == 1)
         {
-            <form action="/" method="post">
+            <form action="/Goods/Order_1_wl" id="form1">
                 <table class="table table-striped">
                     <tr>
                         <td>您的宝贝已经被 <span>@Model.UserInfo1.UserName</span> 拍下， 请尽快提交物流单号：</td>
-                        <td><input type="text" name="Wuliu" value="" class="form-control input_b" /></td>
+                        <td>
+                            <input type="text" name="Wuliu" id="Wuliu" value="" class="form-control input_b" />
+                            <input type="hidden" name="id" value="@Model.OrdersId" />
+                        </td>
                         <td><input type="submit" name="" class="input_ti" value="提交更新" /></td>
                     </tr>
                 </table>
@@ -191,17 +199,17 @@
             <div class="row">
                 <div class="col-lg-5">
                     <div class="">
-                        <img src="~/images/img/@Model.UserInfo1.Images" class="img_uo"/>
+                        <img src="~/images/img/@Model.UserInfo1.Images" class="img_uo" />
                         <h4>@Model.UserInfo1.UserName</h4>
                     </div>
                 </div>
                 <div class="col-lg-7">
                     <h3>买家评价：</h3>
-                    <div> @Model.Goods.Pingjia_texts.FirstOrDefault().Texts.Textbody</div>
-
+                    <div> @Model.Pingjia_texts.FirstOrDefault().Texts.Textbody</div>
+                    <p>评价时间：@Model.Pingjia_texts.FirstOrDefault().Texts.addTiem</p>
                 </div>
             </div>
-            }
+        }
     </div>
 </div>
 

@@ -8,6 +8,7 @@
     <link href="~/Content/zzsc.css" rel="stylesheet" />
     <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
     @*<link href="~/layui/css/layui.css" rel="stylesheet" />
         <link href="~/layui/css/layui.mobile.css" rel="stylesheet" />
         <script src="~/layui/layui.js"></script>*@
@@ -23,11 +24,17 @@
         </script>*@
     @using CYESW.Models;
     @{
+        var user = Session["user"] as UserInfo;
         var user_name = "登录/注册";
+        var user_IsManage = "";
         if (Session["user"] != null)
         {
-            var user = Session["user"] as UserInfo;
             user_name = user.UserName;
+            if (user.IsManage==1)
+            {
+                user_IsManage = "1";
+            }
+
         }
     }
     @if (TempData["exe"] != null)
@@ -48,11 +55,16 @@
             </div>
             <div class="col-lg-6" style="text-align:right;">
                 <a href="/User/UserIndex">@user_name</a>|
-                <a href="/User/UserIndex"> 联系我们 </a>
+                <a href="/Goodsaddress/Jubao_1"> 联系我们 </a>
                 @if (user_name != "登录/注册")
                 {
                     @:|
                     <a href="/User/UserExit" onclick="return confirm('你确定要注销登录吗？')">注销</a>
+                }
+                @if (user_IsManage == "1")
+                {
+                    @:|
+                    <a href="/BackgRound/Index">转到后台</a>
                 }
 
             </div>
@@ -95,24 +107,25 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-<script type="text/javascript">
-    function addlove(ids) {
-        $.ajax({
-            type: "get",
-            data: {"id":ids},
-            async: false,//不异步请求，加载了数据成功后在填入框中
-            url: "/Goods/AddLove",
-            success: function (data) {
-                alert(data);
-			},
-            error: function (e) {
-                alert("失败了？？："+e);
-				console.log(e.status);
-				console.log(e.responseText);
-			}
-        })
-        return false;
-    }
-</script>
+    <script type="text/javascript">
+        function addlove(ids) {
+            $.ajax({
+                type: "get",
+                data: { "id": ids },
+                async: false,//不异步请求，加载了数据成功后在填入框中
+                url: "/Goods/AddLove",
+                success: function (data) {
+                    alert(data);
+                },
+                error: function (e) {
+                    alert("失败了？？：" + e);
+                    console.log(e.status);
+                    console.log(e.responseText);
+                }
+            })
+            return false;
+        }
+    </script>
+    <script src="~/Scripts/valuedate.js?v=1.31"></script>
 </body>
 </html>

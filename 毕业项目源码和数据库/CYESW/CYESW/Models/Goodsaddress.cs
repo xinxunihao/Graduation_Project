@@ -17,6 +17,8 @@ namespace CYESW.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Goodsaddress()
         {
+            this.Addres = new HashSet<Addres>();
+            this.Addres1 = new HashSet<Addres>();
             this.Goods = new HashSet<Goods>();
             this.Goodsaddress1 = new HashSet<Goodsaddress>();
         }
@@ -25,6 +27,10 @@ namespace CYESW.Models
         public string TypeName { get; set; }
         public Nullable<int> GoodsaddressBId { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Addres> Addres { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Addres> Addres1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Goods> Goods { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -16,10 +16,10 @@ namespace CYESW.Models
     {
         public int Pingjia_textsId { get; set; }
         public Nullable<int> TextsId { get; set; }
-        public Nullable<int> GoodsId { get; set; }
+        public Nullable<int> OrdersId { get; set; }
         public Nullable<int> States { get; set; }
     
-        public virtual Goods Goods { get; set; }
+        public virtual Orders Orders { get; set; }
         public virtual Texts Texts { get; set; }
     }
 }

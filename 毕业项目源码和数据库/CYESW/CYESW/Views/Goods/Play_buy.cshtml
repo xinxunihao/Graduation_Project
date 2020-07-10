@@ -1,0 +1,185 @@
+﻿@using CYESW.Models
+@model Goods
+@{
+    ViewBag.Title = "Play_buy";
+    UserInfo user_1 = ViewData["user_1"] as UserInfo;//商品主人
+    UserInfo user = Session["user"] as UserInfo;//访问主人
+    var addressin = user.Addres.OrderByDescending(p => p.IsDelete).FirstOrDefault();//获取收货地址信息
+
+    var isnew = "全新";//新旧程度，1全新,2-95新，3-9成新，4-8成新，5-7成新
+    if (Model.IsNew == 2) { isnew = "95新"; }
+    else if (Model.IsNew == 3) { isnew = "9成新"; }
+    else if (Model.IsNew == 4) { isnew = "8成新"; }
+    else if (Model.IsNew == 5) { isnew = "7成新"; }
+}
+
+<ul class="breadcrumb" style="margin:10px -5px 10px -5px;">
+    <li><a href="/Home/Index">朝阳二手网</a></li>
+    <li><a href="/Goods/Index?id=@Model.GoodsId">@Model.Name</a></li>
+    <li class="active">付款</li>
+</ul>
+<div>
+    <h2 style="color:orangered">订单详情：@Model.Name</h2>
+    <table class="table table-hover table-responsive">
+        <tr>
+            <td>
+                <img src="~/images/img/@Model.Goodsimage.FirstOrDefault().images" width="120" />
+            </td>
+            <td>
+                <p>
+                    配送方式：
+                    @if (Model.Peisong == 1)
+                    {
+                        @:邮寄
+                    }
+                    else
+                    {
+                        @:自提
+                    }
+                </p>
+                <p>联系电话：@Model.UserInfo.UserEmile</p>
+                <p>
+                    卖家实名：@if (Model.UserInfo.RealName.Count() > 0)
+                    {
+                        @:已实名
+                    }
+                    else
+                    {
+                        @:未实名
+                    }
+
+                </p>
+            </td>
+            <td>
+                <p>新旧程度：@isnew</p>
+                <p>发布时间：@Model.CreateTime</p>
+            </td>
+            <td>
+                <p>价格：@Model.Price</p>
+                <p>原价：@Model.Price_Yuan</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h4>宝贝介绍：</h4>
+            </td>
+            <td colspan="3">
+                <h4>@Model.Info</h4>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <h4>收货地址：</h4>
+            </td>
+            <td colspan="2">
+                [默认]<span>@addressin.Addresss1--@addressin.Addresss2</span>--@addressin.Name--@addressin.Phone
+            </td>
+            <td>
+                <a href="#" onclick="select_addres(@user.UserId)"  data-toggle="modal" data-target="#exampleModa2">切换地址</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h4>优惠券：</h4>
+            </td>
+            <td colspan="2">
+                <h4>无</h4>
+            </td>
+            <td>
+                <h3 style="color:orangered">应付款：@Model.Price</h3>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+            </td>
+            <td>
+                <h3><a href="#" class="btn btn-danger" style="width:150px" data-toggle="modal" data-target="#exampleModal">付款</a></h3>
+            </td>
+        </tr>
+    </table>
+</div>
+<!-- Modal 地址-->
+<div class="modal fade" id="exampleModa2" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">请选择收货地址</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="text-align:center">
+                <form action="/Goods/Play_buy_addres" method="post">
+                    <div >
+                        <table id="addrees_dizhi">
+                            
+                        </table>
+                        <input type="hidden" name="GoodsId" value="@Model.GoodsId" />
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                        <input type="submit"  class="btn btn-primary" value="确定" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal 购买 -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">您确定购买该商品吗？</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="text-align:center">
+                <img src="~/images/icopng/mm_facetoface_collect_qrcode_1593244876510.png" width="300" />
+                <div>
+                    [默认]<span>@addressin.Addresss1--@addressin.Addresss2</span>--@addressin.Name--@addressin.Phone
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <form action="/Goods/Play_buy_1?GoodsId=@Model.GoodsId" method="post" style="text-align:center">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <input type="submit" class="btn btn-primary" value="已付款" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function select_addres(id) {
+        $.ajax({
+                type: "post",
+                data: { "userid": id },
+                async: false,//不异步请求
+                url: "/Goods/Play_buy_addres_ajax",
+                success: function (data) {
+                    var msg = jQuery.parseJSON(data);//那以后每次用的收都将goods转化为这个形式
+                    var father = $('#addrees_dizhi');
+                    father.html("");
+                    console.log(msg);
+                    for (var i = 0; i < msg.length; i++) {
+                        if (msg[i].IsDelete==1) {
+                            var parentdiv = $('<tr><td><input type="radio" checked="checked" name="AddresId" value="'+msg[i].AddresId+'" />'+msg[i].Addresss1+'----'+msg[i].Name+'----'+msg[i].Phone+'----'+msg[i].Addresss2+'</td></tr>');
+                        } else {
+                            var parentdiv = $('<tr><td><input type="radio" name="AddresId" value="'+msg[i].AddresId+'" />'+msg[i].Addresss1+'----'+msg[i].Name+'----'+msg[i].Phone+'----'+msg[i].Addresss2+'</td></tr>');
+                        }
+                        
+                        father.append(parentdiv);
+                    }
+                },
+                error: function (e) {
+                    alert("失败了？？：" + e);
+                    console.log(e.status);
+                    console.log(e.responseText);
+                }
+            })
+    }
+</script>

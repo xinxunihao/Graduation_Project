@@ -3,7 +3,7 @@
 @{
     Layout = null;
 
-    var users = Session["user"] as UserInfo;
+    UserInfo users = Session["user"] as UserInfo;
 }
 
 <!DOCTYPE html>
@@ -12,8 +12,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>朝阳网后台界面</title>
-
     <link href="~/layui/css/layui.css" rel="stylesheet" />
+    <script type="text/javascript">
+        var date = new Date().getTime();
+        document.write("<link rel='stylesheet' href='../Content/mycss_back.css'?v=" + date + "'>");
+    </script>
 </head>
 <body class="layui-layout-body">
     <div class="layui-layout layui-layout-admin">
@@ -21,8 +24,8 @@
             <div class="layui-logo">朝阳二手网后台</div>
             <!-- 头部区域（可配合layui已有的水平导航） -->
             <ul class="layui-nav layui-layout-left">
-                <li class="layui-nav-item"><a href="">首页</a></li>
-                <li class="layui-nav-item"><a href="">商品管理</a></li>
+                <li class="layui-nav-item"><a href="/Home/Index">前往前端首页</a></li>
+                @*<li class="layui-nav-item"><a href="">商品管理</a></li>
                 <li class="layui-nav-item"><a href="">用户管理</a></li>
                 <li class="layui-nav-item">
                     <a href="javascript:;">用户管理</a>
@@ -31,20 +34,20 @@
                         <dd><a href="">试卷分析</a></dd>
                         <dd><a href="">答题分析</a></dd>
                     </dl>
-                </li>
+                </li>*@
             </ul>
             <ul class="layui-nav layui-layout-right">
                 <li class="layui-nav-item">
                     <a href="javascript:;">
-                        <img src="~/images/img/7.jpg"  class="layui-nav-img"/>
-                        白光
+                        <img src="~/images/img/@users.Images"  class="layui-nav-img"/>
+                        @users.UserName
                     </a>
                     <dl class="layui-nav-child">
-                        <dd><a href="">基本资料</a></dd>
-                        <dd><a href="">安全设置</a></dd>
+                        <dd><a href="/Home/Login">切换登录</a></dd>
+                        <dd><a href="/Home/Index">前往前端首页</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item"><a href="">注销</a></li>
+                <li class="layui-nav-item"><a href="/BackgRound/Rejist" onclick="return confirm('您确定退出登录，回到登录页面吗？（下班？）')">退出</a></li>
             </ul>
         </div>
 
@@ -56,45 +59,45 @@
                         <a href="javascript:;">首页</a>
                         <dl class="layui-nav-child">
                             <dd>
-                                <a data-url="Tab" data-id="21" data-title="首页信息" href="javascript:;" class="site-demo-active"
+                                <a data-url="Tab" data-id="11" data-title="首页信息" href="javascript:;" class="site-demo-active"
                                    data-type="tabAdd">首页信息</a>
                             </dd>
-                            <dd>
-                                <a data-url="notice.html" data-id="22" data-title="关于我们" href="javascript:;" class="site-demo-active"
+                            @*<dd>
+                                <a data-url="Tabinfo" data-id="12" data-title="关于我们" href="javascript:;" class="site-demo-active"
                                    data-type="tabAdd">关于我们</a>
-                            </dd>
+                            </dd>*@
                         </dl>
                     </li>
                     <li class="layui-nav-item ">
                         <a class="" href="javascript:;">首页配置</a>
                         <dl class="layui-nav-child">
                             <dd>
-                                <a data-url="userInfo.html" data-id="11" data-title="轮播图配置" href="javascript:;" class="site-demo-active"
+                                <a data-url="LunBo" data-id="13" data-title="轮播图配置" href="javascript:;" class="site-demo-active"
                                    data-type="tabAdd">轮播图配置</a>
                             </dd>
                             <dd>
-                                <a data-url="password.html" data-id="12" data-title="推广配置（站外）" href="javascript:;" class="site-demo-active"
+                                <a data-url="WebOut" data-id="14" data-title="推广配置（站外）" href="javascript:;" class="site-demo-active"
                                    data-type="tabAdd">推广配置（站外）</a>
                             </dd>
                             <dd>
-                                <a data-url="userList.html" data-id="14" data-title="猜你喜欢配置（站内）" href="javascript:;" class="site-demo-active"
+                                <a data-url="WebIn" data-id="15" data-title="猜你喜欢配置（站内）" href="javascript:;" class="site-demo-active"
                                    data-type="tabAdd">猜你喜欢配置（站内）</a>
                             </dd>
                         </dl>
                     </li>
                     <li class="layui-nav-item">
-                        <a href="javascript:;">商品管理</a>
+                        <a href="javascript:;">宝贝管理</a>
                         <dl class="layui-nav-child">
                             <dd>
-                                <a data-url="notice.html" data-id="21" data-title="商品查询" href="javascript:;" class="site-demo-active"
-                                   data-type="tabAdd">商品信息</a>
+                                <a data-url="GoodsInfo" data-id="21" data-title="宝贝查询" href="javascript:;" class="site-demo-active"
+                                   data-type="tabAdd">宝贝信息</a>
                             </dd>
                             <dd>
-                                <a data-url="notice.html" data-id="22" data-title="分类管理" href="javascript:;" class="site-demo-active"
+                                <a data-url="GoodsType" data-id="22" data-title="分类管理" href="javascript:;" class="site-demo-active"
                                    data-type="tabAdd">分类管理</a>
                             </dd>
                             <dd>
-                                <a data-url="notice.html" data-id="23" data-title="订单管理" href="javascript:;" class="site-demo-active"
+                                <a data-url="Orders" data-id="23" data-title="订单管理" href="javascript:;" class="site-demo-active"
                                    data-type="tabAdd">订单管理</a>
                             </dd>
                         </dl>
@@ -103,16 +106,16 @@
                         <a href="javascript:;">用户管理</a>
                         <dl class="layui-nav-child">
                             <dd>
-                                <a data-url="notice.html" data-id="21" data-title="用户查询" href="javascript:;" class="site-demo-active"
+                                <a data-url="UserList" data-id="24" data-title="用户查询" href="javascript:;" class="site-demo-active"
                                    data-type="tabAdd">用户信息</a>
                             </dd>
                             <dd>
-                                <a data-url="notice.html" data-id="22" data-title="用户反馈" href="javascript:;" class="site-demo-active"
-                                   data-type="tabAdd">用户反馈</a>
+                                <a data-url="UserFank" data-id="25" data-title="用户反馈" href="javascript:;" class="site-demo-active"
+                                   data-type="tabAdd">用户举报</a>
                             </dd>
                             <dd>
-                                <a data-url="notice.html" data-id="23" data-title="违规处理" href="javascript:;" class="site-demo-active"
-                                   data-type="tabAdd">违规处理</a>
+                                <a data-url="UserFank_1" data-id="26" data-title="违规处理" href="javascript:;" class="site-demo-active"
+                                   data-type="tabAdd">用户反馈</a>
                             </dd>
                         </dl>
                     </li>
@@ -125,14 +128,14 @@
         <!-- 选项卡和内容区 -->
         <div class="layui-tab" lay-filter="home-tabs" lay-allowclose="true" style="margin: 0 0 0 200px;">
             <ul class="layui-tab-title"></ul>
-            <ul class="rightmenu" style="display: none;position: absolute;">
-                <li data-type="refresh">刷新</li>
-                <li data-type="closeOthers">关闭其他</li>
-                <li data-type="closeRight">关闭右侧所有</li>
-                <li data-type="closeAll">关闭所有</li>
+            <ul class="rightmenu layui-nav" style="display: none;position: absolute;">
+                <li class="layui-nav-item" data-type="refresh">刷新</li>
+                <li class="layui-nav-item" data-type="closeOthers">关闭其他</li>
+                <li class="layui-nav-item" data-type="closeRight">关闭右侧所有</li>
+                <li class="layui-nav-item" data-type="closeAll">关闭所有</li>
             </ul>
-            <div class="layui-tab-content">
-                <h2>欢迎管理员<span style="font-size:15px;color:orange">@users.UserName</span>登录，您已经累计登录99天！</h2>
+            <div class="layui-tab-content back_father">
+                @* 中心内容 *@
             </div>
         </div>
 
@@ -148,9 +151,9 @@
 <script src="~/Scripts/jquery-3.4.1.js"></script>
 <script src="~/layui/layui.all.js"></script>
 <script type="text/javascript">
+    
     layui.use('element', function () {
         var element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
-
         //触发事件
         var active = {
             //在这里给active绑定几项事件，后面可通过active调用这些事件
@@ -209,6 +212,10 @@
             //最后不管是否新增tab，最后都转到要打开的选项页面上
             active.tabChange(dataid.attr("data-id"));
         });
+        $(function () {
+            active.tabAdd("Tab", "11", "首页信息");
+            active.tabChange("11");
+        })
 
         function CustomRightClick(id) {
             //取消右键  rightmenu属性开始是隐藏的 ，当右击的时候显示，左击的时候隐藏
