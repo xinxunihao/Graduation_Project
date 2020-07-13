@@ -91,14 +91,16 @@ $("#bxForm").validate({
         GoodsaddressInfo: { required: true },
         Ipone: { required: true },
         Price: { required: true },
-        Info: { required: true }
+        Info: { required: true },
+        rmb: { required: true, range:[10, 999], number: true}
     },
     messages: {
         Name: { required: "请输入收货人姓名！" },
         GoodsaddressInfo: { required: "请输入详细交易地点！" },
         Ipone: { required: "请输入电话号码！" },
         Price: { required: "请输入价格啊！" },
-        Info: { required: "请输入你与TA的故事！" }
+        Info: { required: "请输入你与TA的故事！" },
+        rmb: { required: "请输入充值金额", range: "请输入10-999元", number: "请输入数字" }
     }
 })
 

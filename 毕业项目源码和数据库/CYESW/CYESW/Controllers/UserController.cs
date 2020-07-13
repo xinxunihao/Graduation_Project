@@ -84,11 +84,18 @@ namespace CYESW.Controllers
                 List<JuBao> jubao = db.JuBao.Where(p => p.UserId == user.UserId).ToList();
                 return View(jubao.ToPagedList(pageNumber, 10));
             }
-            else
+            else if (sextype == 7)//访问我的我的地址
             {
                 TempData["Title"] = "收货地址";
                 List<Addres> addres = db.Addres.Where(p => p.UserId == user.UserId).ToList();
                 return View(addres.ToPagedList(pageNumber, 10));
+            }
+            else
+            {
+                TempData["Title"] = "充值记录";
+                List<ChongZhi> chongzhi = db.ChongZhi.Where(p => p.UserId == user.UserId).ToList();
+                chongzhi = chongzhi.OrderByDescending(p => p.addtime).ToList();
+                return View(chongzhi.ToPagedList(pageNumber, 6));
             }
 
         }
@@ -293,6 +300,12 @@ namespace CYESW.Controllers
 
         public ActionResult Address()
         {
+            return View();
+        }
+
+        public ActionResult Precord()
+        {
+            TempData["Title"] ="充值记录";
             return View();
         }
 
@@ -568,7 +581,7 @@ namespace CYESW.Controllers
             try
             {
                 JuBao jubao = db.JuBao.Find(JuBaoId);
-                TempData["title"] = "反馈详情";
+                TempData["title"] = "反馈详情"; 
                 return View(jubao);
             }
             catch (Exception ex)
@@ -581,8 +594,72 @@ namespace CYESW.Controllers
         }
 
 
+        [HttpPost]
+        //购买商品推广
+        public ActionResult Tuiguan(int GoodsId,int Tpromote) {
+            try
+            {
+                UserInfo user = Session["user"] as UserInfo;
+                if (user.moneys < Tpromote)
+                {
+                    TempData["exe"] = "你确定你的余额足够这此推广吗？？小伙子";
+                    return RedirectToAction("UserIndex", new { sextype = 1 });
+                }
+                WebIn webin = new WebIn();
+                if (db.WebIn.Where(p=>p.GoodsId== GoodsId).Count()>0)//判断是否已经推广过了
+                {
+                    webin = db.WebIn.Where(p => p.GoodsId == GoodsId).FirstOrDefault();
+                    webin.Tpromote += Tpromote;
+                    db.SaveChanges();
+                    TempData["exe"] = "追加推广成功！--当前推广金额："+ webin.Tpromote;
+                    return RedirectToAction("UserIndex", new { sextype = 1 });
+                }
+                user.moneys = user.moneys - Tpromote;//开始生成推广表
+                webin = new WebIn() { GoodsId = GoodsId, Tpromote = Tpromote, addtime = DateTime.Now, Theat = 0, type_1 = "默认" };
+                db.WebIn.Add(webin);
+                db.SaveChanges();
+                TempData["exe"] = "推广成功！";
+                return RedirectToAction("UserIndex", new { sextype = 1 });
+            }
+            catch (Exception ex)
+            {
+                TempData["exe"] = "出现未知异常，请联系管理员解决。异常：" + ex.Message;
+                TempData["title"] = "反馈详情！";
+                return View();
+            }
+        }
 
 
+        public ActionResult ChongZhi()
+        {
+            TempData["title"] = "金币充值！";
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ChongZhi(decimal money, decimal rmb) {
+
+            try
+            {
+                UserInfo user = Session["user"] as UserInfo;
+                user = db.UserInfo.Find(user.UserId);
+                ChongZhi chongzhi = new ChongZhi() { addtime = DateTime.Now, UserId = user.UserId, moneys = money, rmb = rmb, type_1 = "自助充值" };
+                db.ChongZhi.Add(chongzhi);
+                user.moneys += money;
+                db.SaveChanges();
+                TempData["exe"] = money + "金币充值成功！";
+                TempData["title"] = "金币充值！";
+                Session["user"] = db.UserInfo.Find(user.UserId);
+                return View();
+            }
+            catch (Exception ex)
+            {
+                TempData["exe"] = "出现未知异常，请联系管理员解决。异常：" + ex.Message;
+                TempData["title"] = "反馈详情！";
+                return View();
+            }
+
+            
+        }
 
 
 

@@ -54,6 +54,8 @@
         <AssociationConnector Association="CYESWModel.FK__Texts__UserId__34C8D9D1" ManuallyRouted="false" />
         <AssociationConnector Association="CYESWModel.FK__WeiGui__GLuser__4E88ABD4" ManuallyRouted="false" />
         <AssociationConnector Association="CYESWModel.FK__WeiGui__UserId1__4F7CD00D" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="CYESWModel.ChongZhi" Width="1.5" PointX="3" PointY="25.875" />
+        <AssociationConnector Association="CYESWModel.FK__ChongZhi__UserId__787EE5A0" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

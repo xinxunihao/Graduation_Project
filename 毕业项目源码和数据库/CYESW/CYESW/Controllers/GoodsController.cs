@@ -26,8 +26,17 @@ namespace CYESW.Controllers
             //    Session["user"] = db.UserInfo.Find(1);//便于调试，项目完成后可注释
             //}
             ViewBag.WebOut = db.WebOut.ToList();
-            ViewBag.WebIn = db.WebIn.ToList();
-           
+            List<WebIn> list1 = db.WebIn.ToList();
+            foreach (var item in list1)
+            {
+                item.Theat = item.Tpromote + item.Goods.munber + item.Goods.UserInfo.Goods.Count();
+            }
+            db.SaveChanges();
+            list1 = list1.OrderByDescending(p => p.Theat).ToList();
+            ViewBag.WebIn = list1;//站内推广！按热度排名
+
+
+
             TempData["Title"] = "商品详情";
             Goods goods = db.Goods.Find(id);
             if (goods.IsState!=1)
@@ -41,6 +50,8 @@ namespace CYESW.Controllers
 
 
             List<GoodsType> list = db.GoodsType.Where(p => p.GoodsTypeBId == goods.GoodsType.GoodsTypeBId).ToList();//获取相关类目
+
+
 
             ViewBag.GoodsType = list;
             ViewData["goodsinfo"] = goods;
@@ -547,5 +558,30 @@ namespace CYESW.Controllers
         }
 
 
+
+
+
+
+
+
+        //站内推广排行；
+        public ActionResult Goods_TOP()
+        {
+            try
+            {
+                List<WebIn> list = db.WebIn.ToList();
+                foreach (var item in list)
+                {
+                    item.Theat = item.Tpromote + item.Goods.munber + item.Goods.UserInfo.Goods.Count();
+                }
+                list = list.OrderByDescending(p => p.Theat).ToList();
+                return View(list);
+            }
+            catch (Exception ex)
+            {
+                TempData["exe"] = "出现未知异常，请联系管理员。异常：" + ex.Message;
+                return RedirectToAction("Index", "Home");
+            }
+        }
     }
 }

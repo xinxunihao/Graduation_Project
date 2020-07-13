@@ -202,6 +202,8 @@
     <EntitySetMapping Name="WebIn">
       <EntityTypeMapping TypeName="CYESWModel.WebIn">
         <MappingFragment StoreEntitySet="WebIn">
+          <ScalarProperty Name="Theat" ColumnName="Theat" />
+          <ScalarProperty Name="Tpromote" ColumnName="Tpromote" />
           <ScalarProperty Name="WebInId" ColumnName="WebInId" />
           <ScalarProperty Name="GoodsId" ColumnName="GoodsId" />
           <ScalarProperty Name="addtime" ColumnName="addtime" />
@@ -233,6 +235,18 @@
           <ScalarProperty Name="type_1" ColumnName="type_1" />
           <ScalarProperty Name="GLuser" ColumnName="GLuser" />
           <ScalarProperty Name="UserId1" ColumnName="UserId1" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChongZhi">
+      <EntityTypeMapping TypeName="CYESWModel.ChongZhi">
+        <MappingFragment StoreEntitySet="ChongZhi">
+          <ScalarProperty Name="rmb" ColumnName="rmb" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="moneys" ColumnName="moneys" />
+          <ScalarProperty Name="type_1" ColumnName="type_1" />
+          <ScalarProperty Name="addtime" ColumnName="addtime" />
+          <ScalarProperty Name="ChongZhiId" ColumnName="ChongZhiId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

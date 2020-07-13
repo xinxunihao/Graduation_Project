@@ -404,6 +404,24 @@ namespace CYESW.Controllers
 
         public ActionResult Tab()
         {
+            var cz= db.ChongZhi.ToList();
+
+            decimal? leiji = 0;
+            decimal? jintian = 0;
+            DateTime startSpan = DateTime.Parse(DateTime.Now.Date.ToString()).Date;//获取当前日期，判断是否为今日收入
+            DateTime endSpan = new DateTime();
+            foreach (var item in cz)
+            {
+                leiji += item.rmb;
+                endSpan = DateTime.Parse(item.addtime.ToString()).Date;
+                if (endSpan==startSpan)
+                {
+                    jintian += item.rmb;
+                }
+            }
+
+            ViewBag.leiji = leiji;
+            ViewBag.jintian = jintian;
             return View();
         }
 
@@ -587,7 +605,7 @@ namespace CYESW.Controllers
             return View(list.ToPagedList(pageNumber, 5));
         }
 
-        public ActionResult UserFank_1(int? page, int? paixu, int? Isstate, string Name = "")//反馈小号Delete_User_chuli
+        public ActionResult UserFank_1(int? page, int? paixu, int? Isstate, string Name = "")//反馈小号
         {
             int pageNumber = page ?? 1;//页码
             paixu = paixu ?? 1;
@@ -615,6 +633,43 @@ namespace CYESW.Controllers
             ViewBag.Name = Name;
             return View(list.ToPagedList(pageNumber, 5));
         }
+
+        public ActionResult UserCZ(int? page,DateTime? kaishi, DateTime? jieshu, string Name = "") 
+        {
+            ViewBag.kaishi = "";
+            ViewBag.jieshu = "";
+            int pageNumber = page ?? 1;//页码
+            List<ChongZhi> list = db.ChongZhi.ToList();
+            if (Name != "")
+            {
+                list = list.Where(p => p.type_1.Contains(Name)||p.UserInfo.UserName.Contains(Name)).ToList();
+            }
+            if (kaishi != null)
+            {
+                ViewBag.kaishi = kaishi;
+                list = list.Where(p => p.addtime> kaishi).ToList();
+            }
+            if (jieshu != null)
+            {
+                ViewBag.jieshu = jieshu;
+                list = list.Where(p => p.addtime < jieshu).ToList();
+            }
+            list = list.OrderByDescending(p => p.addtime).ToList();//根据状态排序，为处理排前面
+            ViewBag.Name = Name;
+            return View(list.ToPagedList(pageNumber, 6));
+
+        }
+
+
+
+
+
+
+
+
+
+
+
 
 
         //ajax修改举报表信息

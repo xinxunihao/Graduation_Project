@@ -155,6 +155,9 @@
     <Compile Include="Models\Addres.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ChongZhi.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Friends.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -268,10 +271,13 @@
     <Content Include="images\icopng\小贴士.png" />
     <Content Include="images\icopng\手机.png" />
     <Content Include="images\icopng\推广.png" />
+    <Content Include="images\icopng\推广_1.png" />
     <Content Include="images\icopng\收藏.png" />
     <Content Include="images\icopng\更多.png" />
     <Content Include="images\icopng\注意3.png" />
+    <Content Include="images\icopng\浏览.png" />
     <Content Include="images\icopng\游戏机.png" />
+    <Content Include="images\icopng\热度.png" />
     <Content Include="images\icopng\电脑.png" />
     <Content Include="images\icopng\男.png" />
     <Content Include="images\icopng\疑惑的豆丁.png" />
@@ -281,6 +287,7 @@
     <Content Include="images\icopng\订单.png" />
     <Content Include="images\icopng\评论.png" />
     <Content Include="images\icopng\通知消息.png" />
+    <Content Include="images\icopng\金 币.png" />
     <Content Include="images\icopng\链接.png" />
     <Content Include="images\icopng\顶部.png" />
     <Content Include="images\img\1.jpg" />
@@ -339,6 +346,9 @@
     <Content Include="images\webout\us_img1.jpg" />
     <Content Include="images\webout\us_img2.jpg" />
     <Content Include="images\webout\us_img3.jpg" />
+    <Content Include="laydate\laydate.js" />
+    <Content Include="laydate\theme\default\font\iconfont.svg" />
+    <Content Include="laydate\theme\default\laydate.css" />
     <Content Include="layui\css\layui.css" />
     <Content Include="layui\css\layui.mobile.css" />
     <Content Include="layui\css\modules\code.css" />
@@ -500,6 +510,9 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
+    <Content Include="laydate\theme\default\font\iconfont.eot" />
+    <Content Include="laydate\theme\default\font\iconfont.ttf" />
+    <Content Include="laydate\theme\default\font\iconfont.woff" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -648,6 +661,10 @@
     <Content Include="Views\Goodsaddress\Jubao_1.cshtml" />
     <Content Include="Views\Goodsaddress\useraddres.cshtml" />
     <Content Include="Views\BackgRound\UserFank_1.cshtml" />
+    <Content Include="Views\Goods\Goods_TOP.cshtml" />
+    <Content Include="Views\User\ChongZhi.cshtml" />
+    <Content Include="Views\User\Precord.cshtml" />
+    <Content Include="Views\BackgRound\UserCZ.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

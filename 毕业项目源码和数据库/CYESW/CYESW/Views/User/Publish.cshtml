@@ -26,7 +26,8 @@
                 </h2>
             </div>
         }
-        @for (int i=0; i<Model.Count();i++) {
+        @for (int i = 0; i < Model.Count(); i++)
+        {
             var image = Model[i].Goodsimage.FirstOrDefault().images;
             <div class="goods_list1">
                 <div class="row uer_goods">
@@ -57,6 +58,9 @@
                                 <a href="/User/Delete?id=@Model[i].GoodsId&type_e=@type" class="good_a" onclick="return confirm('你确定要删除该宝贝信息吗？，不想出售可以先下架哦！')">
                                     <img src="~/images/icopng/注意3.png" />&nbsp;&nbsp;删除
                                 </a>
+                                <a href="#" class="good_a" data-toggle="modal" data-target="#exampleModa1" onclick="Tuiguan(@Model[i].GoodsId)">
+                                    <img src="~/images/icopng/推广_1.png" />&nbsp;&nbsp;推广
+                                </a>
                             }
                             else if (type == 2)
                             {
@@ -67,7 +71,7 @@
                                     <img src="~/images/icopng/编辑.png" />&nbsp;&nbsp;编辑
                                 </a>
                                 <a href="/User/Delete?id=@Model[i].GoodsId&type_e=@type" class="good_a" onclick="return confirm('你确定要删除该宝贝信息吗？，不想出售可以先下架哦！')">
-                                    <img src="~/images/icopng/注意3.png" onclick="return confirm('你确定要删除该宝贝信息吗？')"/>&nbsp;&nbsp;删除
+                                    <img src="~/images/icopng/注意3.png" onclick="return confirm('你确定要删除该宝贝信息吗？')" />&nbsp;&nbsp;删除
                                 </a>
                             }
                             else if (type == 3)
@@ -94,7 +98,7 @@
                                 int? orders = Model[i].Orders.Where(p => p.GoodsId == Model[i].GoodsId).SingleOrDefault().IsState;//获取订单状态,3,4,
                                 if (orders == 3)
                                 {
-                        <span>当前宝贝状态：买家已确认收货，等待评价</span>
+                                    <span>当前宝贝状态：买家已确认收货，等待评价</span>
                                     <a href="/Goods/Order_1?Orderid=@Model[i].Orders.FirstOrDefault().OrdersId" class="good_a">
                                         <img src="~/images/icopng/前往.png" />&nbsp;&nbsp;等待评价
                                     </a>
@@ -128,3 +132,58 @@
     }))
 </div>
 
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModa1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">自助站内推广！（我的金币余额：￥ @Model.FirstOrDefault().UserInfo.moneys）--<a href="/User/ChongZhi">充值？</a></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/User/Tuiguan" method="post">
+                    <table class="table tab" style="text-align:center">
+                        <tr>
+                            <td>推广商品id：</td>
+                            <td>
+                                <input type="text" name="GoodsId1" id="GoodsId1" value="" disabled="disabled" class="form-control" />
+                                <input type="hidden" name="GoodsId" id="GoodsId" value="" class="form-control" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>推广等级：</td>
+                            <td>
+                                <select name="Tpromote" id="Tpromote" class="form-control">
+                                    <option value="10" selected="selected">初级(10金币)</option>
+                                    <option value="20">中级(20金币)</option>
+                                    <option value="50">高级(50金币)</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr style="margin-top:20px">
+                            <td>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                            </td>
+                            <td>
+                                <input type="submit" class="btn btn-primary"  value="确定">
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <div class="modal-footer" style="text-align:center">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    function Tuiguan(id) {
+        $('#GoodsId').val(id);
+        $('#GoodsId1').val(id);
+    }
+</script>

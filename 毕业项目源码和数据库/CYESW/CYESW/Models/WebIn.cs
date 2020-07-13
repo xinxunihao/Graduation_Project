@@ -18,6 +18,8 @@ namespace CYESW.Models
         public Nullable<int> GoodsId { get; set; }
         public Nullable<System.DateTime> addtime { get; set; }
         public string type_1 { get; set; }
+        public Nullable<int> Tpromote { get; set; }
+        public Nullable<int> Theat { get; set; }
     
         public virtual Goods Goods { get; set; }
     }

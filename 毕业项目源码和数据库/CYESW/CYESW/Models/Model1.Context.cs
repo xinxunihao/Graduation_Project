@@ -44,5 +44,6 @@ namespace CYESW.Models
         public virtual DbSet<WebIn> WebIn { get; set; }
         public virtual DbSet<WebOut> WebOut { get; set; }
         public virtual DbSet<WeiGui> WeiGui { get; set; }
+        public virtual DbSet<ChongZhi> ChongZhi { get; set; }
     }
 }

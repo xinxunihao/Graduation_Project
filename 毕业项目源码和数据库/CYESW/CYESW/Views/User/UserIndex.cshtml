@@ -4,8 +4,8 @@
     ViewBag.Title = "UserIndex";
     var user = Session["user"] as UserInfo;
     int sextype = int.Parse(ViewData["sextype"].ToString());
-    string[] class_1 = { "","","","","","",""};//切换类名
-    for (int i = 1; i <= 6; i++)
+    string[] class_1 = { "","","","","","","",""};//切换类名
+    for (int i = 1; i <= 8; i++)
     {
         if (sextype==i)
         {
@@ -22,7 +22,7 @@
         </div>
         <div class="col-lg-10 uer_wb">
             <p><span style="font-size:25px;font-weight:bold">欢迎！ @user.UserName</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>远赴人间惊鸿宴，一睹人间盛世颜！</span></p>
-            <p><span>邮箱：@user.UserEmile</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>id：@user.UserId</span></p>
+            <p><span>邮箱：@user.UserEmile</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>id：@user.UserId</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>金币：@user.moneys <img src="~/images/icopng/金 币.png" />--<a href="/User/ChongZhi">充值？</a></span></p>
         </div>
     </div>
     <div class="row user_ul_big">
@@ -40,6 +40,7 @@
                     <li class="@class_1[4]"><a class="a_full" href="/User/UserIndex?sextype=5">我的认证</a></li>
                     <li class="@class_1[5]"><a class="a_full" href="/User/UserIndex?sextype=6">我的反馈</a></li>
                     <li class="@class_1[6]"><a class="a_full" href="/User/UserIndex?sextype=7">收货地址</a></li>
+                    <li class="@class_1[7]"><a class="a_full" href="/User/UserIndex?sextype=8">充值记录</a></li>
                 </ul>
             </div>
         </div>
@@ -68,10 +69,14 @@
             {
                 Html.RenderPartial("Feedback");
             }
+             else if (sextype == 7)
+            {
+                Html.RenderPartial("Address");
+            }
             else
             {
-                //地址
-                Html.RenderPartial("Address");
+                //充值记录
+                Html.RenderPartial("Precord");
             }
 
         </div>

@@ -1,13 +1,13 @@
 ﻿@using CYESW.Models
 @{
-    if (Session["adress"]==null)
+    if (Session["adressid"] == null)
     {
         Session["adress"] = "长沙";
         Session["adressid"] = 186;
     }
     List<WebOut> list1 = ViewBag.WebOut;//站外推广
     List<WebIn> list2 = ViewBag.WebIn;//站内推广
-    List<GoodsType> list3=ViewBag.GoodsType;//相关栏目
+    List<GoodsType> list3 = ViewBag.GoodsType;//相关栏目
     string adress = Session["adress"].ToString();//地址name
     string adressid = Session["adressid"].ToString();//地址id
     ViewBag.Title = "Index";
@@ -129,9 +129,9 @@
                         <td>
                             <a class="btn btn-sm mybtn_1" href="/Goods/Play_buy?GoodsId=@goods.GoodsId">
                                 <span class="glyphicon glyphicon-shopping-cart span_white"></span>
-                                <span class="span_white" >购买</span>
+                                <span class="span_white">购买</span>
                             </a>
-                            <button class="btn btn-sm mybtn_2"  data-toggle="modal" data-target="#exampleModa2">
+                            <button class="btn btn-sm mybtn_2" data-toggle="modal" data-target="#exampleModa2">
                                 <span class="glyphicon glyphicon-comment span_white"></span>
                                 <span class="span_white">私信</span>
                             </button>
@@ -157,7 +157,7 @@
                     </span>
                 </a>
                 |
-                <a href="#" onclick="return confirm('请等待我们开发谢谢！')">
+                <a href="#"  data-toggle="modal" data-target="#exampleModa3" class=" copy-btn">
                     <span class="zhenti">
                         <span class="glyphicon glyphicon-share-alt glyphicon_color"></span><span>
                             分享
@@ -165,7 +165,7 @@
                     </span>
                 </a>
                 |
-                <a href="#" onclick="return confirm('请等待我们开发谢谢！')">
+                <a href="/Goodsaddress/Jubao_1?userid=@goods.UserId" >
                     <span class="zhenti">
                         <span class="glyphicon glyphicon-flag glyphicon_color"></span><span>
                             举报
@@ -229,35 +229,34 @@
                             <div class="dztp">
                                 <img src="~/images/img/@list2[i].Goods.Goodsimage.FirstOrDefault().images" width="100%" />
                             </div>
-                            <p class="goods_jxgoods_p" style="margin-top:10px"><a href="/Goods/Index/@list2[i].Goods.GoodsId">@list2[i].Goods.Name</a></p>
-                            <p><span style="color:#ff4757">@list2[i].Goods.Price</span>/<span style="color:#a4b0be">@list2[i].type_1</span></p>
+                            <p class="goods_jxgoods_p" style="margin-top:50px"><a href="/Goods/Index/@list2[i].Goods.GoodsId">@list2[i].Goods.Name</a></p>
+                            <p><span style="color:#ff4757;font-size:17px">@list2[i].Goods.Price</span>/<span style="color:#a4b0be">@list2[i].type_1</span></p>
                         </div>
                     }
                     @*<div class="col-lg-3">
-                        <div class="dztp">
-                            <img src="~/images/img/联想电脑图片1.jpg" width="100%" />
+                            <div class="dztp">
+                                <img src="~/images/img/联想电脑图片1.jpg" width="100%" />
+                            </div>
+                            <p class="goods_jxgoods_p">朝阳二手网平台不介入任何交易过程，请仔细阅读防骗提示，以免蒙受损失</p>
+                            <p><span style="color:#ff4757">￥230</span>/<span style="color:#a4b0be">电脑</span></p>
                         </div>
-                        <p class="goods_jxgoods_p">朝阳二手网平台不介入任何交易过程，请仔细阅读防骗提示，以免蒙受损失</p>
-                        <p><span style="color:#ff4757">￥230</span>/<span style="color:#a4b0be">电脑</span></p>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="dztp">
-                            <img src="~/images/img/联想电脑图片1.jpg" width="100%" />
+                        <div class="col-lg-3">
+                            <div class="dztp">
+                                <img src="~/images/img/联想电脑图片1.jpg" width="100%" />
+                            </div>
+                            <p class="goods_jxgoods_p">朝阳二手网平台不介入任何交易过程，请仔细阅读防骗提示，以免蒙受损失</p>
+                            <p><span style="color:#ff4757">￥230</span>/<span style="color:#a4b0be">电脑</span></p>
                         </div>
-                        <p class="goods_jxgoods_p">朝阳二手网平台不介入任何交易过程，请仔细阅读防骗提示，以免蒙受损失</p>
-                        <p><span style="color:#ff4757">￥230</span>/<span style="color:#a4b0be">电脑</span></p>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="dztp">
-                            <img src="~/images/img/联想电脑图片1.jpg" width="100%" />
-                        </div>
-                        <p class="goods_jxgoods_p">朝阳二手网平台不介入任何交易过程，请仔细阅读防骗提示，以免蒙受损失</p>
-                        <p><span style="color:#ff4757">￥230</span>/<span style="color:#a4b0be">电脑</span></p>
-                    </div>*@
+                        <div class="col-lg-3">
+                            <div class="dztp">
+                                <img src="~/images/img/联想电脑图片1.jpg" width="100%" />
+                            </div>
+                            <p class="goods_jxgoods_p">朝阳二手网平台不介入任何交易过程，请仔细阅读防骗提示，以免蒙受损失</p>
+                            <p><span style="color:#ff4757">￥230</span>/<span style="color:#a4b0be">电脑</span></p>
+                        </div>*@
                     <div class="col-lg-3 ">
                         <a href="#" class="a_full_gd">
-                            更
-                            多<img src="~/images/icopng/更多.png" width="30" />
+                            更多<img src="~/images/icopng/更多.png" width="30" />
                         </a>
                     </div>
                 </div>
@@ -271,37 +270,42 @@
                         <div class="col-lg-3">
                             <img src="~/images/webout/@list1[i].images" width="100%" />
                         </div>
-                        <div class="col-lg-8">
-                            <p style="color:black;font-size:25px;"><a href="@list1[i].a_1">@list1[i].Name</a></p>
+                        <div class="col-lg-8 text_wenben">
+                            <p style="color:black;">
+                                <a href="@list1[i].a_1" style="width: 500px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
+                                    <span style="font-size:20px;" title="@list1[i].Info"> @list1[i].Name </span><br /><br />
+                                                            @list1[i].Info
+                                                        </a>
+                            </p>
                         </div>
                         <div class="tsxx_gg col-lg-1" style="line-height:15px;">
-                            <a href="#">@list1[i].type_1</a>
+                            <a href="#">广告</a>
                         </div>
                     </div>
                 }
 
                 @*<div class="row tsxx">
-                    <div class="col-lg-3">
-                        <img src="~/images/img/联想电脑图片4.jpg" width="100%" />
+                        <div class="col-lg-3">
+                            <img src="~/images/img/联想电脑图片4.jpg" width="100%" />
+                        </div>
+                        <div class="col-lg-8">
+                            <p style="color:black;font-size:25px;"><a href="#">广告招租，有意请联系网站客服</a></p>
+                        </div>
+                        <div class="tsxx_gg col-lg-1" style="line-height:15px;">
+                            <a href="#">广告</a>
+                        </div>
                     </div>
-                    <div class="col-lg-8">
-                        <p style="color:black;font-size:25px;"><a href="#">广告招租，有意请联系网站客服</a></p>
-                    </div>
-                    <div class="tsxx_gg col-lg-1" style="line-height:15px;">
-                        <a href="#">广告</a>
-                    </div>
-                </div>
-                <div class="row tsxx">
-                    <div class="col-lg-3">
-                        <img src="~/images/img/联想电脑图片2.jpg" width="100%" />
-                    </div>
-                    <div class="col-lg-8">
-                        <p style="color:black;font-size:25px;"><a href="#">广告招租，有意请联系网站客服</a></p>
-                    </div>
-                    <div class="tsxx_gg col-lg-1" style="line-height:15px;">
-                        <a href="#">广告</a>
-                    </div>
-                </div>*@
+                    <div class="row tsxx">
+                        <div class="col-lg-3">
+                            <img src="~/images/img/联想电脑图片2.jpg" width="100%" />
+                        </div>
+                        <div class="col-lg-8">
+                            <p style="color:black;font-size:25px;"><a href="#">广告招租，有意请联系网站客服</a></p>
+                        </div>
+                        <div class="tsxx_gg col-lg-1" style="line-height:15px;">
+                            <a href="#">广告</a>
+                        </div>
+                    </div>*@
             </div>
         </div>
     </div>
@@ -362,38 +366,38 @@
                 <hr />
                 @for (int i = 0; i < 3; i++)
                 {
-                <div class="row">
-                    <div class="zntg col-lg-4">
-                        <img src="~/images/img/@list2[i].Goods.Goodsimage.FirstOrDefault().images" width="100%" />
+                    <div class="row">
+                        <div class="zntg col-lg-4">
+                            <img src="~/images/img/@list2[i].Goods.Goodsimage.FirstOrDefault().images" width="100%" />
+                        </div>
+                        <div class="col-lg-8">
+                            <a href="/Goods/Index/@list2[i].Goods.GoodsId" class="zntg_a chaochu_150" title="全新的华为电脑，免费送了！！">@list2[i].Goods.Name</a><br />
+                            <p><span style="color:#ff4757">@string.Format("{0:C}", list2[i].Goods.Price)</span>/<span style="color:#a4b0be">@list2[i].Goods.Goodsaddress.TypeName</span></p>
+                        </div>
                     </div>
-                    <div class="col-lg-8">
-                        <a href="/Goods/Index/@list2[i].Goods.GoodsId" class="zntg_a chaochu_150" title="全新的华为电脑，免费送了！！">@list2[i].Goods.Name</a><br />
-                        <p><span style="color:#ff4757">@string.Format("{0:C}",list2[i].Goods.Price)</span>/<span style="color:#a4b0be">@list2[i].Goods.Goodsaddress.TypeName</span></p>
-                    </div>
-                </div>
                 }
 
 
                 @*<div class="row">
-                    <div class="zntg col-lg-4">
-                        <img src="~/images/img/联想电脑图片3.jpg" width="100%" />
+                        <div class="zntg col-lg-4">
+                            <img src="~/images/img/联想电脑图片3.jpg" width="100%" />
+                        </div>
+                        <div class="col-lg-8">
+                            <a href="#" class="zntg_a chaochu_150" title="全新的华为电脑，免费送了！！">全新的华为电脑，免费送了！！</a><br />
+                            <p><span style="color:#ff4757">￥230</span>/<span style="color:#a4b0be">长沙</span></p>
+                        </div>
                     </div>
-                    <div class="col-lg-8">
-                        <a href="#" class="zntg_a chaochu_150" title="全新的华为电脑，免费送了！！">全新的华为电脑，免费送了！！</a><br />
-                        <p><span style="color:#ff4757">￥230</span>/<span style="color:#a4b0be">长沙</span></p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="zntg col-lg-4">
-                        <img src="~/images/img/联想电脑图片2.jpg" width="100%" />
-                    </div>
-                    <div class="col-lg-8">
-                        <a href="#" class="zntg_a chaochu_150" title="全新的华为电脑，免费送了！！">全新的华为电脑，免费送了！！</a><br />
-                        <p><span style="color:#ff4757">￥230</span>/<span style="color:#a4b0be">长沙</span></p>
-                    </div>
-                </div>*@
+                    <div class="row">
+                        <div class="zntg col-lg-4">
+                            <img src="~/images/img/联想电脑图片2.jpg" width="100%" />
+                        </div>
+                        <div class="col-lg-8">
+                            <a href="#" class="zntg_a chaochu_150" title="全新的华为电脑，免费送了！！">全新的华为电脑，免费送了！！</a><br />
+                            <p><span style="color:#ff4757">￥230</span>/<span style="color:#a4b0be">长沙</span></p>
+                        </div>
+                    </div>*@
                 <hr />
-                <div style="text-align:center"><button class="btn_genduo">查看更多站内推广</button></div>
+                <div style="text-align:center"><a href="/Goods/Goods_TOP" class="a_full btn_genduo" >查看更多站内推广</a></div>
 
             </div>
         </div>
@@ -406,11 +410,11 @@
                 </div>
                 <div>
                     <table class="tab-content table">
-                        @for (int i = 0; i < 6; i+=2)
+                        @for (int i = 0; i < 6; i += 2)
                         {
                             <tr>
                                 <td><a href="/Goods/IndexTwo?typeid=1&page=1&Name=@list3[i].TypeName">@adress @list3[i].TypeName</a></td>
-                                <td><a href="/Goods/IndexTwo?typeid=1&page=1&Name=@list3[i+1].TypeName">@adress @list3[i+1].TypeName</a></td>
+                                <td><a href="/Goods/IndexTwo?typeid=1&page=1&Name=@list3[i+1].TypeName">@adress @list3[i + 1].TypeName</a></td>
                             </tr>
                         }
                     </table>
@@ -446,9 +450,45 @@
             </div>
             <div class="modal-footer" style="text-align:center">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary"  data-dismiss="modal">确定</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModa3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>朝阳网</h3>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="wechat" style="width:600px;" value="" class="input_s"/>
+                <input type="button" onclick="copyloction()"  value="复制" class="input_s input_i" data-dismiss="modal"/>
+                <p style="margin:10px 0px;color:gray">以为您复制到剪贴板中，或者手动从上方文本框中复制</p>
+            </div>
+            <div class="modal-footer" style="text-align:center">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
             </div>
         </div>
     </div>
 </div>
 
+<script type="text/javascript">
+    $(".copy-btn").click(function () {
+        $('#wechat').val(window.location.href);
+        //var e = document.getElementById("wechat");
+        //e.select(); // 选择对象
+        //document.execCommand("Copy"); // 执行浏览器复制命令
+        //alert("以为您将地址复制到剪切板中：\r" + window.location.href + "\r选择需要分享的地方->右键->粘贴（或者Ctrl+v）");
+    })
+
+    var copyloction = function () {
+        var e = document.getElementById("wechat");
+        e.select(); // 选择对象
+        document.execCommand("Copy"); // 执行浏览器复制命令
+        alert('复制成功！')
+    }
+
+
+</script>

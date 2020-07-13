@@ -17,7 +17,7 @@ go
 create table UserInfo(
   UserId int primary key identity(1,1),
   UserName nvarchar(10) not null,--用户名称、
-  UserEmile nvarchar(100) not null ,--用户邮箱
+  UserEmile nvarchar(100) not null unique ,--用户邮箱
   UserPwd nvarchar(100) not null ,--用户密码
   Age int , --年龄
   moneys money,--用户存款
@@ -30,12 +30,12 @@ create table UserInfo(
   Sex char(2) check(sex='男' or sex='女'),--男或女
 )
 --update UserInfo set UserEmile='308921876@qq.com' where UserId=3
-delete from UserInfo where UserId=5
+delete from UserInfo where UserId=4
 go
 --select * from userinfo 
 insert into UserInfo values('admin','3089218762@qq.com','123456',20,200.2,'我是帅哥，高冷，不想说话','man.jpg',0,GETDATE(),GETDATE(),0,'男')
 insert into UserInfo values('admin2','1234567@qq.com','123456',20,200.2,'我是美女，hi，一起play啊','women.jpg',0,GETDATE(),GETDATE(),0,'女')
-insert into UserInfo values('小明啊！','112233@qq.com','123456',20,200.2,'我是帅哥，hi，一起play啊','man.jpg',0,GETDATE(),GETDATE(),1,'男')
+insert into UserInfo values('小明啊！','112233@qq.com','123456',20,666,'我是帅哥，hi，一起play啊','man.jpg',0,GETDATE(),GETDATE(),1,'男')
 
 
 go
@@ -450,11 +450,21 @@ create table WebIn(
   GoodsId int foreign key references Goods(GoodsId),--商品表,推广商品
   addtime datetime,--添加时间
   type_1 nvarchar(10),--添加类别
+  Tpromote int,--花费了金币数（推广力度）
+  Theat int --热度
 )
 go
 --select * from WebIn
-insert into WebIn values(1,getdate(),'电脑'),(3,getdate(),'电脑'),(4,getdate(),'电脑')
+insert into WebIn values(1,getdate(),'电脑',10,22),(3,getdate(),'电脑',10,22),(4,getdate(),'电脑',10,22),(7,getdate(),'电脑',10,22)
+go
 
+--使用触发器实现热度更新（新增和修改时）
+if exists(select * from sysobjects where name='trig_insertWebIn')
+drop trigger trig_insertWebIn;
+go
+create trigger trig_insertWebIn on WebIn instead of insert
+as
+declare @Tpromote int,
 
 
 go
@@ -498,6 +508,22 @@ go
 insert into WeiGui values('乱发小广告','扣除金币10','www.baidu.com',getdate(),'广告',3,1)
 
 
+go
+if exists(select * from sysobjects where name='ChongZhi')
+drop table ChongZhi;
+go
+--违规处理表
+create table ChongZhi(
+  ChongZhiId int primary key identity(1,1),
+   addtime datetime,--添加时间
+   type_1 nvarchar(50),--备注
+   rmb money,--充值金额
+   moneys money,--充值金币数量
+  UserId int foreign key references UserInfo(UserId),--用户表(被处理用户)
+)
+go
+--select * from ChongZhi
+insert into ChongZhi values(getdate(),'测试',30,300,1)
 
 
 --萨芬

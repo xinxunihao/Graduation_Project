@@ -14,6 +14,17 @@
     <Property Name="Phone" Type="nvarchar" MaxLength="20" />
     <Property Name="IsDelete" Type="int" />
   </EntityType>
+  <EntityType Name="ChongZhi">
+    <Key>
+      <PropertyRef Name="ChongZhiId" />
+    </Key>
+    <Property Name="ChongZhiId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="addtime" Type="datetime" />
+    <Property Name="type_1" Type="nvarchar" MaxLength="50" />
+    <Property Name="rmb" Type="money" />
+    <Property Name="moneys" Type="money" />
+    <Property Name="UserId" Type="int" />
+  </EntityType>
   <EntityType Name="Friends">
     <Key>
       <PropertyRef Name="FriendsId" />
@@ -190,6 +201,8 @@
     <Property Name="GoodsId" Type="int" />
     <Property Name="addtime" Type="datetime" />
     <Property Name="type_1" Type="nvarchar" MaxLength="10" />
+    <Property Name="Tpromote" Type="int" />
+    <Property Name="Theat" Type="int" />
   </EntityType>
   <EntityType Name="WebOut">
     <Key>
@@ -248,6 +261,18 @@
         <PropertyRef Name="UserId" />
       </Principal>
       <Dependent Role="Addres">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ChongZhi__UserId__7B5B524B">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+    <End Role="ChongZhi" Type="Self.ChongZhi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="ChongZhi">
         <PropertyRef Name="UserId" />
       </Dependent>
     </ReferentialConstraint>
@@ -540,7 +565,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__WebIn__GoodsId__49C3F6B7">
+  <Association Name="FK__WebIn__GoodsId__75A278F5">
     <End Role="Goods" Type="Self.Goods" Multiplicity="0..1" />
     <End Role="WebIn" Type="Self.WebIn" Multiplicity="*" />
     <ReferentialConstraint>
@@ -578,6 +603,7 @@
   </Association>
   <EntityContainer Name="CYESWModelStoreContainer">
     <EntitySet Name="Addres" EntityType="Self.Addres" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ChongZhi" EntityType="Self.ChongZhi" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Friends" EntityType="Self.Friends" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Friends_texts" EntityType="Self.Friends_texts" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Goods" EntityType="Self.Goods" Schema="dbo" store:Type="Tables" />
@@ -607,6 +633,10 @@
     <AssociationSet Name="FK__Addres__UserId__59FA5E80" Association="Self.FK__Addres__UserId__59FA5E80">
       <End Role="UserInfo" EntitySet="UserInfo" />
       <End Role="Addres" EntitySet="Addres" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ChongZhi__UserId__7B5B524B" Association="Self.FK__ChongZhi__UserId__7B5B524B">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="ChongZhi" EntitySet="ChongZhi" />
     </AssociationSet>
     <AssociationSet Name="FK__Friends__UserId1__30F848ED" Association="Self.FK__Friends__UserId1__30F848ED">
       <End Role="UserInfo" EntitySet="UserInfo" />
@@ -704,7 +734,7 @@
       <End Role="UserInfo" EntitySet="UserInfo" />
       <End Role="Texts" EntitySet="Texts" />
     </AssociationSet>
-    <AssociationSet Name="FK__WebIn__GoodsId__49C3F6B7" Association="Self.FK__WebIn__GoodsId__49C3F6B7">
+    <AssociationSet Name="FK__WebIn__GoodsId__75A278F5" Association="Self.FK__WebIn__GoodsId__75A278F5">
       <End Role="Goods" EntitySet="Goods" />
       <End Role="WebIn" EntitySet="WebIn" />
     </AssociationSet>

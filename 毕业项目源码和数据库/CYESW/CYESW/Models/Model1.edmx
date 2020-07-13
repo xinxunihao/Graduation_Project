@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CYESWModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="CYESWModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Addres">
           <Key>
             <PropertyRef Name="AddresId" />
@@ -18,6 +18,17 @@
           <Property Name="Addresss2" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Phone" Type="nvarchar" MaxLength="20" />
           <Property Name="IsDelete" Type="int" />
+        </EntityType>
+        <EntityType Name="ChongZhi">
+          <Key>
+            <PropertyRef Name="ChongZhiId" />
+          </Key>
+          <Property Name="ChongZhiId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="addtime" Type="datetime" />
+          <Property Name="type_1" Type="nvarchar" MaxLength="50" />
+          <Property Name="rmb" Type="money" />
+          <Property Name="moneys" Type="money" />
+          <Property Name="UserId" Type="int" />
         </EntityType>
         <EntityType Name="Friends">
           <Key>
@@ -195,6 +206,8 @@
           <Property Name="GoodsId" Type="int" />
           <Property Name="addtime" Type="datetime" />
           <Property Name="type_1" Type="nvarchar" MaxLength="10" />
+          <Property Name="Tpromote" Type="int" />
+          <Property Name="Theat" Type="int" />
         </EntityType>
         <EntityType Name="WebOut">
           <Key>
@@ -253,6 +266,18 @@
               <PropertyRef Name="UserId" />
             </Principal>
             <Dependent Role="Addres">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ChongZhi__UserId__7B5B524B">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+          <End Role="ChongZhi" Type="Self.ChongZhi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="ChongZhi">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -545,7 +570,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__WebIn__GoodsId__49C3F6B7">
+        <Association Name="FK__WebIn__GoodsId__75A278F5">
           <End Role="Goods" Type="Self.Goods" Multiplicity="0..1" />
           <End Role="WebIn" Type="Self.WebIn" Multiplicity="*" />
           <ReferentialConstraint>
@@ -583,6 +608,7 @@
         </Association>
         <EntityContainer Name="CYESWModelStoreContainer">
           <EntitySet Name="Addres" EntityType="Self.Addres" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChongZhi" EntityType="Self.ChongZhi" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Friends" EntityType="Self.Friends" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Friends_texts" EntityType="Self.Friends_texts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Goods" EntityType="Self.Goods" Schema="dbo" store:Type="Tables" />
@@ -612,6 +638,10 @@
           <AssociationSet Name="FK__Addres__UserId__59FA5E80" Association="Self.FK__Addres__UserId__59FA5E80">
             <End Role="UserInfo" EntitySet="UserInfo" />
             <End Role="Addres" EntitySet="Addres" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ChongZhi__UserId__7B5B524B" Association="Self.FK__ChongZhi__UserId__7B5B524B">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="ChongZhi" EntitySet="ChongZhi" />
           </AssociationSet>
           <AssociationSet Name="FK__Friends__UserId1__30F848ED" Association="Self.FK__Friends__UserId1__30F848ED">
             <End Role="UserInfo" EntitySet="UserInfo" />
@@ -709,7 +739,7 @@
             <End Role="UserInfo" EntitySet="UserInfo" />
             <End Role="Texts" EntitySet="Texts" />
           </AssociationSet>
-          <AssociationSet Name="FK__WebIn__GoodsId__49C3F6B7" Association="Self.FK__WebIn__GoodsId__49C3F6B7">
+          <AssociationSet Name="FK__WebIn__GoodsId__75A278F5" Association="Self.FK__WebIn__GoodsId__75A278F5">
             <End Role="Goods" EntitySet="Goods" />
             <End Role="WebIn" EntitySet="WebIn" />
           </AssociationSet>
@@ -722,8 +752,7 @@
             <End Role="WeiGui" EntitySet="WeiGui" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CYESWModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -965,6 +994,7 @@
           <NavigationProperty Name="Texts" Relationship="Self.FK__Texts__UserId__34C8D9D1" FromRole="UserInfo" ToRole="Texts" />
           <NavigationProperty Name="WeiGui" Relationship="Self.FK__WeiGui__GLuser__4E88ABD4" FromRole="UserInfo" ToRole="WeiGui" />
           <NavigationProperty Name="WeiGui1" Relationship="Self.FK__WeiGui__UserId1__4F7CD00D" FromRole="UserInfo" ToRole="WeiGui" />
+          <NavigationProperty Name="ChongZhi" Relationship="CYESWModel.FK__ChongZhi__UserId__787EE5A0" FromRole="UserInfo" ToRole="ChongZhi" />
         </EntityType>
         <EntityType Name="WebIn">
           <Key>
@@ -975,6 +1005,8 @@
           <Property Name="addtime" Type="DateTime" Precision="3" />
           <Property Name="type_1" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Goods" Relationship="Self.FK__WebIn__GoodsId__49C3F6B7" FromRole="WebIn" ToRole="Goods" />
+          <Property Name="Tpromote" Type="Int32" />
+          <Property Name="Theat" Type="Int32" />
         </EntityType>
         <EntityType Name="WebOut">
           <Key>
@@ -1503,7 +1535,36 @@
             <End Role="UserInfo" EntitySet="UserInfo" />
             <End Role="WeiGui" EntitySet="WeiGui" />
           </AssociationSet>
+          <EntitySet Name="ChongZhi" EntityType="CYESWModel.ChongZhi" />
+          <AssociationSet Name="FK__ChongZhi__UserId__787EE5A0" Association="CYESWModel.FK__ChongZhi__UserId__787EE5A0">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="ChongZhi" EntitySet="ChongZhi" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="ChongZhi">
+          <Key>
+            <PropertyRef Name="ChongZhiId" />
+          </Key>
+          <Property Name="ChongZhiId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="addtime" Type="DateTime" Precision="3" />
+          <Property Name="type_1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="moneys" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="UserId" Type="Int32" />
+          <NavigationProperty Name="UserInfo" Relationship="CYESWModel.FK__ChongZhi__UserId__787EE5A0" FromRole="ChongZhi" ToRole="UserInfo" />
+          <Property Name="rmb" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <Association Name="FK__ChongZhi__UserId__787EE5A0">
+          <End Type="CYESWModel.UserInfo" Role="UserInfo" Multiplicity="0..1" />
+          <End Type="CYESWModel.ChongZhi" Role="ChongZhi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="ChongZhi">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1711,6 +1772,8 @@
           <EntitySetMapping Name="WebIn">
             <EntityTypeMapping TypeName="CYESWModel.WebIn">
               <MappingFragment StoreEntitySet="WebIn">
+                <ScalarProperty Name="Theat" ColumnName="Theat" />
+                <ScalarProperty Name="Tpromote" ColumnName="Tpromote" />
                 <ScalarProperty Name="WebInId" ColumnName="WebInId" />
                 <ScalarProperty Name="GoodsId" ColumnName="GoodsId" />
                 <ScalarProperty Name="addtime" ColumnName="addtime" />
@@ -1742,6 +1805,18 @@
                 <ScalarProperty Name="type_1" ColumnName="type_1" />
                 <ScalarProperty Name="GLuser" ColumnName="GLuser" />
                 <ScalarProperty Name="UserId1" ColumnName="UserId1" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChongZhi">
+            <EntityTypeMapping TypeName="CYESWModel.ChongZhi">
+              <MappingFragment StoreEntitySet="ChongZhi">
+                <ScalarProperty Name="rmb" ColumnName="rmb" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="moneys" ColumnName="moneys" />
+                <ScalarProperty Name="type_1" ColumnName="type_1" />
+                <ScalarProperty Name="addtime" ColumnName="addtime" />
+                <ScalarProperty Name="ChongZhiId" ColumnName="ChongZhiId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

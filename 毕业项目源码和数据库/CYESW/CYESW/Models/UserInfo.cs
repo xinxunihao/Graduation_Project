@@ -32,6 +32,7 @@ namespace CYESW.Models
             this.Texts = new HashSet<Texts>();
             this.WeiGui = new HashSet<WeiGui>();
             this.WeiGui1 = new HashSet<WeiGui>();
+            this.ChongZhi = new HashSet<ChongZhi>();
         }
     
         public int UserId { get; set; }
@@ -78,5 +79,7 @@ namespace CYESW.Models
         public virtual ICollection<WeiGui> WeiGui { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WeiGui> WeiGui1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChongZhi> ChongZhi { get; set; }
     }
 }
