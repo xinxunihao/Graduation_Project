@@ -1,0 +1,236 @@
+﻿@using CYESW.Models
+@using PagedList.Mvc
+@{
+    Layout = null;
+    UserInfo user = Session["user"] as UserInfo;
+    int? leixin = ViewBag.leixin;
+    int? fuid = ViewBag.fuid;
+    string name = ViewBag.name;
+}
+
+@model PagedList.PagedList<GoodsType>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>LunBo</title>
+    <link href="~/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+    <script type="text/javascript">
+        var date = new Date().getTime();
+        document.write("<link rel='stylesheet' href='../Content/mycss_back.css'?v=" + date + "'>");
+    </script>
+</head>
+<body>
+    <div>
+        <div class="homeback">
+            <h2>宝贝类型</h2>
+            <br />
+            <div>
+                <a href="" class="layui-btn layui-btn-normal" data-toggle="modal" data-target="#exampleModal">新增</a>
+            </div>
+            <div>
+                <form action="/BackgRound/GoodsType" method="post" layui-form>
+                    <div class=" layui-row">
+                        <div class=" layui-col-lg3">
+                            类别：
+                            <select name="leixin" lay-verify="" class="layui-input">
+                                <option value="1">所有</option>
+                                <option value="2">只查二级菜单</option>
+                                <option value="3">只查三级菜单</option>
+                            </select>
+                        </div>
+                        <div class="layui-col-lg3">
+                            根据父id查询：
+                            <input type="text" name="fuid" lay-verify="" placeholder="请输入父id" class="layui-input">
+                        </div>
+                        <div class="layui-col-lg3">
+                            <br />
+                            <input type="text" name="Name" lay-verify="" placeholder="查询类别的标题" class="layui-input" value="@name">
+                        </div>
+                        <div class="layui-col-lg3">
+                            <br />
+                            <input type="submit" lay-verify="required" class="layui-btn" />
+                        </div>
+                    </div>
+                </form>
+                @*<a href="" class="layui-btn layui-btn-normal" data-toggle="modal" data-target="#exampleModal">新增宝贝</a>*@
+            </div>
+            <table class="layui-table layui-table-hover layui-table-header">
+                <tr>
+                    <th>分类名称</th>
+                    <th>分类id</th>
+                    <th>父类名称</th>
+                    <th>分类父id</th>
+                    <th>操作</th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.TypeName</td>
+                        <td>@item.GoodsTypeId</td>
+                        <td>@item.GoodsType2.TypeName</td>
+                        <td>@item.GoodsTypeBId</td>
+                        <td><a href="#" class="layui-btn"  data-toggle="modal" data-target="#exampleModa2" onclick="Select_GoodsType(@item.GoodsTypeId)">修改</a><a href="#" onclick="Delete_GoodsType(@item.GoodsTypeId)" class="layui-btn layui-btn-danger">删除</a></td>
+                    </tr>
+                }
+
+
+            </table>
+            <div style="padding:10px;text-align:center;background-color:white;border-radius:15px">
+                当前页/总页数（ @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount ）
+
+                @Html.PagedListPager(Model, page => Url.Action("GoodsType", new
+                {
+                    page,
+                    leixin = leixin,
+                    fuid = fuid,
+                    Name = name
+                }))
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 修改-->
+    <div class="modal fade" id="exampleModa2" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">修改宝贝分类</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="/BackgRound/Update_GoodsType" id="form2" class="form_addres" enctype="multipart/form-data">
+                        <table class="table">
+                            <tr>
+                                <td>
+                                    分类名称:
+                                </td>
+                                <td>
+                                    <input type="text" name="TypeName" id="TypeName_1" value="" class="form-control" placeholder=" 请输入分类名称" />
+                                    <input type="hidden" name="GoodsTypeId" id="GoodsTypeId" value="" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    父分类id：
+                                </td>
+                                <td>
+                                    <input type="text" name="GoodsTypeBId" value="" id="GoodsTypeBId_1" class="form-control" placeholder=" 请输入父分类id" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                </td>
+                                <td>
+                                    <button type="submit" class="btn btn-primary">保存</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 新增-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">新增宝贝分类</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="/BackgRound/Add_GoodsType" id="form1" class="form_addres" enctype="multipart/form-data">
+                        <table class="table">
+                            <tr>
+                                <td>
+                                    分类名称:
+                                </td>
+                                <td>
+                                    <input type="text" name="TypeName" id="TypeName" value="" class="form-control" placeholder=" 请输入分类名称" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    父分类id：
+                                </td>
+                                <td>
+                                    <input type="text" name="GoodsTypeBId" value="" id="GoodsTypeBId" class="form-control" placeholder=" 请输入父分类id" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                </td>
+                                <td>
+                                    <button type="submit" class="btn btn-primary">保存</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function Select_GoodsType(id) {
+            $.ajax({
+                type: "post",
+                data: { "id": id },
+                async: false,//不异步请求
+                url: "/BackgRound/Select_GoodsType",
+                success: function (data) {
+                    var msg = jQuery.parseJSON(data);//那以后每次用的收都将goods转化为这个形式
+                    console.log(msg);
+                    $('#TypeName_1').val(msg.TypeName);
+                    $('#GoodsTypeBId_1').val(msg.GoodsTypeBId);
+                    $('#GoodsTypeId').val(msg.GoodsTypeId);
+                },
+                error: function (e) {
+                    alert("失败了？？：" + e);
+                    console.log(e.status);
+                    console.log(e.responseText);
+                }
+            })
+        }
+
+        function Delete_GoodsType(id) {
+            $.ajax({
+                type: "post",
+                data: { "id": id },
+                async: false,//不异步请求
+                url: "/BackgRound/Delete_GoodsType",
+                success: function (data) {
+                    alert(data);
+                    location.reload();
+                },
+                error: function (e) {
+                    alert("失败了？？：" + e);
+                    console.log(e.status);
+                    console.log(e.responseText);
+                }
+            })
+        }
+    </script>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/valuedate.js"></script>
+</body>
+
+</html>
+

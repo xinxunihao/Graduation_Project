@@ -1,0 +1,812 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CYESWModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Addres">
+    <Key>
+      <PropertyRef Name="AddresId" />
+    </Key>
+    <Property Name="AddresId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="GoodsaddressId1" Type="Int32" />
+    <Property Name="GoodsaddressId2" Type="Int32" />
+    <Property Name="Addresss1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Addresss2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="IsDelete" Type="Int32" />
+    <NavigationProperty Name="Goodsaddress" Relationship="Self.FK__Addres__Goodsadd__5AEE82B9" FromRole="Addres" ToRole="Goodsaddress" />
+    <NavigationProperty Name="Goodsaddress1" Relationship="Self.FK__Addres__Goodsadd__5BE2A6F2" FromRole="Addres" ToRole="Goodsaddress" />
+    <NavigationProperty Name="UserInfo" Relationship="Self.FK__Addres__UserId__59FA5E80" FromRole="Addres" ToRole="UserInfo" />
+  </EntityType>
+  <EntityType Name="Friends">
+    <Key>
+      <PropertyRef Name="FriendsId" />
+    </Key>
+    <Property Name="FriendsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId1" Type="Int32" />
+    <Property Name="UserId2" Type="Int32" />
+    <Property Name="addTiem" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="UserInfo" Relationship="Self.FK__Friends__UserId1__30F848ED" FromRole="Friends" ToRole="UserInfo" />
+    <NavigationProperty Name="UserInfo1" Relationship="Self.FK__Friends__UserId2__31EC6D26" FromRole="Friends" ToRole="UserInfo" />
+  </EntityType>
+  <EntityType Name="Friends_texts">
+    <Key>
+      <PropertyRef Name="Friends_textsId" />
+    </Key>
+    <Property Name="Friends_textsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TextsId" Type="Int32" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="States" Type="Int32" />
+    <NavigationProperty Name="Texts" Relationship="Self.FK__Friends_t__Texts__3F466844" FromRole="Friends_texts" ToRole="Texts" />
+    <NavigationProperty Name="UserInfo" Relationship="Self.FK__Friends_t__UserI__403A8C7D" FromRole="Friends_texts" ToRole="UserInfo" />
+  </EntityType>
+  <EntityType Name="Goods">
+    <Key>
+      <PropertyRef Name="GoodsId" />
+    </Key>
+    <Property Name="GoodsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="GoodsTypeId" Type="Int32" />
+    <Property Name="GoodsaddressId" Type="Int32" />
+    <Property Name="IsNew" Type="Int32" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Info" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Price" Type="Double" />
+    <Property Name="Price_Yuan" Type="Double" />
+    <Property Name="munber" Type="Int32" />
+    <Property Name="IsState" Type="Int32" />
+    <Property Name="CreateTime" Type="DateTime" Precision="3" />
+    <Property Name="UpdateTime" Type="DateTime" Precision="3" />
+    <Property Name="Peisong" Type="Int32" />
+    <Property Name="GoodsaddressInfo" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Ipone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Goodsaddress" Relationship="Self.FK__Goods__Goodsaddr__22AA2996" FromRole="Goods" ToRole="Goodsaddress" />
+    <NavigationProperty Name="GoodsType" Relationship="Self.FK__Goods__GoodsType__21B6055D" FromRole="Goods" ToRole="GoodsType" />
+    <NavigationProperty Name="UserInfo" Relationship="Self.FK__Goods__UserId__20C1E124" FromRole="Goods" ToRole="UserInfo" />
+    <NavigationProperty Name="Goodsimage" Relationship="Self.FK__Goodsimag__Goods__25869641" FromRole="Goods" ToRole="Goodsimage" />
+    <NavigationProperty Name="HuDong_texts" Relationship="Self.FK__HuDong_te__Goods__38996AB5" FromRole="Goods" ToRole="HuDong_texts" />
+    <NavigationProperty Name="Love" Relationship="Self.FK__Love__GoodsId__2E1BDC42" FromRole="Goods" ToRole="Love" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__GoodsId__2A4B4B5E" FromRole="Goods" ToRole="Orders" />
+    <NavigationProperty Name="WebIn" Relationship="Self.FK__WebIn__GoodsId__49C3F6B7" FromRole="Goods" ToRole="WebIn" />
+  </EntityType>
+  <EntityType Name="Goodsaddress">
+    <Key>
+      <PropertyRef Name="GoodsaddressId" />
+    </Key>
+    <Property Name="GoodsaddressId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TypeName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="GoodsaddressBId" Type="Int32" />
+    <NavigationProperty Name="Addres" Relationship="Self.FK__Addres__Goodsadd__5AEE82B9" FromRole="Goodsaddress" ToRole="Addres" />
+    <NavigationProperty Name="Addres1" Relationship="Self.FK__Addres__Goodsadd__5BE2A6F2" FromRole="Goodsaddress" ToRole="Addres" />
+    <NavigationProperty Name="Goods" Relationship="Self.FK__Goods__Goodsaddr__22AA2996" FromRole="Goodsaddress" ToRole="Goods" />
+    <NavigationProperty Name="Goodsaddress1" Relationship="Self.FK__Goodsaddr__Goods__1A14E395" FromRole="Goodsaddress" ToRole="Goodsaddress1" />
+    <NavigationProperty Name="Goodsaddress2" Relationship="Self.FK__Goodsaddr__Goods__1A14E395" FromRole="Goodsaddress1" ToRole="Goodsaddress" />
+  </EntityType>
+  <EntityType Name="Goodsimage">
+    <Key>
+      <PropertyRef Name="GoodsimageId" />
+    </Key>
+    <Property Name="GoodsimageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="images" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="GoodsId" Type="Int32" />
+    <NavigationProperty Name="Goods" Relationship="Self.FK__Goodsimag__Goods__25869641" FromRole="Goodsimage" ToRole="Goods" />
+  </EntityType>
+  <EntityType Name="GoodsType">
+    <Key>
+      <PropertyRef Name="GoodsTypeId" />
+    </Key>
+    <Property Name="GoodsTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TypeName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="GoodsTypeBId" Type="Int32" />
+    <NavigationProperty Name="Goods" Relationship="Self.FK__Goods__GoodsType__21B6055D" FromRole="GoodsType" ToRole="Goods" />
+    <NavigationProperty Name="GoodsType1" Relationship="Self.FK__GoodsType__Goods__173876EA" FromRole="GoodsType" ToRole="GoodsType1" />
+    <NavigationProperty Name="GoodsType2" Relationship="Self.FK__GoodsType__Goods__173876EA" FromRole="GoodsType1" ToRole="GoodsType" />
+  </EntityType>
+  <EntityType Name="HuDong_texts">
+    <Key>
+      <PropertyRef Name="HuDong_textsId" />
+    </Key>
+    <Property Name="HuDong_textsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TextsId" Type="Int32" />
+    <Property Name="GoodsId" Type="Int32" />
+    <Property Name="States" Type="Int32" />
+    <NavigationProperty Name="Goods" Relationship="Self.FK__HuDong_te__Goods__38996AB5" FromRole="HuDong_texts" ToRole="Goods" />
+    <NavigationProperty Name="Texts" Relationship="Self.FK__HuDong_te__Texts__37A5467C" FromRole="HuDong_texts" ToRole="Texts" />
+  </EntityType>
+  <EntityType Name="JuBao">
+    <Key>
+      <PropertyRef Name="JuBaoId" />
+    </Key>
+    <Property Name="JuBaoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="UserId2" Type="Int32" />
+    <Property Name="JuBao_body" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="addTiem" Type="DateTime" Precision="3" />
+    <Property Name="States" Type="Int32" />
+    <Property Name="HuiFu" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="CLUserId" Type="Int32" />
+    <Property Name="JuBaoName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="JubaoType" Type="Int32" />
+    <Property Name="endTiem" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="UserInfo" Relationship="Self.FK__JuBao__CLUserId__44FF419A" FromRole="JuBao" ToRole="UserInfo" />
+    <NavigationProperty Name="UserInfo1" Relationship="Self.FK__JuBao__UserId__4316F928" FromRole="JuBao" ToRole="UserInfo" />
+    <NavigationProperty Name="UserInfo2" Relationship="Self.FK__JuBao__UserId2__440B1D61" FromRole="JuBao" ToRole="UserInfo" />
+  </EntityType>
+  <EntityType Name="Love">
+    <Key>
+      <PropertyRef Name="LoveId" />
+    </Key>
+    <Property Name="LoveId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="GoodsId" Type="Int32" />
+    <Property Name="addTiem" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Goods" Relationship="Self.FK__Love__GoodsId__2E1BDC42" FromRole="Love" ToRole="Goods" />
+    <NavigationProperty Name="UserInfo" Relationship="Self.FK__Love__UserId__2D27B809" FromRole="Love" ToRole="UserInfo" />
+  </EntityType>
+  <EntityType Name="LunBo">
+    <Key>
+      <PropertyRef Name="LunBoId" />
+    </Key>
+    <Property Name="LunBoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="images" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="a_1" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="addtime" Type="DateTime" Precision="3" />
+    <Property Name="type_1" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="OrdersId" />
+    </Key>
+    <Property Name="OrdersId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId1" Type="Int32" />
+    <Property Name="UserId2" Type="Int32" />
+    <Property Name="GoodsId" Type="Int32" />
+    <Property Name="IsState" Type="Int32" />
+    <Property Name="Wuliu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="BuyTime1" Type="DateTime" Precision="3" />
+    <Property Name="BuyTime2" Type="DateTime" Precision="3" />
+    <Property Name="BuyTime3" Type="DateTime" Precision="3" />
+    <Property Name="BuyTime4" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Goods" Relationship="Self.FK__Orders__GoodsId__2A4B4B5E" FromRole="Orders" ToRole="Goods" />
+    <NavigationProperty Name="UserInfo" Relationship="Self.FK__Orders__UserId1__286302EC" FromRole="Orders" ToRole="UserInfo" />
+    <NavigationProperty Name="UserInfo1" Relationship="Self.FK__Orders__UserId2__29572725" FromRole="Orders" ToRole="UserInfo" />
+    <NavigationProperty Name="Pingjia_texts" Relationship="Self.FK__Pingjia_t__Order__3C69FB99" FromRole="Orders" ToRole="Pingjia_texts" />
+  </EntityType>
+  <EntityType Name="Pingjia_texts">
+    <Key>
+      <PropertyRef Name="Pingjia_textsId" />
+    </Key>
+    <Property Name="Pingjia_textsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TextsId" Type="Int32" />
+    <Property Name="OrdersId" Type="Int32" />
+    <Property Name="States" Type="Int32" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK__Pingjia_t__Order__3C69FB99" FromRole="Pingjia_texts" ToRole="Orders" />
+    <NavigationProperty Name="Texts" Relationship="Self.FK__Pingjia_t__Texts__3B75D760" FromRole="Pingjia_texts" ToRole="Texts" />
+  </EntityType>
+  <EntityType Name="RealName">
+    <Key>
+      <PropertyRef Name="RealNameId" />
+    </Key>
+    <Property Name="RealNameId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="IdCard" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="AddTime" Type="DateTime" Precision="3" />
+    <Property Name="IsDelete" Type="Int32" />
+    <NavigationProperty Name="UserInfo" Relationship="Self.FK__RealName__UserId__145C0A3F" FromRole="RealName" ToRole="UserInfo" />
+  </EntityType>
+  <EntityType Name="Texts">
+    <Key>
+      <PropertyRef Name="TextsId" />
+    </Key>
+    <Property Name="TextsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="Textbody" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="addTiem" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Friends_texts" Relationship="Self.FK__Friends_t__Texts__3F466844" FromRole="Texts" ToRole="Friends_texts" />
+    <NavigationProperty Name="HuDong_texts" Relationship="Self.FK__HuDong_te__Texts__37A5467C" FromRole="Texts" ToRole="HuDong_texts" />
+    <NavigationProperty Name="Pingjia_texts" Relationship="Self.FK__Pingjia_t__Texts__3B75D760" FromRole="Texts" ToRole="Pingjia_texts" />
+    <NavigationProperty Name="UserInfo" Relationship="Self.FK__Texts__UserId__34C8D9D1" FromRole="Texts" ToRole="UserInfo" />
+  </EntityType>
+  <EntityType Name="UserInfo">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserEmile" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserPwd" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Age" Type="Int32" />
+    <Property Name="moneys" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="Info" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Images" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="IsDelete" Type="Int32" />
+    <Property Name="AddTime" Type="DateTime" Precision="3" />
+    <Property Name="EndTime" Type="DateTime" Precision="3" />
+    <Property Name="IsManage" Type="Int32" />
+    <Property Name="Sex" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="Addres" Relationship="Self.FK__Addres__UserId__59FA5E80" FromRole="UserInfo" ToRole="Addres" />
+    <NavigationProperty Name="Friends" Relationship="Self.FK__Friends__UserId1__30F848ED" FromRole="UserInfo" ToRole="Friends" />
+    <NavigationProperty Name="Friends1" Relationship="Self.FK__Friends__UserId2__31EC6D26" FromRole="UserInfo" ToRole="Friends" />
+    <NavigationProperty Name="Friends_texts" Relationship="Self.FK__Friends_t__UserI__403A8C7D" FromRole="UserInfo" ToRole="Friends_texts" />
+    <NavigationProperty Name="Goods" Relationship="Self.FK__Goods__UserId__20C1E124" FromRole="UserInfo" ToRole="Goods" />
+    <NavigationProperty Name="JuBao" Relationship="Self.FK__JuBao__CLUserId__44FF419A" FromRole="UserInfo" ToRole="JuBao" />
+    <NavigationProperty Name="JuBao1" Relationship="Self.FK__JuBao__UserId__4316F928" FromRole="UserInfo" ToRole="JuBao" />
+    <NavigationProperty Name="JuBao2" Relationship="Self.FK__JuBao__UserId2__440B1D61" FromRole="UserInfo" ToRole="JuBao" />
+    <NavigationProperty Name="Love" Relationship="Self.FK__Love__UserId__2D27B809" FromRole="UserInfo" ToRole="Love" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__UserId1__286302EC" FromRole="UserInfo" ToRole="Orders" />
+    <NavigationProperty Name="Orders1" Relationship="Self.FK__Orders__UserId2__29572725" FromRole="UserInfo" ToRole="Orders" />
+    <NavigationProperty Name="RealName" Relationship="Self.FK__RealName__UserId__145C0A3F" FromRole="UserInfo" ToRole="RealName" />
+    <NavigationProperty Name="Texts" Relationship="Self.FK__Texts__UserId__34C8D9D1" FromRole="UserInfo" ToRole="Texts" />
+    <NavigationProperty Name="WeiGui" Relationship="Self.FK__WeiGui__GLuser__4E88ABD4" FromRole="UserInfo" ToRole="WeiGui" />
+    <NavigationProperty Name="WeiGui1" Relationship="Self.FK__WeiGui__UserId1__4F7CD00D" FromRole="UserInfo" ToRole="WeiGui" />
+    <NavigationProperty Name="ChongZhi" Relationship="CYESWModel.FK__ChongZhi__UserId__787EE5A0" FromRole="UserInfo" ToRole="ChongZhi" />
+  </EntityType>
+  <EntityType Name="WebIn">
+    <Key>
+      <PropertyRef Name="WebInId" />
+    </Key>
+    <Property Name="WebInId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GoodsId" Type="Int32" />
+    <Property Name="addtime" Type="DateTime" Precision="3" />
+    <Property Name="type_1" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Goods" Relationship="Self.FK__WebIn__GoodsId__49C3F6B7" FromRole="WebIn" ToRole="Goods" />
+    <Property Name="Tpromote" Type="Int32" />
+    <Property Name="Theat" Type="Int32" />
+  </EntityType>
+  <EntityType Name="WebOut">
+    <Key>
+      <PropertyRef Name="WebOutId" />
+    </Key>
+    <Property Name="WebOutId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="images" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Info" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
+    <Property Name="a_1" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="addtime" Type="DateTime" Precision="3" />
+    <Property Name="type_1" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="WeiGui">
+    <Key>
+      <PropertyRef Name="WeiGuiId" />
+    </Key>
+    <Property Name="WeiGuiId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Info" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
+    <Property Name="a_1" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="addtime" Type="DateTime" Precision="3" />
+    <Property Name="type_1" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="GLuser" Type="Int32" />
+    <Property Name="UserId1" Type="Int32" />
+    <NavigationProperty Name="UserInfo" Relationship="Self.FK__WeiGui__GLuser__4E88ABD4" FromRole="WeiGui" ToRole="UserInfo" />
+    <NavigationProperty Name="UserInfo1" Relationship="Self.FK__WeiGui__UserId1__4F7CD00D" FromRole="WeiGui" ToRole="UserInfo" />
+  </EntityType>
+  <Association Name="FK__Addres__Goodsadd__5AEE82B9">
+    <End Role="Goodsaddress" Type="Self.Goodsaddress" Multiplicity="0..1" />
+    <End Role="Addres" Type="Self.Addres" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Goodsaddress">
+        <PropertyRef Name="GoodsaddressId" />
+      </Principal>
+      <Dependent Role="Addres">
+        <PropertyRef Name="GoodsaddressId1" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Addres__Goodsadd__5BE2A6F2">
+    <End Role="Goodsaddress" Type="Self.Goodsaddress" Multiplicity="0..1" />
+    <End Role="Addres" Type="Self.Addres" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Goodsaddress">
+        <PropertyRef Name="GoodsaddressId" />
+      </Principal>
+      <Dependent Role="Addres">
+        <PropertyRef Name="GoodsaddressId2" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Addres__UserId__59FA5E80">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+    <End Role="Addres" Type="Self.Addres" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Addres">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Friends__UserId1__30F848ED">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+    <End Role="Friends" Type="Self.Friends" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Friends">
+        <PropertyRef Name="UserId1" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Friends__UserId2__31EC6D26">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+    <End Role="Friends" Type="Self.Friends" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Friends">
+        <PropertyRef Name="UserId2" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Friends_t__Texts__3F466844">
+    <End Role="Texts" Type="Self.Texts" Multiplicity="0..1" />
+    <End Role="Friends_texts" Type="Self.Friends_texts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Texts">
+        <PropertyRef Name="TextsId" />
+      </Principal>
+      <Dependent Role="Friends_texts">
+        <PropertyRef Name="TextsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Friends_t__UserI__403A8C7D">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+    <End Role="Friends_texts" Type="Self.Friends_texts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Friends_texts">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Goods__Goodsaddr__22AA2996">
+    <End Role="Goodsaddress" Type="Self.Goodsaddress" Multiplicity="0..1" />
+    <End Role="Goods" Type="Self.Goods" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Goodsaddress">
+        <PropertyRef Name="GoodsaddressId" />
+      </Principal>
+      <Dependent Role="Goods">
+        <PropertyRef Name="GoodsaddressId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Goods__GoodsType__21B6055D">
+    <End Role="GoodsType" Type="Self.GoodsType" Multiplicity="0..1" />
+    <End Role="Goods" Type="Self.Goods" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GoodsType">
+        <PropertyRef Name="GoodsTypeId" />
+      </Principal>
+      <Dependent Role="Goods">
+        <PropertyRef Name="GoodsTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Goods__UserId__20C1E124">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+    <End Role="Goods" Type="Self.Goods" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Goods">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Goodsimag__Goods__25869641">
+    <End Role="Goods" Type="Self.Goods" Multiplicity="0..1" />
+    <End Role="Goodsimage" Type="Self.Goodsimage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Goods">
+        <PropertyRef Name="GoodsId" />
+      </Principal>
+      <Dependent Role="Goodsimage">
+        <PropertyRef Name="GoodsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__HuDong_te__Goods__38996AB5">
+    <End Role="Goods" Type="Self.Goods" Multiplicity="0..1" />
+    <End Role="HuDong_texts" Type="Self.HuDong_texts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Goods">
+        <PropertyRef Name="GoodsId" />
+      </Principal>
+      <Dependent Role="HuDong_texts">
+        <PropertyRef Name="GoodsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Love__GoodsId__2E1BDC42">
+    <End Role="Goods" Type="Self.Goods" Multiplicity="0..1" />
+    <End Role="Love" Type="Self.Love" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Goods">
+        <PropertyRef Name="GoodsId" />
+      </Principal>
+      <Dependent Role="Love">
+        <PropertyRef Name="GoodsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Orders__GoodsId__2A4B4B5E">
+    <End Role="Goods" Type="Self.Goods" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Goods">
+        <PropertyRef Name="GoodsId" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="GoodsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__WebIn__GoodsId__49C3F6B7">
+    <End Role="Goods" Type="Self.Goods" Multiplicity="0..1" />
+    <End Role="WebIn" Type="Self.WebIn" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Goods">
+        <PropertyRef Name="GoodsId" />
+      </Principal>
+      <Dependent Role="WebIn">
+        <PropertyRef Name="GoodsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Goodsaddr__Goods__1A14E395">
+    <End Role="Goodsaddress" Type="Self.Goodsaddress" Multiplicity="0..1" />
+    <End Role="Goodsaddress1" Type="Self.Goodsaddress" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Goodsaddress">
+        <PropertyRef Name="GoodsaddressId" />
+      </Principal>
+      <Dependent Role="Goodsaddress1">
+        <PropertyRef Name="GoodsaddressBId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__GoodsType__Goods__173876EA">
+    <End Role="GoodsType" Type="Self.GoodsType" Multiplicity="0..1" />
+    <End Role="GoodsType1" Type="Self.GoodsType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GoodsType">
+        <PropertyRef Name="GoodsTypeId" />
+      </Principal>
+      <Dependent Role="GoodsType1">
+        <PropertyRef Name="GoodsTypeBId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__HuDong_te__Texts__37A5467C">
+    <End Role="Texts" Type="Self.Texts" Multiplicity="0..1" />
+    <End Role="HuDong_texts" Type="Self.HuDong_texts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Texts">
+        <PropertyRef Name="TextsId" />
+      </Principal>
+      <Dependent Role="HuDong_texts">
+        <PropertyRef Name="TextsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__JuBao__CLUserId__44FF419A">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+    <End Role="JuBao" Type="Self.JuBao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="JuBao">
+        <PropertyRef Name="CLUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__JuBao__UserId__4316F928">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+    <End Role="JuBao" Type="Self.JuBao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="JuBao">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__JuBao__UserId2__440B1D61">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+    <End Role="JuBao" Type="Self.JuBao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="JuBao">
+        <PropertyRef Name="UserId2" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Love__UserId__2D27B809">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+    <End Role="Love" Type="Self.Love" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Love">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Orders__UserId1__286302EC">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="UserId1" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Orders__UserId2__29572725">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="UserId2" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Pingjia_t__Order__3C69FB99">
+    <End Role="Orders" Type="Self.Orders" Multiplicity="0..1" />
+    <End Role="Pingjia_texts" Type="Self.Pingjia_texts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="OrdersId" />
+      </Principal>
+      <Dependent Role="Pingjia_texts">
+        <PropertyRef Name="OrdersId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Pingjia_t__Texts__3B75D760">
+    <End Role="Texts" Type="Self.Texts" Multiplicity="0..1" />
+    <End Role="Pingjia_texts" Type="Self.Pingjia_texts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Texts">
+        <PropertyRef Name="TextsId" />
+      </Principal>
+      <Dependent Role="Pingjia_texts">
+        <PropertyRef Name="TextsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__RealName__UserId__145C0A3F">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+    <End Role="RealName" Type="Self.RealName" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="RealName">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Texts__UserId__34C8D9D1">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+    <End Role="Texts" Type="Self.Texts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Texts">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__WeiGui__GLuser__4E88ABD4">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+    <End Role="WeiGui" Type="Self.WeiGui" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="WeiGui">
+        <PropertyRef Name="GLuser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__WeiGui__UserId1__4F7CD00D">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+    <End Role="WeiGui" Type="Self.WeiGui" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="WeiGui">
+        <PropertyRef Name="UserId1" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CYESWEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Addres" EntityType="Self.Addres" />
+    <EntitySet Name="Friends" EntityType="Self.Friends" />
+    <EntitySet Name="Friends_texts" EntityType="Self.Friends_texts" />
+    <EntitySet Name="Goods" EntityType="Self.Goods" />
+    <EntitySet Name="Goodsaddress" EntityType="Self.Goodsaddress" />
+    <EntitySet Name="Goodsimage" EntityType="Self.Goodsimage" />
+    <EntitySet Name="GoodsType" EntityType="Self.GoodsType" />
+    <EntitySet Name="HuDong_texts" EntityType="Self.HuDong_texts" />
+    <EntitySet Name="JuBao" EntityType="Self.JuBao" />
+    <EntitySet Name="Love" EntityType="Self.Love" />
+    <EntitySet Name="LunBo" EntityType="Self.LunBo" />
+    <EntitySet Name="Orders" EntityType="Self.Orders" />
+    <EntitySet Name="Pingjia_texts" EntityType="Self.Pingjia_texts" />
+    <EntitySet Name="RealName" EntityType="Self.RealName" />
+    <EntitySet Name="Texts" EntityType="Self.Texts" />
+    <EntitySet Name="UserInfo" EntityType="Self.UserInfo" />
+    <EntitySet Name="WebIn" EntityType="Self.WebIn" />
+    <EntitySet Name="WebOut" EntityType="Self.WebOut" />
+    <EntitySet Name="WeiGui" EntityType="Self.WeiGui" />
+    <AssociationSet Name="FK__Addres__Goodsadd__5AEE82B9" Association="Self.FK__Addres__Goodsadd__5AEE82B9">
+      <End Role="Goodsaddress" EntitySet="Goodsaddress" />
+      <End Role="Addres" EntitySet="Addres" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Addres__Goodsadd__5BE2A6F2" Association="Self.FK__Addres__Goodsadd__5BE2A6F2">
+      <End Role="Goodsaddress" EntitySet="Goodsaddress" />
+      <End Role="Addres" EntitySet="Addres" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Addres__UserId__59FA5E80" Association="Self.FK__Addres__UserId__59FA5E80">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="Addres" EntitySet="Addres" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Friends__UserId1__30F848ED" Association="Self.FK__Friends__UserId1__30F848ED">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="Friends" EntitySet="Friends" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Friends__UserId2__31EC6D26" Association="Self.FK__Friends__UserId2__31EC6D26">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="Friends" EntitySet="Friends" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Friends_t__Texts__3F466844" Association="Self.FK__Friends_t__Texts__3F466844">
+      <End Role="Texts" EntitySet="Texts" />
+      <End Role="Friends_texts" EntitySet="Friends_texts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Friends_t__UserI__403A8C7D" Association="Self.FK__Friends_t__UserI__403A8C7D">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="Friends_texts" EntitySet="Friends_texts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Goods__Goodsaddr__22AA2996" Association="Self.FK__Goods__Goodsaddr__22AA2996">
+      <End Role="Goodsaddress" EntitySet="Goodsaddress" />
+      <End Role="Goods" EntitySet="Goods" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Goods__GoodsType__21B6055D" Association="Self.FK__Goods__GoodsType__21B6055D">
+      <End Role="GoodsType" EntitySet="GoodsType" />
+      <End Role="Goods" EntitySet="Goods" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Goods__UserId__20C1E124" Association="Self.FK__Goods__UserId__20C1E124">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="Goods" EntitySet="Goods" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Goodsimag__Goods__25869641" Association="Self.FK__Goodsimag__Goods__25869641">
+      <End Role="Goods" EntitySet="Goods" />
+      <End Role="Goodsimage" EntitySet="Goodsimage" />
+    </AssociationSet>
+    <AssociationSet Name="FK__HuDong_te__Goods__38996AB5" Association="Self.FK__HuDong_te__Goods__38996AB5">
+      <End Role="Goods" EntitySet="Goods" />
+      <End Role="HuDong_texts" EntitySet="HuDong_texts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Love__GoodsId__2E1BDC42" Association="Self.FK__Love__GoodsId__2E1BDC42">
+      <End Role="Goods" EntitySet="Goods" />
+      <End Role="Love" EntitySet="Love" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Orders__GoodsId__2A4B4B5E" Association="Self.FK__Orders__GoodsId__2A4B4B5E">
+      <End Role="Goods" EntitySet="Goods" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__WebIn__GoodsId__49C3F6B7" Association="Self.FK__WebIn__GoodsId__49C3F6B7">
+      <End Role="Goods" EntitySet="Goods" />
+      <End Role="WebIn" EntitySet="WebIn" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Goodsaddr__Goods__1A14E395" Association="Self.FK__Goodsaddr__Goods__1A14E395">
+      <End Role="Goodsaddress" EntitySet="Goodsaddress" />
+      <End Role="Goodsaddress1" EntitySet="Goodsaddress" />
+    </AssociationSet>
+    <AssociationSet Name="FK__GoodsType__Goods__173876EA" Association="Self.FK__GoodsType__Goods__173876EA">
+      <End Role="GoodsType" EntitySet="GoodsType" />
+      <End Role="GoodsType1" EntitySet="GoodsType" />
+    </AssociationSet>
+    <AssociationSet Name="FK__HuDong_te__Texts__37A5467C" Association="Self.FK__HuDong_te__Texts__37A5467C">
+      <End Role="Texts" EntitySet="Texts" />
+      <End Role="HuDong_texts" EntitySet="HuDong_texts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__JuBao__CLUserId__44FF419A" Association="Self.FK__JuBao__CLUserId__44FF419A">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="JuBao" EntitySet="JuBao" />
+    </AssociationSet>
+    <AssociationSet Name="FK__JuBao__UserId__4316F928" Association="Self.FK__JuBao__UserId__4316F928">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="JuBao" EntitySet="JuBao" />
+    </AssociationSet>
+    <AssociationSet Name="FK__JuBao__UserId2__440B1D61" Association="Self.FK__JuBao__UserId2__440B1D61">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="JuBao" EntitySet="JuBao" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Love__UserId__2D27B809" Association="Self.FK__Love__UserId__2D27B809">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="Love" EntitySet="Love" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Orders__UserId1__286302EC" Association="Self.FK__Orders__UserId1__286302EC">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Orders__UserId2__29572725" Association="Self.FK__Orders__UserId2__29572725">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Pingjia_t__Order__3C69FB99" Association="Self.FK__Pingjia_t__Order__3C69FB99">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="Pingjia_texts" EntitySet="Pingjia_texts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Pingjia_t__Texts__3B75D760" Association="Self.FK__Pingjia_t__Texts__3B75D760">
+      <End Role="Texts" EntitySet="Texts" />
+      <End Role="Pingjia_texts" EntitySet="Pingjia_texts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__RealName__UserId__145C0A3F" Association="Self.FK__RealName__UserId__145C0A3F">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="RealName" EntitySet="RealName" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Texts__UserId__34C8D9D1" Association="Self.FK__Texts__UserId__34C8D9D1">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="Texts" EntitySet="Texts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__WeiGui__GLuser__4E88ABD4" Association="Self.FK__WeiGui__GLuser__4E88ABD4">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="WeiGui" EntitySet="WeiGui" />
+    </AssociationSet>
+    <AssociationSet Name="FK__WeiGui__UserId1__4F7CD00D" Association="Self.FK__WeiGui__UserId1__4F7CD00D">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="WeiGui" EntitySet="WeiGui" />
+    </AssociationSet>
+    <EntitySet Name="ChongZhi" EntityType="CYESWModel.ChongZhi" />
+    <AssociationSet Name="FK__ChongZhi__UserId__787EE5A0" Association="CYESWModel.FK__ChongZhi__UserId__787EE5A0">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="ChongZhi" EntitySet="ChongZhi" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="ChongZhi">
+    <Key>
+      <PropertyRef Name="ChongZhiId" />
+    </Key>
+    <Property Name="ChongZhiId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="addtime" Type="DateTime" Precision="3" />
+    <Property Name="type_1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="moneys" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="UserId" Type="Int32" />
+    <NavigationProperty Name="UserInfo" Relationship="CYESWModel.FK__ChongZhi__UserId__787EE5A0" FromRole="ChongZhi" ToRole="UserInfo" />
+    <Property Name="rmb" Type="Decimal" Precision="19" Scale="4" />
+  </EntityType>
+  <Association Name="FK__ChongZhi__UserId__787EE5A0">
+    <End Type="CYESWModel.UserInfo" Role="UserInfo" Multiplicity="0..1" />
+    <End Type="CYESWModel.ChongZhi" Role="ChongZhi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="ChongZhi">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

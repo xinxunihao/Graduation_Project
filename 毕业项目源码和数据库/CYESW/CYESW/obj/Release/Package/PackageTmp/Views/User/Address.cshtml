@@ -1,0 +1,405 @@
+﻿
+@using CYESW.Models
+@{
+    UserInfo user = Session["user"] as UserInfo;
+}
+@model PagedList.PagedList<Addres>
+<div class="alert alert-warning alert-dismissable">
+    <button type="button" class="close" data-dismiss="alert"
+            aria-hidden="true">
+        &times;
+    </button>
+    欢迎来到 <span style="font-size:16px;color:orangered">@TempData["Title"]</span> 板块！每个人至少需要一条收货地址哦！
+</div>
+<table class="tab table addres_table">
+    <tr>
+        <td><a href="#" data-toggle="modal" data-target="#exampleModal">新增地址</a></td>
+    </tr>
+    @if (Model.Count() < 1)
+    {
+        <tr >
+            <td colspan="3">
+                <div class="no_div">
+                    <h2 style="text-align:center">
+                        <img src="~/images/icopng/疑惑的豆丁.png" />购买宝贝至少需要一个收货地址哦!<a href="#" data-toggle="modal" data-target="#exampleModal">点我新增</a>
+                    </h2>
+                </div>
+            </td>
+        </tr>
+    }
+    @foreach (var item in Model)
+    {
+        string moren = "";
+        if (item.IsDelete == 1)
+        {
+            moren = "----[默认]";
+        }
+        <tr style="border-radius:10px;border-bottom:1px solid red;line-height:50px">
+            <td>
+                <div>
+                    <h3>@item.Name @moren</h3>
+                    <p>@item.Addresss1</p>
+                    <p>@item.Addresss2</p>
+                </div>
+            </td>
+            <td>
+                <h3>@item.Phone</h3>
+            </td>
+            <td>
+                <br /> <br />
+                <button  class="btn btn-primary btn_my" data-toggle="modal" data-target="#exampleModa2" onclick="Update_Addres(@item.AddresId)">修改</button>
+                <a href="/User/Delete_Addres?AddresId=@item.AddresId" class="btn btn-danger btn_my" onclick="return confirm('你确定你要删除该地址吗？<给你一次后悔的机会😡>')">删除</a>
+                <a href="/User/Defult_Addres?AddresId=@item.AddresId" class="btn btn-warning btn_my">设为默认</a>
+            </td>
+        </tr>
+    }
+
+
+
+
+</table>
+
+
+<!-- Modal 修改-->
+<div class="modal fade" id="exampleModa2" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">修改收货地址</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="/User/Update_Addres" id="form2" class="form_addres">
+                    <table class="table">
+                        <tr>
+                            <td>
+                                收货人姓名：
+                            </td>
+                            <td>
+                                <input type="text" name="Name" id="Name" value="" class="form-control" placeholder=" 请输入收货人姓名" />
+                                <input type="hidden" name="AddresId" value="" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                大致地址：
+                            </td>
+                            <td>
+                                <select id="Addresss1_se" name="Addresss1_se" onchange="SS_Addres_1_shi(1)">
+                                    <option value="">请选择</option>
+                                </select>
+                                <select id="Addresss1_shi" name="Addresss1_shi">
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                大致地址预览：
+                            </td>
+                            <td>
+                                <input type="text" name="Addresss1" id="Addresss1" value="" class="form-control" disabled="disabled"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                详细地址：
+                            </td>
+                            <td>
+                                <input type="text" name="Addresss2" id="Addresss2" value="" class="form-control" placeholder=" 请输入详细地址" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                收货电话：
+                            </td>
+                            <td>
+                                <input type="text" name="Phone" id="Phone" value="" class="form-control" placeholder=" 请输入收货电话" />
+                                <input type="hidden" name="UserId" value="@user.UserId" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                            </td>
+                            <td>
+                                <button type="submit" class="btn btn-primary" onclick="AddAddres(this)">保存</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal 新增-->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">新增收货地址</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="/User/AddAddres" id="form1" class="form_addres">
+                    <table class="table">
+                        <tr>
+                            <td>
+                                收货人姓名：
+                            </td>
+                            <td>
+                                <input type="text" name="Name" id="Name" value="" class="form-control" placeholder=" 请输入收货人姓名" />
+                                <input type="hidden" name="UserId"  value="@user.UserId" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                大致地址：
+                            </td>
+                            <td>
+                                <select id="Addresss1_se"   name="Addresss1_se" onchange="SS_Addres_1()">
+                                    <option value="">请选择</option>
+                                </select>
+                                <select id="Addresss1_shi" name="Addresss1_shi">
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                详细地址：
+                            </td>
+                            <td>
+                                <input type="text" name="Addresss2" value="" id="Addresss2" class="form-control" placeholder=" 请输入详细地址" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                收货电话：
+                            </td>
+                            <td>
+                                <input type="text" name="Phone" value="" id="Phone" class="form-control" placeholder=" 请输入收货电话" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                            </td>
+                            <td>
+                                <button type="submit" class="btn btn-primary" onclick="AddAddres(this)">保存</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var goods = {};
+    window.onload = function () {
+        console.log('欢迎！地址很重要哦！！');
+        SS_Addres();
+        $('#Addresss1_shi').hide();
+    }
+    function AddAddres() {//用ajax提交表单
+        $.ajax({
+            type: "get",
+            data: { "UserId": ids },
+            async: false,//不异步请求，加载了数据成功后在填入框中
+            url: "/User/AddAddres",
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (e) {
+                alert("失败了？？：" + e);
+                console.log(e.status);
+                console.log(e.responseText);
+            }
+        })
+        return false;
+    }
+
+    function Update_Addres(ids) {//用ajax获取值
+        $.ajax({
+            type: "post",
+            data: { "AddresId": ids },
+            async: false,//不异步请求，加载了数据成功后在填入框中
+            url: "/User/Update_Addres_ss",
+            success: function (data) {
+                var msg = jQuery.parseJSON(data);//那以后每次用的收都将goods转化为这个形式
+                SS_Addres_shi(msg.GoodsaddressId1);
+                SS_Addres_1_shi(msg.GoodsaddressId2);
+                $('#form2 input[name="Name"]').val(msg.Name);
+                $('#form2 input[name="AddresId"]').val(msg.AddresId);
+                $('#form2 input[name="Addresss2"]').val(msg.Addresss2);
+                $('#form2 input[name="Addresss1"]').val(msg.Addresss1);
+                $('#form2 input[name="Phone"]').val(msg.Phone);
+            },
+            error: function (e) {
+                alert("失败了？？：" + e);
+                console.log(e.status);
+                console.log(e.responseText);
+            }
+        })
+    }
+    function SS_Addres_shi(sel) {//用ajax获取值SS_Addres
+        $.ajax({
+            type: "post",
+            data: {"ids":1},
+            async: false,//不异步请求，加载了数据成功后在填入框中
+            url: "/User/SS_Addres",
+            success: function (data) {
+                console.log(data);
+                //goods = data;
+                //console.log(data[0].GoodsaddressId);
+                var msg = jQuery.parseJSON(data);//那以后每次用的收都将goods转化为这个形式
+                for (var i = 0; i < msg.length; i++) {
+                    var options = $('');
+                    if (sel==msg[i].GoodsaddressId) {
+                        options = $('<option value="' + msg[i].GoodsaddressId + '" selected="selected">' + msg[i].TypeName + '</option>');
+                    } else {
+                        options = $('<option value="' + msg[i].GoodsaddressId + '">' + msg[i].TypeName + '</option>');
+                    }
+                    
+                    $('#form2 #Addresss1_se').append(options);
+                }
+                console.log(msg[0].TypeName);
+                //$('#form1 input[name="Name"]').val("1");
+            },
+            error: function (e) {
+                alert("失败了？？：" + e);
+                console.log(e.status);
+                console.log(e.responseText);
+            }
+        })
+    }
+
+    function SS_Addres_1_shi(sel) {//用ajax获取值SS_Addres--城市
+        var ids = $('#form2 #Addresss1_se').val();
+        if (ids == "" || ids == null) {
+            $('#form2 #Addresss1_shi').hide();
+            return;
+        }
+        $('#form2 #Addresss1_shi').show();
+        $.ajax({
+            type: "post",
+            data: {"ids":ids},
+            async: false,//不异步请求，加载了数据成功后在填入框中
+            url: "/User/SS_Addres",
+            success: function (data) {
+                console.log(data);
+                //goods = data;
+                //console.log(data[0].GoodsaddressId);
+                var msg = jQuery.parseJSON(data);//那以后每次用的收都将goods转化为这个形式
+                $('#form2 #Addresss1_shi').html("");
+                for (var i = 0; i < msg.length; i++) {
+                    var options = $('');
+                    if (msg[i].GoodsaddressId==sel) {
+                        options = $('<option value="'+msg[i].TypeName+'" selected="selected">'+msg[i].TypeName+'</option>');
+                    } else {
+                        options = $('<option value="'+msg[i].TypeName+'">'+msg[i].TypeName+'</option>');
+                    }
+                    $('#form2 #Addresss1_shi').append(options);
+                }
+                console.log(msg[0].TypeName);
+                //$('#form1 input[name="Name"]').val("1");
+            },
+            error: function (e) {
+                alert("失败了？？：" + e);
+                console.log(e.status);
+                console.log(e.responseText);
+            }
+        })
+    }
+
+
+    function SS_Addres() {//用ajax获取值SS_Addres
+        $.ajax({
+            type: "post",
+            data: {"ids":1},
+            async: false,//不异步请求，加载了数据成功后在填入框中
+            url: "/User/SS_Addres",
+            success: function (data) {
+                console.log(data);
+                //goods = data;
+                //console.log(data[0].GoodsaddressId);
+                var msg = jQuery.parseJSON(data);//那以后每次用的收都将goods转化为这个形式
+                for (var i = 0; i < msg.length; i++) {
+                    var options = $('');
+                    options = $('<option value="' + msg[i].GoodsaddressId + '">' + msg[i].TypeName + '</option>');
+                    $('#form1 #Addresss1_se').append(options);
+                }
+                console.log(msg[0].TypeName);
+                //$('#form1 input[name="Name"]').val("1");
+            },
+            error: function (e) {
+                alert("失败了？？：" + e);
+                console.log(e.status);
+                console.log(e.responseText);
+            }
+        })
+    }
+
+    function SS_Addres_1() {//用ajax获取值SS_Addres--城市
+        var ids = $('#form1 #Addresss1_se').val();
+        if (ids == "" || ids == null) {
+            $('#form1 #Addresss1_shi').hide();
+            return;
+        }
+        $('#form1 #Addresss1_shi').show();
+        $.ajax({
+            type: "post",
+            data: {"ids":ids},
+            async: false,//不异步请求，加载了数据成功后在填入框中
+            url: "/User/SS_Addres",
+            success: function (data) {
+                console.log(data);
+                //goods = data;
+                //console.log(data[0].GoodsaddressId);
+                var msg = jQuery.parseJSON(data);//那以后每次用的收都将goods转化为这个形式
+                $('#form1  #Addresss1_shi').html("");
+                for (var i = 0; i < msg.length; i++) {
+                    var options = $('');
+                    if (i==0) {
+                        options = $('<option value="'+msg[i].TypeName+'" selected="selected">'+msg[i].TypeName+'</option>');
+                    } else {
+                        options = $('<option value="'+msg[i].TypeName+'">'+msg[i].TypeName+'</option>');
+                    }
+                    $('#form1 #Addresss1_shi').append(options);
+                }
+                console.log(msg[0].TypeName);
+                //$('#form1 input[name="Name"]').val("1");
+            },
+            error: function (e) {
+                alert("失败了？？：" + e);
+                console.log(e.status);
+                console.log(e.responseText);
+            }
+        })
+    }
+
+    //function Address_update(ids) {//用ajax获取下拉框值-省，市
+    //    $.ajax({
+    //        type: "get",
+    //        data: {"AddresId":ids},
+    //        async: false,//不异步请求，加载了数据成功后在填入框中
+    //        url: "/User/Address_update",
+    //        success: function (data) {
+    //            console.log(data);
+    //            goods = data;
+    //        },
+    //        error: function (e) {
+    //            alert("失败了？？：" + e);
+    //            console.log(e.status);
+    //            console.log(e.responseText);
+    //        }
+    //    })
+    //}
+
+</script>

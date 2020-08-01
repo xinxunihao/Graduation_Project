@@ -1,0 +1,48 @@
+﻿*{
+    margin:0px;
+    padding:0px;
+    list-style:none;
+    /*border:1px solid red;*/
+}
+/*验证错误样式*/
+label.error {
+    color: red;
+}
+.rightmenu>li{
+    display:block;
+    margin-left:22px;
+    cursor:pointer;
+}
+.back_father {
+    height: 700px;
+}
+.layui-tab-item {
+    height: 700px;
+}
+.homeback {
+    padding: 10px;
+    border-top: 10px solid #036faead;
+}
+.rowconten {
+    width: 250px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.a_fanhui{
+    display:block;
+    border-radius:5px;
+    background-color:aliceblue;
+    border:1px solid groove;
+    height:75px;
+    width:25px;
+    line-height:25px;
+    font-size:16px;
+}
+.chaochu_250 {
+    width: 250px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

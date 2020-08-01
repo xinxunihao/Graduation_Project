@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "Goods_TOP";
+    int a = 0;//计算前十，超出跳出
+}
+@model List<CYESW.Models.WebIn>
+    <ul class="breadcrumb" style="margin:10px -5px 10px -5px;">
+        <li><a href="/Home/Index">朝阳二手网</a></li>
+        <li class="active">热度排行榜</li>
+    </ul>
+<h2 class="title_2" >站内热度排行榜！-TOP</h2>
+<div class="alert alert-warning alert-dismissable">
+    <button type="button" class="close" data-dismiss="alert"
+            aria-hidden="true">
+        &times;
+    </button>
+    榜单规则：用户支付金币申请上榜（或者购买网站VIP全部商品自动上榜），获得排名。<br/>
+    排名规则：浏览量+用户发布商品数量+上榜金币数量
+</div>
+<div style="">
+    <div>
+        @foreach (var item in Model)
+        {
+            a++;
+            if (a <= 3)
+            {
+                <div class="div_gtop_1">
+                    TOP-@a
+                </div>
+            }
+            <div class="list_1 row">
+                <div class="col-lg-3 row_1">
+                    <img src="~/images/img/@item.Goods.Goodsimage.FirstOrDefault().images" width="200" />
+                    <div class="row_1_1">共 @item.Goods.Goodsimage.Count() 图</div>
+                </div>
+                <div class="col-lg-5">
+                    <h3>@item.Goods.Name</h3>
+                    <p>@item.Goods.Goodsaddress.TypeName</p>
+                    <p>@item.Goods.GoodsType.TypeName / 最近更新：@item.Goods.UpdateTime</p>
+                </div>
+                <div class="col-lg-4" style="text-align:right">
+                    <h3 class="jiage">@string.Format("{0:C}", item.Goods.Price)</h3>
+                    <a href="/Goods/AddLove?id=@item.Goods.GoodsId" onclick="return addlove(@item.Goods.GoodsId)" class="shoucan_1">添加收藏</a><a href="/Goods/Index?id=@item.Goods.GoodsId" class="shoucan_1">前往查看</a>
+                </div>
+            </div>
+            <div class="div_gtop">
+                <span>发布用户：<a href="/User/Index_two?UserId=@item.Goods.UserId">@item.Goods.UserInfo.UserName</a></span><span>浏览数：@item.Goods.munber <img src="~/images/icopng/浏览.png" /></span><span>推广力度：@item.Tpromote <img src="~/images/icopng/推广_1.png" /></span><span>热度：@item.Theat <img src="~/images/icopng/热度.png" /></span>
+            </div>
+        }
+
+    </div>
+</div>
+

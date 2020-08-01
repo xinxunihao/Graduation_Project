@@ -1,0 +1,44 @@
+﻿
+@using CYESW.Models
+@{
+    ViewBag.Title = "Release_2";
+    var goods = Session["goods_ls"] as Goods;
+}
+<ul class="breadcrumb" style="margin:10px -5px 10px -5px;">
+    <li><a href="/Home/Index">朝阳二手网</a></li>
+    <li class="active">我要发布</li>
+</ul>
+<div class="alert alert-success alert-dismissable">
+    <button type="button" class="close" data-dismiss="alert"
+            aria-hidden="true">
+        &times;
+    </button>
+    欢迎来到发布界面!
+</div>
+<div>
+    <ul class="flow clearfix sep-big">
+        <li class="flow-item "><label class="i-badge">1</label>选择类目</li>
+        <li class="flow-item"><label class="i-badge1">></label></li>
+        <li class="flow-item"><label class="i-badge">2</label>填写信息</li>
+        <li class="flow-item"><label class="i-badge1">></label></li>
+        <li class="flow-item active"><label class="i-badge">3</label>完成发布</li>
+    </ul>
+</div>
+<div>
+    <h2>您的商品 @goods.Name 发布成功！</h2>
+    <div class="list_1 row" style="padding:20px;">
+        <div class="col-lg-3 row_1">
+            <img src="~/images/img/@goods.Goodsimage.FirstOrDefault().images" width="200" />
+            <div class="row_1_1">共 @goods.Goodsimage.Count() 图</div>
+        </div>
+        <div class="col-lg-5">
+            <h3>@goods.Name</h3>
+            <p> 最近更新：@goods.UpdateTime</p>
+        </div>
+        <div class="col-lg-4" style="text-align:right">
+            <h3 class="jiage">@string.Format("{0:C}", goods.Price)</h3>
+            <a href="/Goods/Index?id=@goods.GoodsId" class="shoucan_1">前往查看</a>
+        </div>
+    </div>
+</div>
+

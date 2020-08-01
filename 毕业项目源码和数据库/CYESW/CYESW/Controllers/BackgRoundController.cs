@@ -186,7 +186,7 @@ namespace CYESW.Controllers
                         db.LunBo.Add(lunbo);
                         if (db.SaveChanges() > 0)//影响的行数大于0
                         {
-                            string fileName = Path.GetFileName(Photos.FileName);
+                            string fileName = "cyesw" + DateTime.Now.ToString("yyyyMMddhhmmssfff") + ".jpg";//将时间转为数字，精确到毫秒,修改用户上传的文件名，防止重名覆盖
                             Photos.SaveAs(Server.MapPath("~/images/users/" + fileName));//将图片保存到文件夹中
                             lunbo.images = fileName;
                             db.SaveChanges();
@@ -249,7 +249,7 @@ namespace CYESW.Controllers
                         db.WebOut.Add(webout);
                         if (db.SaveChanges() > 0)//影响的行数大于0
                         {
-                            string fileName = Path.GetFileName(Photos.FileName);
+                            string fileName = "cyesw" + DateTime.Now.ToString("yyyyMMddhhmmssfff") + ".jpg";//将时间转为数字，精确到毫秒,修改用户上传的文件名，防止重名覆盖
                             Photos.SaveAs(Server.MapPath("~/images/webout/" + fileName));//将图片保存到文件夹中
                             webout.images = fileName;
                             db.SaveChanges();
@@ -740,7 +740,7 @@ namespace CYESW.Controllers
             
             if (images != null)
             {
-                string fileName = Path.GetFileName(images.FileName);
+                string fileName = "cyesw" + DateTime.Now.ToString("yyyyMMddhhmmssfff") + ".jpg";//将时间转为数字，精确到毫秒,修改用户上传的文件名，防止重名覆盖
                 images.SaveAs(Server.MapPath("~/images/img/" + fileName));
                 user.Images = fileName;
             }
@@ -758,7 +758,7 @@ namespace CYESW.Controllers
             user.a_1 = user_1.a_1;
             if (images != null)
             {
-                string fileName = Path.GetFileName(images.FileName);
+                string fileName = "cyesw" + DateTime.Now.ToString("yyyyMMddhhmmssfff") + ".jpg";//将时间转为数字，精确到毫秒,修改用户上传的文件名，防止重名覆盖
                 images.SaveAs(Server.MapPath("~/images/users/" + fileName));
                 user.images = fileName;
             }
@@ -810,7 +810,7 @@ namespace CYESW.Controllers
             user.type_1 = user_1.type_1;
             if (images != null)
             {
-                string fileName = Path.GetFileName(images.FileName);
+                string fileName = "cyesw" + DateTime.Now.ToString("yyyyMMddhhmmssfff") + ".jpg";//将时间转为数字，精确到毫秒,修改用户上传的文件名，防止重名覆盖
                 images.SaveAs(Server.MapPath("~/images/webout/" + fileName));
                 user.images = fileName;
             }

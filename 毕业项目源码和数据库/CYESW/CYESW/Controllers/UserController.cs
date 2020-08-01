@@ -11,6 +11,7 @@ using System.Net.Mail;
 using System.Text;
 using System.IO;
 using CYESW.Filter;
+using System.Threading;
 
 namespace CYESW.Controllers
 {
@@ -143,7 +144,7 @@ namespace CYESW.Controllers
                 user.Sex = user_1.Sex;
                 if (images_user!=null)
                 {
-                    string fileName = Path.GetFileName(images_user.FileName);
+                    string fileName = "cyesw" + DateTime.Now.ToString("yyyyMMddhhmmssfff") + ".jpg";//将时间转为数字，精确到毫秒,修改用户上传的文件名，防止重名覆盖
                     images_user.SaveAs(Server.MapPath("~/images/img/" + fileName));
                     user.Images = fileName;
                 }
@@ -169,7 +170,7 @@ namespace CYESW.Controllers
         {
             try
             {
-                if (yanzhen == YanZhenStr)//通过验证码验证
+                if (yanzhen == Session["YanZhenStr"].ToString())//通过验证码验证
                 {
                     UserInfo user = db.UserInfo.Find(UserId1);
                     user.UserPwd = Newpwd;
@@ -581,7 +582,15 @@ namespace CYESW.Controllers
             try
             {
                 JuBao jubao = db.JuBao.Find(JuBaoId);
-                TempData["title"] = "反馈详情"; 
+                if (jubao.JubaoType==2)
+                {
+                    TempData["title"] = "反馈详情";
+                }
+                else
+                {
+                    TempData["title"] = "举报详情";
+                }
+                
                 return View(jubao);
             }
             catch (Exception ex)
@@ -602,7 +611,7 @@ namespace CYESW.Controllers
                 UserInfo user = Session["user"] as UserInfo;
                 if (user.moneys < Tpromote)
                 {
-                    TempData["exe"] = "你确定你的余额足够这此推广吗？？小伙子";
+                    TempData["exe"] = "你确定你的余额足够这次推广吗？？小伙子";
                     return RedirectToAction("UserIndex", new { sextype = 1 });
                 }
                 WebIn webin = new WebIn();
@@ -665,6 +674,19 @@ namespace CYESW.Controllers
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
         private static string YanZhenStr = null;
         /// <summary>
         /// 获取随机验证码
@@ -683,71 +705,88 @@ namespace CYESW.Controllers
         /// </summary>
         /// <param name="UserEmile"></param>
         [HttpPost]
-        public void GetYZ(string UserEmile)
+        public JsonResult GetYZ(string UserEmile)
         {
             YanZhenStr = getAppCode();
-            Response.Write(string.Format("邮箱：{0},验证码:{1}", UserEmile, YanZhenStr));
+            string datetime1 = string.Format("{0:yyyy年MM月dd日 hh:mm:ss}", DateTime.Now);
+            Session["YanZhenStr"] = YanZhenStr;//用于注册界面使用
+
+            //Response.Write(string.Format("邮箱：{0},验证码:{1}", UserEmile, YanZhenStr));--调试时使用
             string sendEmail = UserEmile;
             string sendHands = "朝阳网-验证码";
-            string sendBodys = "【朝阳网】您的验证码为：" + YanZhenStr + "\n感谢您的使用，请不要将验证码透露给他人\n如果不是您本人操作，请忽略本信息。\n谢谢！\n有任何疑问请联系客服QQ：3303898033@qq.com(请在法定工作日联系)";
+            string sendBodys = "【朝阳网】您的验证码为：" + YanZhenStr + "\n感谢您的使用，请不要将验证码透露给他人\n如果不是您本人操作，请忽略本信息。\n谢谢！\n有任何疑问请联系客服QQ：3303898033@qq.com(请在法定工作日联系)\n发送时间--北京时间："+ datetime1;
             if (SendEmail(sendEmail, sendHands, sendBodys))
             {
-                Response.Write("发送成功！请不要刷新本页面，以免使验证码失效");
+                var result = new { res = "发送成功！d=====(￣▽￣*)b (请前往邮件查看验证码)\n【ps：由于发送邮件会被阿里云检测为恶意攻击其他服务器（发送垃圾邮件）受到处罚，所以暂时暂停邮件发送功能。验证码:" + YanZhenStr + "（请记好，点确定我会消失的哈）】", yc = string.Format("知道你懒得去邮箱看了，验证码为：{0}", YanZhenStr), datetime = datetime1 };
+                return Json(result, JsonRequestBehavior.AllowGet);
             }
             else
             {
-                Response.Write("发送失败！您可以尝试联系我们解决问题");
+                var result = new { res = "发送失败！您可以尝试联系我们解决问题U•ェ•*U \nqq：3089218762", yc = "又失败了，不能吧，还有什么是我没想到的ε(┬┬﹏┬┬)3", datetime = datetime1 };
+                return Json(result, JsonRequestBehavior.AllowGet);
             }
         }
-
 
         #region
 
         /// <summary>
-        /// 发送邮件
+        /// 通过System.Web.Mail.MailMessage去发送，可以不被阿里云限制25端口的使用
+        /// 暂时一般都用465端口
         /// </summary>
-        /// <param name="mailTo">要发送的邮箱</param>
-        /// <param name="mailSubject">邮箱主题</param>
-        /// <param name="mailContent">邮箱内容</param>
-        /// <returns>返回发送邮箱的结果</returns>
-        public static bool SendEmail(string mailTo, string mailSubject, string mailContent)
+        /// <param name="smtpserver">SMTP服务,譬如：smtp.126.com</param>
+        /// <param name="userName">发件箱</param>
+        /// <param name="pwd">密码</param>
+        /// <param name="nickName">昵称</param>
+        /// <param name="strfrom">发件箱</param>
+        /// <param name="strto">收件箱</param>
+        /// <param name="MessageSubject">主题</param>
+        /// <param name="MessageBody">内容</param>
+        /// <param name="SUpFile">附件</param>
+        /// <param name="port">端口</param>
+        /// <param name="enablessl">SSL加密</param>
+        /// <returns></returns>
+        [Obsolete]
+        public static bool SendEmail(string strto, string MessageSubject, string MessageBody, string smtpserver = "smtp.163.com", string userName = "lyk520dtf@163.com", string pwd = "3089218762lyk", string nickName = "朝阳二手网", string strfrom = "lyk520dtf@163.com", int port = 465, int enablessl = 0)
         {
-            // 设置发送方的邮件信息,例如使用腾讯的smtp
-            string smtpServer = "smtp.163.com"; //SMTP服务器
+            System.Web.Mail.MailMessage mmsg = new System.Web.Mail.MailMessage();
+            //邮件主题
+            mmsg.Subject = MessageSubject;
+            mmsg.BodyFormat = System.Web.Mail.MailFormat.Html;
+            //邮件正文
+            mmsg.Body = MessageBody;
+            //正文编码
+            mmsg.BodyEncoding = Encoding.UTF8;
+            //优先级
+            mmsg.Priority = System.Web.Mail.MailPriority.High;
 
-            //下面两处要改,其他的别动
-            string mailFrom = "lyk520dtf@163.com"; //发邮箱的账号
-            string userPassword = "3089218762lyk";//登陆密码,如果使用的是腾讯的 用的是授权码
+            System.Web.Mail.MailAttachment data = null;
 
-            //
+            //发件者邮箱地址
+            mmsg.From = string.Format("\"{0}\"<{1}>", nickName, strfrom);
 
-            // 邮件服务设置
-            SmtpClient smtpClient = new SmtpClient();
-            smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;//指定电子邮件发送方式
-            smtpClient.Host = smtpServer; //指定SMTP服务器
-
-
-
-            smtpClient.EnableSsl = true;
-            smtpClient.UseDefaultCredentials = false;
-            smtpClient.Credentials = new System.Net.NetworkCredential(mailFrom, userPassword);//用户名和密码
-
-            // 发送邮件设置      
-            MailMessage mailMessage = new MailMessage(mailFrom, mailTo); // 发送人和收件人
-            mailMessage.Subject = mailSubject;//主题
-            mailMessage.Body = mailContent;//内容
-            mailMessage.BodyEncoding = Encoding.UTF8;//正文编码
-            mailMessage.IsBodyHtml = true;//设置为HTML格式
-            mailMessage.Priority = MailPriority.Low;//优先级
+            //收件人收箱地址
+            mmsg.To = strto;
+            mmsg.Fields.Add("http://schemas.microsoft.com/cdo/configuration/smtpauthenticate", "1");
+            //用户名
+            mmsg.Fields.Add("http://schemas.microsoft.com/cdo/configuration/sendusername", userName);
+            //密码 不是邮箱登陆密码 而是邮箱设置POP3/SMTP 时生成的第三方客户端授权码
+            mmsg.Fields.Add("http://schemas.microsoft.com/cdo/configuration/sendpassword", pwd);
+            //端口
+            mmsg.Fields.Add("http://schemas.microsoft.com/cdo/configuration/smtpserverport", port);
+            //使用SSL
+            mmsg.Fields.Add("http://schemas.microsoft.com/cdo/configuration/smtpusessl", "true");//SSL加密  
+            //Smtp服务器
+            System.Web.Mail.SmtpMail.SmtpServer = smtpserver;
             try
             {
-                smtpClient.Send(mailMessage); // 发送邮件
-                return true;
+                //System.Web.Mail.SmtpMail.Send(mmsg);
+                //由于发送邮件会被阿里云处罚，所以暂时暂停邮件发送功能
             }
-            catch
+            catch (Exception ex)
             {
                 return false;
             }
+            return true;
         }
 
         #endregion

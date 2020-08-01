@@ -1,0 +1,189 @@
+﻿@using CYESW.Models
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "IndexTwo";
+    var goodslist = ViewData["goodslist"] as PagedList.PagedList<CYESW.Models.Goods>;
+    string typeid = Session["typeid"].ToString();
+    string[] strlist = { "123", "默认", "最新发布", "价格" };
+    string[] class_1 = { "", "", "", "", "", "", "", "" };
+    if (typeid == "1") { class_1[0] = "rowmagre_1_active"; }
+    else if (typeid == "2") { class_1[1] = "rowmagre_1_active"; }
+    else if (typeid == "3") { class_1[2] = "rowmagre_1_active"; }
+    else if (typeid == "4") { class_1[3] = "rowmagre_1_active"; }
+    else if (typeid == "5") { class_1[4] = "rowmagre_1_active"; }
+    else if (typeid == "6") { class_1[5] = "rowmagre_1_active"; }
+    else if (typeid == "7") { class_1[6] = "rowmagre_1_active"; }
+    else if (typeid == "8") { class_1[7] = "rowmagre_1_active"; }
+}
+
+<ul class="breadcrumb" style="margin:10px -5px 10px -5px;">
+    <li><a href="/Home/Index">朝阳二手网</a></li>
+    <li class="active">@TempData["Title"]</li>
+</ul>
+<div class="alert alert-warning alert-dismissable">
+    <button type="button" class="close" data-dismiss="alert"
+            aria-hidden="true">
+        &times;
+    </button>
+    欢迎来到 <span style="font-size:16px;color:orangered">@TempData["Title"]</span> 板块！为您查询到 <span style="font-size:16px;color:orangered">@goodslist.TotalItemCount</span> 条数据！
+</div>
+<form role="form" action="/Goods/IndexTwo" method="get">
+    <input type="hidden" name="typeid" value="@typeid" />
+    <div class="Replace_div">
+        <div class="sreach">
+            <div class="sreach_1">
+                <input type="text" class="input_s" placeholder="  请输入宝贝名称关键词" name="Name" value="@ViewBag.Name">
+                <input type="submit" class="input_i input_s ss_1" value="搜索">
+                <hr />
+            </div>
+            <div class="sreach_2">
+                <span class="sreach_2_s">热门搜索词：</span>
+                <a href="/Goods/IndexTwo?typeid=1&page=1&Name=华为电脑" class="sreach_2_i">华为电脑</a>
+                <a href="/Goods/IndexTwo?typeid=1&page=1&Name=小米手机" class="sreach_2_i">小米手机</a>
+                <a href="/Goods/IndexTwo?typeid=1&page=1&Name=炫龙毁灭者" class="sreach_2_i">炫龙毁灭者</a>
+                <a href="/Goods/IndexTwo?typeid=1&page=1&Name=英特尔处理器" class="sreach_2_i">英特尔处理器</a>
+                <a href="/Goods/IndexTwo?typeid=1&page=1&Name=小米8" class="sreach_2_i">小米8青春版</a>
+                <a href="/Goods/IndexTwo?typeid=1&page=1&Name=华为电脑" class="sreach_2_i">华为电脑</a>
+                <a href="/Goods/IndexTwo?typeid=1&page=1&Name=小米手机" class="sreach_2_i">小米手机</a>
+                <a href="/Goods/IndexTwo?typeid=1&page=1&Name=炫龙毁灭者" class="sreach_2_i">炫龙毁灭者</a>
+                <a href="/Goods/IndexTwo?typeid=1&page=1&Name=英特尔处理器" class="sreach_2_i">英特尔处理器</a>
+                <a href="/Goods/IndexTwo?typeid=1&page=1&Name=青春版" class="sreach_2_i">小米8青春版</a>
+            </div>
+        </div>
+    </div>
+    <div class=" rowmagre rowmagre_father">
+        <div class="rowmagre_1"><a class="@class_1[0]" href="/Goods/IndexTwo?typeid=1&page=1$Name=' '">电脑</a></div>
+        <div class="rowmagre_1"><a class="@class_1[1]" href="/Goods/IndexTwo?typeid=2&page=1$Name=' '">手机平板</a></div>
+        <div class="rowmagre_1"><a class="@class_1[2]" href="/Goods/IndexTwo?typeid=3&page=1$Name=' '">办公用品</a></div>
+        <div class="rowmagre_1"><a class="@class_1[3]" href="/Goods/IndexTwo?typeid=4&page=1$Name=' '">数码产品</a></div>
+        <div class="rowmagre_1"><a class="@class_1[4]" href="/Goods/IndexTwo?typeid=5&page=1$Name=' '">生活用品</a></div>
+        <div class="rowmagre_1"><a class="@class_1[5]" href="/Goods/IndexTwo?typeid=6&page=1$Name=' '">图书</a></div>
+        <div class="rowmagre_1"><a class="@class_1[6]" href="/Goods/IndexTwo?typeid=7&page=1$Name=' '">虚拟道具</a></div>
+        <div class="rowmagre_1"><a class="@class_1[7]" href="/Goods/IndexTwo?typeid=8&page=1$Name=' '">其他</a></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-10">
+            <div class="xuanzhe ">
+                价格区间：<input type="number" name="Price_min" value="@ViewBag.Price_min" class="xuanzhe_1" placeholder="  请输入最低价格" />--<input type="number" name="Price_max" value="@ViewBag.Price_max" placeholder="  请输入最高价格" class="xuanzhe_1" />
+                地区限制：<select class="xuanzhe_1" name="Goodsaddress">
+                    <option value="0">不限</option>
+                    @foreach (var item in ViewBag.address)
+                    {
+                        if (item.GoodsaddressId == ViewBag.goodsaddres)
+                        {
+                            <option value="@item.GoodsaddressId" selected="selected">@item.TypeName</option>
+                        }
+                        else
+                        {
+                            <option value="@item.GoodsaddressId">@item.TypeName</option>
+                        }
+
+                    }
+                </select>
+                排序方式：<select class="xuanzhe_1" name="paixu">
+                    @for (int i = 1; i <= 3; i++)
+                    {
+                        if (i == ViewBag.paixu)
+                        {
+                            <option value="@i" selected="selected">@strlist[i]</option>
+                        }
+                        else
+                        {
+                            <option value="@i">@strlist[i]</option>
+                        }
+
+                    }
+                </select>
+                是否全新：@if (ViewBag.IsNew == 1)
+                {
+                    <input type="checkbox" name="IsNew" checked="checked" />
+                }
+                else
+                {
+                    <input type="checkbox" name="IsNew" />
+                }
+                <input type="submit" name="name" value="高级搜索" class="serach ss_1" />
+            </div>
+            <div class="body_goodlist">
+                @if (goodslist.Count() < 1)
+                {
+                    <div class="no_div" style="margin:0px">
+                        <h2 style="text-align:center">
+                            <img src="~/images/icopng/疑惑的豆丁.png" />试试搜索其他关键词吧!
+                        </h2>
+                    </div>
+                }
+                @for (int i = 0; i < goodslist.Count(); i++)
+                {
+                    <div class="list_1 row">
+                        <div class="col-lg-3 row_1">
+                            <img src="~/images/img/@goodslist[i].Goodsimage.FirstOrDefault().images" width="200" />
+                            <div class="row_1_1">共 @goodslist[i].Goodsimage.Count() 图</div>
+                        </div>
+                        <div class="col-lg-5">
+                            <h3>@goodslist[i].Name</h3>
+                            <p>@goodslist[i].Goodsaddress.TypeName</p>
+                            <p>@goodslist[i].GoodsType.TypeName / 最近更新：@goodslist[i].UpdateTime</p>
+                        </div>
+                        <div class="col-lg-4" style="text-align:right">
+                            <h3 class="jiage">@string.Format("{0:C}", goodslist[i].Price)</h3>
+                            <a href="/Goods/AddLove?id=@goodslist[i].GoodsId" onclick="return addlove(@goodslist[i].GoodsId)" class="shoucan_1">添加收藏</a><a href="/Goods/Index?id=@goodslist[i].GoodsId" class="shoucan_1">前往查看</a>
+                        </div>
+                    </div>
+                }
+                <div style="padding:10px;margin:5px 0px 0px 5px;text-align:center;background-color:white">
+                    当前页/总页数（ @(goodslist.PageCount < goodslist.PageNumber ? 0 : goodslist.PageNumber) / @goodslist.PageCount ）
+
+                    @Html.PagedListPager(goodslist, page => Url.Action("IndexTwo", new
+                    {
+                        page,
+                        typeid = typeid,
+
+                    }))
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div>
+                <div class="gg_1 ">
+                    <h4 style="text-align:center;line-height:35px;">
+                        <img src="~/images/icopng/推广.png" />&nbsp; &nbsp;闲置免费送
+                    </h4>
+                </div>
+                <div class="gg_2">
+                    <p class="p_1">网站开通闲置免费送活动了！</p>
+                    <p class="p_1">将宝贝价格设置为0，邮费可自由设置（不得超过最大邮费100）。</p>
+                    <p class="p_1">所有卖出的宝贝卖主都可以获得10枚金币奖励！，交易结束后3个工作日内到账。</p>
+                </div>
+            </div>
+            <div>
+                <div class="gg_3">
+                    <p class="p_center"><img src="~/images/icopng/小贴士.png" />&nbsp; &nbsp;安全小贴士</p>
+                    <hr />
+                    <p class="">
+                        <a href="#">闲置交易里的那些陷阱</a>
+                        <a href="#">识破低价高配的骗局</a>
+                        <a href="#">交易时如何防止上当受骗</a>
+                        <a href="#">快速识别商品虚假信息</a>
+                        <a href="#">交易安全二三事</a>
+                    </p>
+                </div>
+            </div>
+            <div>
+                <div class="gg_3" style="text-align:center">
+                    <p class="p_center"><img src="~/images/icopng/通知消息.png" />&nbsp; &nbsp;平台帮卖</p>
+                    <hr />
+                    <a href="#" title="平台帮卖">
+                        <img src="~/images/img/1.jpg" style="width:150px;" />
+                    </a>
+                    <hr />
+                    <a href="#" title="平台帮卖">
+                        点我开通朝阳网vip
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+

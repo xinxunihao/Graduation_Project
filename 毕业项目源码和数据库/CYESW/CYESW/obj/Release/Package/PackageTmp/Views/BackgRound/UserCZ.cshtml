@@ -1,0 +1,109 @@
+﻿
+@using CYESW.Models
+@using PagedList.Mvc
+@{
+    Layout = null;
+    string Name = ViewBag.Name;
+    string kaishi =string.Format("{0:yyyy-MM-dd}", ViewBag.kaishi);
+    string jieshu =string.Format("{0:yyyy-MM-dd}", ViewBag.jieshu);
+}
+
+
+@model PagedList.PagedList<ChongZhi>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>UserList</title>
+    <link href="~/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        var date = new Date().getTime();
+        document.write("<link rel='stylesheet' href='../Content/mycss_back.css'?v=" + date + "'>");
+    </script>
+</head>
+<body>
+    <div>
+        <div class="homeback">
+            <h2>充值信息</h2>
+            <br />
+            <div>
+                <form action="/BackgRound/UserCZ" method="post" layui-form>
+                    <div class=" layui-row">
+                        <div class=" layui-col-lg3">
+                            <input type="text" class="layui-input" id="kaishi" name="kaishi" value="@kaishi" placeholder="请选择开始时间">
+                        </div>
+                        <div class="layui-col-lg3">
+                            <input type="text" class="layui-input" id="jieshu" name="jieshu" value="@jieshu"  placeholder="请选择结束时间">
+                        </div>
+                        <div class="layui-col-lg3">
+                            <input type="text" name="Name" lay-verify="" placeholder="查询充值备注或充值用户名" class="layui-input" value="@Name">
+                        </div>
+                        <div class="layui-col-lg3">
+                            <input type="submit" lay-verify="required" class="layui-btn" />
+                        </div>
+
+                    </div>
+                </form>
+                @*<a href="" class="layui-btn layui-btn-normal" data-toggle="modal" data-target="#exampleModal">新增宝贝</a>*@
+            </div>
+            <table class="layui-table layui-table-hover layui-table-header">
+                <tr>
+                    <th>充值编号</th>
+                    <th>充值金额</th>
+                    <th>充值金币</th>
+                    <th>充值时间</th>
+                    <th>备注</th>
+                    <th>充值用户/id</th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td><h4>@item.ChongZhiId</h4></td>
+                        <td style="width:120px">@string.Format("{0:C}", item.rmb)</td>
+                        <td style="width:120px">@item.moneys <img src="~/images/icopng/金 币.png" /></td>
+
+                        <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.addtime)</td>
+                        <td>@item.type_1</td>
+
+                        <td>
+                            @item.UserInfo.UserName /(id:@item.UserId)
+                        </td>
+                    </tr>
+                }
+
+            </table>
+            <div style="padding:10px;text-align:center;background-color:white;border-radius:15px">
+                当前页/总页数（ @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount ）
+
+                @Html.PagedListPager(Model, page => Url.Action("UserCZ", new
+                {
+                    page,
+                    Name = Name
+                }))
+            </div>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/laydate/laydate.js"></script>
+    <script type="text/javascript">
+        laydate.render({
+            elem: '#kaishi', //指定元素
+            max: 1
+        });
+        laydate.render({
+            elem: '#jieshu', //指定元素
+            max: 1
+        });
+    </script>
+
+</body>
+
+</html>
+
+

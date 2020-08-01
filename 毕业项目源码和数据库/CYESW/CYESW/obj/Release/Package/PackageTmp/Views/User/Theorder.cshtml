@@ -1,0 +1,92 @@
+﻿
+
+@using PagedList.Mvc
+@model PagedList.PagedList<CYESW.Models.Orders>
+@{
+    int? type = Session["user_gh"] as int?;
+    string class_1 = "", class_2 = "";//切换类名
+    string text_1 = "", color_1;//显示状态,颜色
+    if (type == 2) { class_2 = "uer_kk_1_active"; text_1 = "已完成"; color_1 = "#ff000094"; }
+    else { class_1 = "uer_kk_1_active"; text_1 = "交易中"; color_1 = "orange"; }
+}
+<div class="row uer_kk">
+    <div class="col-lg-2 uer_kk_1 @class_1"><a href="/User/UserIndex?type=1&sextype=3">交易中</a></div>
+    <div class="col-lg-2 uer_kk_1 @class_2"><a href="/User/UserIndex?type=2&sextype=3">已完成</a></div>
+</div>
+<div class="tab_content">
+    <div class="uer_kk_sale uer_kk_sale_active" id="uer_kk_sale1">
+        @if (Model.Count() < 1)
+        {
+            <div class="no_div">
+                <h2 style="text-align:center">
+                    <img src="~/images/icopng/疑惑的豆丁.png" />什么都没有找到哦!
+                </h2>
+            </div>
+        }
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            var image = Model[i].Goods.Goodsimage.FirstOrDefault().images;
+            <div class="goods_list1">
+                <div class="row uer_goods">
+                    <div class="col-lg-2">
+                        <img src="~/images/img/@image " style="width:150px;" />
+                        <p style="align-content:center;margin:22px 0px 0px 5px;font-size: 14px;">更新时间：@Model[i].Goods.UpdateTime</p>
+                    </div>
+                    <div class="col-lg-10 uer_goods_txt">
+                        <h3>@Model[i].Goods.Name</h3>
+                        <p><span>@Model[i].Goods.Info</span></p>
+                        <p><span class="jiage">@Model[i].Goods.Price</span>/<span>@Model[i].Goods.GoodsType.TypeName</span></p>
+                        <div class="uer_goods_foot">
+                            @if (type == 1)//两种状态，交易中和已完成
+                            {
+                                int? orders = Model[i].Goods.Orders.Where(p => p.GoodsId == Model[i].GoodsId).SingleOrDefault().IsState;//获取订单状态1,2
+                                if (orders == 1)
+                                {
+                                    <span>当前宝贝状态：买家已付款>等待卖家发货</span>
+                                    <a href="/Goods/Order_2?Orderid=@Model[i].OrdersId" class="good_a">
+                                        <img src="~/images/icopng/前往.png" />&nbsp;&nbsp;等待发货
+                                    </a>
+                                }
+                                else if (orders == 2)
+                                {
+                                    <span>当前宝贝状态：买家已付款>卖家已发货>等待买家收货</span>
+                                    <a href="/Goods/Order_2?Orderid=@Model[i].OrdersId" class="good_a">
+                                        <img src="~/images/icopng/前往.png" />&nbsp;&nbsp;确认收货
+                                    </a>
+                                }
+                                else
+                                {
+                                    <span>当前宝贝状态：买家已付款>卖家已发货>买家已收货>未评价</span>
+                                    <a href="/Goods/Order_2?Orderid=@Model[i].OrdersId" class="good_a">
+                                        <img src="~/images/icopng/前往.png" />&nbsp;&nbsp;前往评价
+                                    </a>
+                                }
+
+                            }
+                            else
+                            {
+                                <span>当前宝贝状态：交易结束。</span>
+                                <a href="/Goods/Order_2?Orderid=@Model[i].OrdersId" class="good_a">
+                                    <img src="~/images/icopng/前往.png" />&nbsp;&nbsp;前往查看
+                                </a>
+                            }
+                        </div>
+                    </div>
+                    <div class="sb_1" style="background-color:@color_1;">
+                        @text_1
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+</div>
+<div style="padding:10px;margin:5px 0px 0px -15px;text-align:center;background-color:white;border-radius:15px">
+    当前页/总页数（ @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount ）
+
+    @Html.PagedListPager(Model, page => Url.Action("UserIndex", new
+    {
+        page
+    }))
+</div>
+

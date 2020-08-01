@@ -211,7 +211,7 @@ namespace CYESW.Controllers
                     TempData["exe"] = "请不要刷新，重复提交！";
                     return View();
                 }
-                if (Photos != null)
+                if (Photos != null&&Photos[0]!=null)
                 {
                     if (goods != null)
                     {
@@ -225,9 +225,12 @@ namespace CYESW.Controllers
                         db.Goods.Add(goods);
                         if (db.SaveChanges() > 0)//影响的行数大于0
                         {
+                            int jushu = 0;//防止服务器反应过快，给时间加个尾数
                             foreach (var item in Photos)//将图片集合遍历出来
                             {
-                                string fileName = Path.GetFileName(item.FileName);
+                                jushu++;
+                                //string fileName = Path.GetFileName(item.FileName);
+                                string fileName = "cyesw" + DateTime.Now.ToString("yyyyMMddhhmmssfff") + jushu + ".jpg";//将时间转为数字，精确到毫秒
                                 item.SaveAs(Server.MapPath("~/images/img/" + fileName));
                                 Goodsimage image = new Goodsimage()
                                 {
@@ -305,7 +308,7 @@ namespace CYESW.Controllers
                     {
                         continue;
                     }
-                    string fileName = Path.GetFileName(item.FileName);
+                    string fileName = "cyesw" + DateTime.Now.ToString("yyyyMMddhhmmssfff") + ".jpg";//将时间转为数字，精确到毫秒
                     item.SaveAs(Server.MapPath("~/images/img/" + fileName));
                     Goodsimage image = new Goodsimage()
                     {
@@ -330,12 +333,35 @@ namespace CYESW.Controllers
 
         
         //使用删除图片
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id">删除图片id</param>
+        /// <param name="goodsid">删除商品id</param>
+        /// <returns></returns>
         public ActionResult Updata_g_deleteimg(int id,int goodsid)
         {
-            db.Goodsimage.Remove(db.Goodsimage.Find(id));
-            db.SaveChanges();
-            TempData["exe"] = "删除成功！";
-            return RedirectToAction("Updata_g",new { id = goodsid });
+            try
+            {
+                if (db.Goodsimage.Where(p=>p.GoodsId==goodsid).Count()>1)
+                {
+                    db.Goodsimage.Remove(db.Goodsimage.Find(id));
+                    db.SaveChanges();
+                    TempData["exe"] = "删除成功！";
+                    return RedirectToAction("Updata_g", new { id = goodsid });
+                }
+                else
+                {
+                    TempData["exe"] = "删除失败,商品至少需要一张图片！";
+                    return RedirectToAction("Updata_g", new { id = goodsid });
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["exe"] = "出现未知异常，请联系管理员。异常：" + ex.Message;
+                return RedirectToAction("Updata_g", new { id = goodsid });
+            }
+            
         }
 
         //商家的订单详情
@@ -382,7 +408,7 @@ namespace CYESW.Controllers
                 orders.BuyTime3 = DateTime.Now;
                 orders.Goods.IsState = 4;//将商品表状态改为已完成
                 db.SaveChanges();
-                TempData["exe"] = "确认收获成功！给宝贝一个评价吧";
+                TempData["exe"] = "确认收货成功！给宝贝一个评价吧";
                 return RedirectToAction("Order_2", new { Orderid = id });
             }
             catch (Exception ex)

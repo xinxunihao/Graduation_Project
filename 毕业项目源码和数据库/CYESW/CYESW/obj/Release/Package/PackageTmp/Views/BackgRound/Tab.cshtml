@@ -1,0 +1,92 @@
+﻿
+@{
+    Layout = null;
+    UserInfo user = Session["user"] as UserInfo;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Tab</title>
+    <link href="~/layui/css/layui.css" rel="stylesheet" />
+    <script type="text/javascript">
+        var date = new Date().getTime();
+        document.write("<link rel='stylesheet' href='../Content/mycss_back.css'?v=" + date + "'>");
+    </script>
+</head>
+<body>
+    <div>
+        <div class="homeback">
+            <h2>首页信息</h2><br />
+            <h2>欢迎管理员 @user.UserName 登录，现在是北京时间：<span id="time1_1" style="color:orangered">@DateTime.Now</span> 。</h2>
+            <blockquote class="layui-elem-quote" style="margin-top: 10px;">
+                <div id="test"></div>
+            </blockquote>
+            <div>
+                <p style="font-size:20px;font-family:YouYuan;font-weight:800;color:orange;margin:10px 0px">今日充值收入：@string.Format("{0:C}", ViewBag.jintian) &nbsp;&nbsp;&nbsp;&nbsp; 累计充值收入：@string.Format("{0:C}", ViewBag.leiji)</p>
+            </div>
+            <div class="layui-carousel" id="test1" lay-filter="test1">
+                <div carousel-item="" style="width:100%">
+                    <div>
+                        <img src="~/images/webout/banner1.jpg" width="100%" />
+                    </div>
+                    <div><img src="~/images/webout/banner2.jpg" width="100%" /></div>
+                    <div><img src="~/images/webout/Product_img1.jpg" width="100%" /></div>
+                    <div><img src="~/images/webout/Product_img2.jpg" width="100%" /></div>
+                    <div><img src="~/images/webout/Product_img3.jpg" width="100%" /></div>
+                </div>
+            </div>
+        </div>
+
+        <script src="~/layui/layui.js"></script>
+        <script src="~/Scripts/jquery-3.4.1.js"></script>
+        <script src="~/layui/layui.all.js"></script>
+        <script>
+            layui.use('util', function () {
+                var util = layui.util;
+
+                //示例
+                var endTime = new Date(2021, 5, 30).getTime(), //假设为结束日期
+                    serverTime = new Date().getTime(); //假设为当前服务器时间，这里采用的是本地时间，实际使用一般是取服务端的
+                //console.log(util.timeAgo(endTime));--给一个时间，返回距离现在时间多久了
+                console.log(util.toDateString(serverTime));
+                util.countdown(endTime, serverTime, function (date, serverTime, timer) {
+                    var str = date[0] + '天' + date[1] + '时' + date[2] + '分' + date[3] + '秒';
+                    layui.$('#test').html('距离网站一周年还有（2021年5月30日）：' + str);
+                });
+            });
+        </script>
+        <script>
+            layui.use(['carousel', 'form'], function () {
+                var carousel = layui.carousel
+                    , form = layui.form;
+
+                //常规轮播
+                carousel.render({
+                    elem: '#test1'
+                    , width: '100%'
+                    , height: '450px'
+                    , arrow: 'always'
+                });
+            });
+        </script>
+        <script type="text/javascript">
+            var add = setInterval("getTime()", 1000);
+            //stop()这个函数主要是清除设置的定时器
+            function stop() {
+                clearInterval(add);
+            }
+            //这个函数主要是获取时间然后写入div中
+            function getTime() {
+                var date = new Date().toLocaleString();//创建date对象，获取时间
+                var id1 = document.getElementById("time1_1");//通过div标签的id多去div标签
+                id1.innerHTML = date;//将时间通过innerHTML属性写入div标签中
+            }
+
+        </script>
+    </div>
+
+</body>
+</html>

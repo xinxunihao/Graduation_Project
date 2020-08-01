@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "ChongZhi";
+}
+
+<ul class="breadcrumb" style="margin:10px -5px 10px -5px;">
+    <li><a href="/Home/Index">朝阳二手网</a></li>
+    <li class="active">站内充值</li>
+</ul>
+<h2 class="title_2">欢迎来到站内充值！</h2>
+<div class="alert alert-warning alert-dismissable">
+    <button type="button" class="close" data-dismiss="alert"
+            aria-hidden="true">
+        &times;
+    </button>
+    本界面一次最少充值10rmb，最多充值999rmb，充值一旦成功，拒不退还，谢谢<br />
+    充值规则：1rmb=10金币。
+</div>
+<div>
+    <h2 style="text-align:center">金币充值</h2>
+    <div>
+        <form action="/User/ChongZhi" method="post" id="bxForm"> 
+            <table class="table table-bordered cz_table" >
+                <tr>
+                    <td>充值金额：</td>
+                    <td><input type="text" name="rmb" id="rmb" value="0" class="form-control" /></td>
+                </tr>
+                <tr>
+                    <td>获得金币：</td>
+                    <td><input type="text" name="money1" id="money1" value="0" disabled="disabled" class="form-control"/>
+                        <input type="hidden" name="money" id="money" value="0"  />
+                    </td>
+                </tr>
+                <tr>
+                    <td><a href="/User/UserIndex" class="btn btn-default">返回</a></td>
+                    <td><input type="submit" value="充值" class="btn btn-primary" /></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    $("#rmb").bind("input propertychange",function(event){
+        var rmbs = $("#rmb").val();
+        $("#money").val(rmbs * 10);
+        $("#money1").val(rmbs*10);
+});
+</script>

@@ -1,0 +1,216 @@
+﻿
+@using CYESW.Models
+@model CYESW.Models.Orders
+@{
+    var isnew = "全新";//新旧程度，1全新,2-95新，3-9成新，4-8成新，5-7成新
+    if (Model.Goods.IsNew == 2) { isnew = "95新"; }
+    else if (Model.Goods.IsNew == 3) { isnew = "9成新"; }
+    else if (Model.Goods.IsNew == 4) { isnew = "8成新"; }
+    else if (Model.Goods.IsNew == 5) { isnew = "7成新"; }
+    var peisong = "邮寄";
+    if (Model.Goods.Peisong == 2) { peisong = "自提"; }
+    var isstate = "";
+    string[] active = { "", "", "", "" };
+    if (Model.IsState == 2) { isstate = "已发货"; active[1] = "active"; }
+    else if (Model.IsState == 3) { isstate = "已收货"; active[2] = "active"; }
+    else if (Model.IsState == 4) { isstate = "已完成"; active[3] = "active"; }
+    else { isstate = "已拍下"; active[0] = "active"; }
+}
+<ul class="breadcrumb" style="margin:10px -5px 10px -5px;">
+    <li><a href="/Home/Index">朝阳二手网</a></li>
+    <li class="active">订单详情</li>
+</ul>
+<div class="alert alert-success alert-dismissable">
+    <button type="button" class="close" data-dismiss="alert"
+            aria-hidden="true">
+        &times;
+    </button>
+    欢迎来到订单详情界面!
+</div>
+<div>
+    <ul class="flow clearfix sep-big">
+        <li class="flow-item @active[0]"><label class="i-badge">1</label>已拍下</li>
+        <li class="flow-item "><label class="i-badge1">></label></li>
+        <li class="flow-item @active[1]"><label class="i-badge">2</label>已发货</li>
+        <li class="flow-item "><label class="i-badge1">></label></li>
+        <li class="flow-item @active[2]"><label class="i-badge">3</label>已收货</li>
+        <li class="flow-item "><label class="i-badge1">></label></li>
+        <li class="flow-item @active[3]"><label class="i-badge">4</label>已评价</li>
+    </ul>
+</div>
+
+<div>
+    <h3 class="h3_1" style="margin:50px 0px">商品： <span style="color:orange">@Model.Goods.Name</span> &nbsp;&nbsp;&nbsp;&nbsp;  状态： <span style="color:orange"> @isstate</span>&nbsp;&nbsp;&nbsp;&nbsp;  买家： <a href="/User/Index_two?UserId=@Model.UserInfo1.UserId" style="color:orangered" title="去TA主页看看吧！">@Model.UserInfo1.UserName</a></h3>
+    <div class="list_1 row" style="padding:20px;border-radius:15px;">
+        <div class="col-lg-3 row_1">
+            <img src="~/images/img/@Model.Goods.Goodsimage.FirstOrDefault().images" width="200" />
+            <div class="row_1_1">共 @Model.Goods.Goodsimage.Count() 图</div>
+        </div>
+        <div class="col-lg-5">
+            <h3 style="color:orange">@Model.Goods.Name</h3>
+            <table class="table table-hover">
+                <tr>
+                    <td>发布时间：</td>
+                    <td>@Model.Goods.CreateTime</td>
+                </tr>
+                <tr>
+                    <td>
+                        商品介绍：
+                    </td>
+                    <td>
+                        <p class="form-control" disabled="disabled">@Model.Goods.Info</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        收货地址：
+                    </td>
+                    <td>
+                        <p>@Model.UserInfo1.Addres.FirstOrDefault().Name--@Model.UserInfo1.Addres.FirstOrDefault().Phone</p>
+                        <p>@Model.UserInfo1.Addres.FirstOrDefault().Addresss1 &nbsp; &nbsp; @Model.UserInfo1.Addres.FirstOrDefault().Addresss2</p>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+        <div class="col-lg-4" style="text-align:right">
+            <h3 class="jiage">@string.Format("{0:C}", Model.Goods.Price)</h3>
+            <h5 class="jiage_gray" style="text-decoration: line-through;font-size:18px">@string.Format("{0:C}", Model.Goods.Price_Yuan)</h5>
+            <h4 style="color:orangered">
+                物流单号：
+                @if (Model.Wuliu != null)
+                {@Model.Wuliu}
+            else
+            {
+                @:待填写
+            }
+            </h4>
+            <a href="/Goodsaddress/Jubao_1?userid=@Model.Goods.UserId" title="卖家或买家虚假交易，诈骗？">举报此订单</a>
+        </div>
+    </div>
+    <div class="order_div_1">
+        @if (Model.IsState == 1)
+        {
+            <form action="/Goods/Order_1_wl" id="form1">
+                <table class="table table-striped">
+                    <tr>
+                        <td>您的宝贝已经被 <span>@Model.UserInfo1.UserName</span> 拍下， 请尽快提交物流单号：</td>
+                        <td>
+                            <input type="text" name="Wuliu" id="Wuliu" value="" class="form-control input_b" />
+                            <input type="hidden" name="id" value="@Model.OrdersId" />
+                        </td>
+                        <td><input type="submit" name="" class="input_ti" value="提交更新" /></td>
+                    </tr>
+                </table>
+            </form>
+        }
+        else if (Model.IsState == 2)
+        {
+            <table class="table table-striped">
+                <tr>
+                    <td>您已发货，请等待买家收货.发货时间：@Model.BuyTime2</td>
+                    <td></td>
+                </tr>
+            </table>
+        }
+        else if (Model.IsState == 3)
+        {
+            <table class="table table-striped">
+                <tr>
+                    <td>买家已确认收货，查验中，请耐心等待评价，收货时间：@Model.BuyTime3</td>
+                    <td></td>
+                </tr>
+            </table>
+        }
+        else
+        {
+            <table class="table table-striped">
+                <tr>
+                    <td>恭喜！交易已完成！完成时间：@Model.BuyTime4。<br />本次交易您总共赚得 <span class="jiage">@string.Format("{0:C}", Model.Goods.Price)</span> 有点厉害哟！</td>
+                    <td></td>
+                </tr>
+            </table>
+        }
+
+    </div>
+    <div class="order_div">
+        <h3>订单详情：</h3>
+        <table class="table table-bordered table-hover">
+            <tr>
+                <td>类别：</td>
+                <td>@Model.Goods.GoodsType.TypeName</td>
+                <td></td>
+                <td>类别：</td>
+                <td>@Model.Goods.Goodsaddress.TypeName</td>
+            </tr>
+            <tr>
+                <td>新旧程度：</td>
+                <td>@isnew</td>
+                <td></td>
+                <td>配送方式：</td>
+                <td>@peisong</td>
+            </tr>
+            <tr>
+                <td>订单状态：</td>
+                <td>@isstate</td>
+                <td></td>
+                <td>卖家联系电话：</td>
+                <td>@Model.Goods.Ipone</td>
+            </tr>
+            <tr>
+                <td>购买时间：</td>
+                <td>@Model.BuyTime1</td>
+                <td></td>
+                <td>发货时间：</td>
+                <td>
+                    @if (Model.BuyTime2 != null)
+                    {@Model.BuyTime2}
+                else
+                {
+                    @:待填写
+                }
+                </td>
+            </tr>
+            <tr>
+                <td>收货时间：</td>
+                <td>
+                    @if (Model.BuyTime3 != null)
+                    {@Model.BuyTime3}
+                else
+                {
+                    @:待填写
+                }
+                </td>
+                <td></td>
+                <td>完成时间：</td>
+                <td>
+                    @if (Model.BuyTime4 != null)
+                    {@Model.BuyTime4}
+                else
+                {
+                    @:待填写
+                }
+                </td>
+            </tr>
+        </table>
+        <hr />
+        @if (Model.IsState == 4)
+        {
+            <div class="row">
+                <div class="col-lg-5">
+                    <div class="">
+                        <img src="~/images/img/@Model.UserInfo1.Images" class="img_uo" />
+                        <h4>@Model.UserInfo1.UserName</h4>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <h3>买家评价：</h3>
+                    <div> @Model.Pingjia_texts.FirstOrDefault().Texts.Textbody</div>
+                    <p>评价时间：@Model.Pingjia_texts.FirstOrDefault().Texts.addTiem</p>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+

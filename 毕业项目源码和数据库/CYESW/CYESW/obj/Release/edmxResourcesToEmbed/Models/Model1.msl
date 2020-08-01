@@ -1,0 +1,254 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CYESWModelStoreContainer" CdmEntityContainer="CYESWEntities">
+    <EntitySetMapping Name="Addres">
+      <EntityTypeMapping TypeName="CYESWModel.Addres">
+        <MappingFragment StoreEntitySet="Addres">
+          <ScalarProperty Name="AddresId" ColumnName="AddresId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="GoodsaddressId1" ColumnName="GoodsaddressId1" />
+          <ScalarProperty Name="GoodsaddressId2" ColumnName="GoodsaddressId2" />
+          <ScalarProperty Name="Addresss1" ColumnName="Addresss1" />
+          <ScalarProperty Name="Addresss2" ColumnName="Addresss2" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Friends">
+      <EntityTypeMapping TypeName="CYESWModel.Friends">
+        <MappingFragment StoreEntitySet="Friends">
+          <ScalarProperty Name="FriendsId" ColumnName="FriendsId" />
+          <ScalarProperty Name="UserId1" ColumnName="UserId1" />
+          <ScalarProperty Name="UserId2" ColumnName="UserId2" />
+          <ScalarProperty Name="addTiem" ColumnName="addTiem" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Friends_texts">
+      <EntityTypeMapping TypeName="CYESWModel.Friends_texts">
+        <MappingFragment StoreEntitySet="Friends_texts">
+          <ScalarProperty Name="Friends_textsId" ColumnName="Friends_textsId" />
+          <ScalarProperty Name="TextsId" ColumnName="TextsId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="States" ColumnName="States" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Goods">
+      <EntityTypeMapping TypeName="CYESWModel.Goods">
+        <MappingFragment StoreEntitySet="Goods">
+          <ScalarProperty Name="GoodsId" ColumnName="GoodsId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="GoodsTypeId" ColumnName="GoodsTypeId" />
+          <ScalarProperty Name="GoodsaddressId" ColumnName="GoodsaddressId" />
+          <ScalarProperty Name="IsNew" ColumnName="IsNew" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Info" ColumnName="Info" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Price_Yuan" ColumnName="Price_Yuan" />
+          <ScalarProperty Name="munber" ColumnName="munber" />
+          <ScalarProperty Name="IsState" ColumnName="IsState" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+          <ScalarProperty Name="Peisong" ColumnName="Peisong" />
+          <ScalarProperty Name="GoodsaddressInfo" ColumnName="GoodsaddressInfo" />
+          <ScalarProperty Name="Ipone" ColumnName="Ipone" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Goodsaddress">
+      <EntityTypeMapping TypeName="CYESWModel.Goodsaddress">
+        <MappingFragment StoreEntitySet="Goodsaddress">
+          <ScalarProperty Name="GoodsaddressId" ColumnName="GoodsaddressId" />
+          <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+          <ScalarProperty Name="GoodsaddressBId" ColumnName="GoodsaddressBId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Goodsimage">
+      <EntityTypeMapping TypeName="CYESWModel.Goodsimage">
+        <MappingFragment StoreEntitySet="Goodsimage">
+          <ScalarProperty Name="GoodsimageId" ColumnName="GoodsimageId" />
+          <ScalarProperty Name="images" ColumnName="images" />
+          <ScalarProperty Name="GoodsId" ColumnName="GoodsId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GoodsType">
+      <EntityTypeMapping TypeName="CYESWModel.GoodsType">
+        <MappingFragment StoreEntitySet="GoodsType">
+          <ScalarProperty Name="GoodsTypeId" ColumnName="GoodsTypeId" />
+          <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+          <ScalarProperty Name="GoodsTypeBId" ColumnName="GoodsTypeBId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HuDong_texts">
+      <EntityTypeMapping TypeName="CYESWModel.HuDong_texts">
+        <MappingFragment StoreEntitySet="HuDong_texts">
+          <ScalarProperty Name="HuDong_textsId" ColumnName="HuDong_textsId" />
+          <ScalarProperty Name="TextsId" ColumnName="TextsId" />
+          <ScalarProperty Name="GoodsId" ColumnName="GoodsId" />
+          <ScalarProperty Name="States" ColumnName="States" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JuBao">
+      <EntityTypeMapping TypeName="CYESWModel.JuBao">
+        <MappingFragment StoreEntitySet="JuBao">
+          <ScalarProperty Name="JuBaoId" ColumnName="JuBaoId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserId2" ColumnName="UserId2" />
+          <ScalarProperty Name="JuBao_body" ColumnName="JuBao_body" />
+          <ScalarProperty Name="addTiem" ColumnName="addTiem" />
+          <ScalarProperty Name="States" ColumnName="States" />
+          <ScalarProperty Name="HuiFu" ColumnName="HuiFu" />
+          <ScalarProperty Name="CLUserId" ColumnName="CLUserId" />
+          <ScalarProperty Name="JuBaoName" ColumnName="JuBaoName" />
+          <ScalarProperty Name="JubaoType" ColumnName="JubaoType" />
+          <ScalarProperty Name="endTiem" ColumnName="endTiem" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Love">
+      <EntityTypeMapping TypeName="CYESWModel.Love">
+        <MappingFragment StoreEntitySet="Love">
+          <ScalarProperty Name="LoveId" ColumnName="LoveId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="GoodsId" ColumnName="GoodsId" />
+          <ScalarProperty Name="addTiem" ColumnName="addTiem" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LunBo">
+      <EntityTypeMapping TypeName="CYESWModel.LunBo">
+        <MappingFragment StoreEntitySet="LunBo">
+          <ScalarProperty Name="LunBoId" ColumnName="LunBoId" />
+          <ScalarProperty Name="images" ColumnName="images" />
+          <ScalarProperty Name="a_1" ColumnName="a_1" />
+          <ScalarProperty Name="addtime" ColumnName="addtime" />
+          <ScalarProperty Name="type_1" ColumnName="type_1" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="CYESWModel.Orders">
+        <MappingFragment StoreEntitySet="Orders">
+          <ScalarProperty Name="OrdersId" ColumnName="OrdersId" />
+          <ScalarProperty Name="UserId1" ColumnName="UserId1" />
+          <ScalarProperty Name="UserId2" ColumnName="UserId2" />
+          <ScalarProperty Name="GoodsId" ColumnName="GoodsId" />
+          <ScalarProperty Name="IsState" ColumnName="IsState" />
+          <ScalarProperty Name="Wuliu" ColumnName="Wuliu" />
+          <ScalarProperty Name="BuyTime1" ColumnName="BuyTime1" />
+          <ScalarProperty Name="BuyTime2" ColumnName="BuyTime2" />
+          <ScalarProperty Name="BuyTime3" ColumnName="BuyTime3" />
+          <ScalarProperty Name="BuyTime4" ColumnName="BuyTime4" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pingjia_texts">
+      <EntityTypeMapping TypeName="CYESWModel.Pingjia_texts">
+        <MappingFragment StoreEntitySet="Pingjia_texts">
+          <ScalarProperty Name="Pingjia_textsId" ColumnName="Pingjia_textsId" />
+          <ScalarProperty Name="TextsId" ColumnName="TextsId" />
+          <ScalarProperty Name="OrdersId" ColumnName="OrdersId" />
+          <ScalarProperty Name="States" ColumnName="States" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RealName">
+      <EntityTypeMapping TypeName="CYESWModel.RealName">
+        <MappingFragment StoreEntitySet="RealName">
+          <ScalarProperty Name="RealNameId" ColumnName="RealNameId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="IdCard" ColumnName="IdCard" />
+          <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Texts">
+      <EntityTypeMapping TypeName="CYESWModel.Texts">
+        <MappingFragment StoreEntitySet="Texts">
+          <ScalarProperty Name="TextsId" ColumnName="TextsId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Textbody" ColumnName="Textbody" />
+          <ScalarProperty Name="addTiem" ColumnName="addTiem" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserInfo">
+      <EntityTypeMapping TypeName="CYESWModel.UserInfo">
+        <MappingFragment StoreEntitySet="UserInfo">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UserEmile" ColumnName="UserEmile" />
+          <ScalarProperty Name="UserPwd" ColumnName="UserPwd" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+          <ScalarProperty Name="moneys" ColumnName="moneys" />
+          <ScalarProperty Name="Info" ColumnName="Info" />
+          <ScalarProperty Name="Images" ColumnName="Images" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+          <ScalarProperty Name="IsManage" ColumnName="IsManage" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WebIn">
+      <EntityTypeMapping TypeName="CYESWModel.WebIn">
+        <MappingFragment StoreEntitySet="WebIn">
+          <ScalarProperty Name="Theat" ColumnName="Theat" />
+          <ScalarProperty Name="Tpromote" ColumnName="Tpromote" />
+          <ScalarProperty Name="WebInId" ColumnName="WebInId" />
+          <ScalarProperty Name="GoodsId" ColumnName="GoodsId" />
+          <ScalarProperty Name="addtime" ColumnName="addtime" />
+          <ScalarProperty Name="type_1" ColumnName="type_1" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WebOut">
+      <EntityTypeMapping TypeName="CYESWModel.WebOut">
+        <MappingFragment StoreEntitySet="WebOut">
+          <ScalarProperty Name="WebOutId" ColumnName="WebOutId" />
+          <ScalarProperty Name="images" ColumnName="images" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Info" ColumnName="Info" />
+          <ScalarProperty Name="a_1" ColumnName="a_1" />
+          <ScalarProperty Name="addtime" ColumnName="addtime" />
+          <ScalarProperty Name="type_1" ColumnName="type_1" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WeiGui">
+      <EntityTypeMapping TypeName="CYESWModel.WeiGui">
+        <MappingFragment StoreEntitySet="WeiGui">
+          <ScalarProperty Name="WeiGuiId" ColumnName="WeiGuiId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Info" ColumnName="Info" />
+          <ScalarProperty Name="a_1" ColumnName="a_1" />
+          <ScalarProperty Name="addtime" ColumnName="addtime" />
+          <ScalarProperty Name="type_1" ColumnName="type_1" />
+          <ScalarProperty Name="GLuser" ColumnName="GLuser" />
+          <ScalarProperty Name="UserId1" ColumnName="UserId1" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChongZhi">
+      <EntityTypeMapping TypeName="CYESWModel.ChongZhi">
+        <MappingFragment StoreEntitySet="ChongZhi">
+          <ScalarProperty Name="rmb" ColumnName="rmb" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="moneys" ColumnName="moneys" />
+          <ScalarProperty Name="type_1" ColumnName="type_1" />
+          <ScalarProperty Name="addtime" ColumnName="addtime" />
+          <ScalarProperty Name="ChongZhiId" ColumnName="ChongZhiId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

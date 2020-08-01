@@ -1,0 +1,64 @@
+﻿
+@using PagedList.Mvc
+@model PagedList.PagedList<CYESW.Models.Love>
+
+<div class="alert alert-warning alert-dismissable">
+    <button type="button" class="close" data-dismiss="alert"
+            aria-hidden="true">
+        &times;
+    </button>
+    欢迎来到 <span style="font-size:16px;color:orangered">@TempData["Title"]</span> 板块！为您查询到 <span style="font-size:16px;color:orangered">@Model.TotalItemCount</span> 条收藏信息！
+</div>
+<div class="tab_content">
+    @if (Model.Count()<1)
+    {
+        <div class="no_div" style="margin:0px">
+            <h2 style="text-align:center">
+                <img src="~/images/icopng/疑惑的豆丁.png" />空空如也，快去收藏自己喜欢的宝贝吧!
+            </h2>
+        </div>
+    }
+    <ul class="favs-list">
+        @foreach (var item in Model.OrderByDescending(p=>p.addTiem).OrderBy(p=>p.Goods.IsState))
+        {
+            if (item.Goods.IsState == 1)
+            {
+                <li class="row">
+                    <div class="title col-lg-7">
+                        <a target="_blank" href="/Goods/Index?id=@item.GoodsId">@item.Goods.Name </a>
+                    </div>
+                    <div class="col-lg-3"><time>收藏于 @string.Format("{0:yyyy年MM月dd}", item.addTiem)</time></div>
+
+                    <div class="cancel col-lg-2">
+                        <a href="/Goods/Goods_qxLove?loveid=@item.LoveId" class="unfav-button">取消收藏</a>
+                    </div>
+                </li>
+            }
+            else
+            {
+                <li class="row">
+                    <div class="title col-lg-7">
+                        <p style="color:#80808052">@item.Goods.Name --已卖出或下架</p>
+                    </div>
+                    <div class="col-lg-3"><time>收藏于 @string.Format("{0:yyyy年MM月dd}", item.addTiem)</time></div>
+
+                    <div class="cancel col-lg-2">
+                        <a href="/Goods/Goods_qxLove?loveid=@item.LoveId" class="unfav-button"  style="color:#80808052">取消收藏</a>
+                    </div>
+                </li>
+            }
+
+        }
+    </ul>
+    <div style="padding:10px;text-align:center;background-color:white;border-radius:15px">
+        当前页/总页数（ @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount ）
+
+        @Html.PagedListPager(Model, page => Url.Action("UserIndex", new
+        {
+            page
+        }))
+    </div>
+</div>
+
+
+

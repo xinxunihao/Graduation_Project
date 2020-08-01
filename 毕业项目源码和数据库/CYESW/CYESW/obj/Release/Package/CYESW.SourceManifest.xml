@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sitemanifest>
+  <IisApp path="C:\Users\Shinelon\Desktop\大三毕业项目\项目备份\CYESW-7-21答辩后修改\CYESW\obj\Release\Package\PackageTmp" />
+  <setAcl path="C:\Users\Shinelon\Desktop\大三毕业项目\项目备份\CYESW-7-21答辩后修改\CYESW\obj\Release\Package\PackageTmp" setAclResourceType="Directory" />
+  <setAcl path="C:\Users\Shinelon\Desktop\大三毕业项目\项目备份\CYESW-7-21答辩后修改\CYESW\obj\Release\Package\PackageTmp" setAclUser="anonymousAuthenticationUser" setAclResourceType="Directory" />
+</sitemanifest>

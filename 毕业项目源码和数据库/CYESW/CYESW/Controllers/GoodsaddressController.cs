@@ -42,6 +42,7 @@ namespace CYESW.Controllers
             return View();
         }
 
+        //举报
         public ActionResult Jubao_1_1(JuBao jubao)
         {
             try
@@ -57,7 +58,27 @@ namespace CYESW.Controllers
                 db.JuBao.Add(jubao);
                 db.SaveChanges();
                 TempData["Title"] = "反馈举报";
-                TempData["exe"] = "保存成功！";
+                TempData["exe"] = "举报成功！请前往个人中心查看";
+                return RedirectToAction("Jubao_1");
+            }
+            catch (Exception ex)
+            {
+                TempData["exe"] = "出现未知异常，请联系管理员解决。异常：" + ex.Message;
+                return RedirectToAction("Jubao_1");
+            }
+        }
+
+        //反馈
+        public ActionResult Jubao_1_2(JuBao jubao)
+        {
+            try
+            {
+                jubao.States = 0;
+                jubao.addTiem = DateTime.Now;
+                db.JuBao.Add(jubao);
+                db.SaveChanges();
+                TempData["Title"] = "反馈举报";
+                TempData["exe"] = "反馈成功！请前往个人中心查看";
                 return RedirectToAction("Jubao_1");
             }
             catch (Exception ex)
